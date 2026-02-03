@@ -3,16 +3,27 @@
 #include "screen.h"
 #include "player.h"
 #include "input.h"
+#include "gamestate.h"
+#include "random.h"
+#include "bullet.h"
+#include "enemy.h"
+#include "collision.h"
 
 int main(void) {
     uint8_t running = 1;
     uint8_t joy_enabled;
+    uint8_t shoot_cooldown = 0;
+    Player *p;
     InputState input;
 
     /* Initialize subsystems */
     screen_init();
     player_init();
     joy_enabled = input_init();
+    gamestate_init();
+    random_init();
+    bullet_init();
+    enemy_init();
 
     /* Draw title */
     screen_set_char(12, 2, 'M', COLOR_CYAN);
@@ -76,13 +87,60 @@ int main(void) {
     /* Initial draw */
     player_update();
 
+    /* Start game */
+    gamestate_start_game();
+
+    /* Spawn wave 1 */
+    enemy_spawn_wave();
+
+    /* Initial UI draw */
+    gamestate_render_ui();
+
     /* Main game loop */
     while (running) {
         input_read(&input);
 
-        if (input.dx != 0 || input.dy != 0) {
-            player_move(input.dx, input.dy);
-            player_update();
+        if (game_state.state == STATE_PLAYING) {
+            /* Handle movement */
+            if (input.dx != 0 || input.dy != 0) {
+                player_move(input.dx, input.dy);
+                player_update();
+            }
+
+            /* Handle shooting */
+            if (input.fire && shoot_cooldown == 0) {
+                p = player_get();
+                bullet_spawn(p->x, p->y, p->last_dir);
+                shoot_cooldown = 10; // 10 frames between shots
+            }
+
+            /* Update cooldown */
+            if (shoot_cooldown > 0) {
+                shoot_cooldown--;
+            }
+
+            /* Update bullets */
+            bullet_update_all();
+            bullet_render_all();
+
+            /* Update enemies */
+            p = player_get();
+            enemy_update_all(p->x, p->y);
+
+            /* Check collisions */
+            collision_update();
+
+            /* Check for wave completion */
+            if (enemy_count_active() == 0) {
+                gamestate_next_wave();
+                enemy_spawn_wave();
+            }
+
+            /* Update UI */
+            gamestate_render_ui();
+        } else if (game_state.state == STATE_GAME_OVER) {
+            /* Show game over screen */
+            gamestate_render_game_over();
         }
 
         if (input.quit) {

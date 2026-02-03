@@ -23,6 +23,7 @@ void input_read(InputState *state) {
     state->dx = 0;
     state->dy = 0;
     state->quit = 0;
+    state->fire = 0;
 
     /* Read joystick if available */
     if (joy_available) {
@@ -42,9 +43,9 @@ void input_read(InputState *state) {
             state->dx = 2;
         }
 
-        /* Check fire button for quit */
+        /* Check fire button */
         if (JOY_BTN_1(joy)) {
-            state->quit = 1;
+            state->fire = 1;
         }
     }
 
@@ -76,6 +77,10 @@ void input_read(InputState *state) {
             case 'q':
             case 'Q':
                 state->quit = 1;
+                break;
+
+            case ' ':
+                state->fire = 1;
                 break;
         }
     }

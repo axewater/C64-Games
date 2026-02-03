@@ -1,5 +1,6 @@
 #include "player.h"
 #include "sprite.h"
+#include "bullet.h"
 #include <conio.h>
 
 static Player g_player;
@@ -19,6 +20,7 @@ void player_init(void) {
     g_player.y = 140;
     g_player.color = COLOR_YELLOW;
     g_player.sprite_num = 0;
+    g_player.last_dir = DIR_UP;
 
     /* Configure sprite 0 for player */
     sprite_set_color(g_player.sprite_num, g_player.color);
@@ -41,6 +43,17 @@ void player_move(int16_t dx, int16_t dy) {
 
     g_player.x = new_x;
     g_player.y = new_y;
+
+    /* Update last direction based on movement */
+    if (dy < 0) {
+        g_player.last_dir = DIR_UP;
+    } else if (dy > 0) {
+        g_player.last_dir = DIR_DOWN;
+    } else if (dx < 0) {
+        g_player.last_dir = DIR_LEFT;
+    } else if (dx > 0) {
+        g_player.last_dir = DIR_RIGHT;
+    }
 }
 
 void player_update(void) {

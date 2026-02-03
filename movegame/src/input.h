@@ -8,6 +8,7 @@ typedef struct {
     int8_t dx;      /* Horizontal movement delta */
     int8_t dy;      /* Vertical movement delta */
     uint8_t quit;   /* Quit flag */
+    uint8_t fire;   /* Fire button */
 } InputState;
 
 /* Initialize input system (loads joystick driver if available) */

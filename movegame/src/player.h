@@ -8,6 +8,7 @@ typedef struct {
     uint8_t y;
     uint8_t color;
     uint8_t sprite_num;
+    uint8_t last_dir;
 } Player;
 
 void player_init(void);
