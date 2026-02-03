@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define MAX_ENEMIES 7
+#define MAX_ENEMIES 6
 
 // Enemy types
 #define ENEMY_TYPE_BASIC 0

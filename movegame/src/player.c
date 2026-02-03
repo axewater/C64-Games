@@ -44,8 +44,16 @@ void player_move(int16_t dx, int16_t dy) {
     g_player.x = new_x;
     g_player.y = new_y;
 
-    /* Update last direction based on movement */
-    if (dy < 0) {
+    /* Update last direction based on movement - check diagonals first */
+    if (dx < 0 && dy < 0) {
+        g_player.last_dir = DIR_UP_LEFT;
+    } else if (dx > 0 && dy < 0) {
+        g_player.last_dir = DIR_UP_RIGHT;
+    } else if (dx < 0 && dy > 0) {
+        g_player.last_dir = DIR_DOWN_LEFT;
+    } else if (dx > 0 && dy > 0) {
+        g_player.last_dir = DIR_DOWN_RIGHT;
+    } else if (dy < 0) {
         g_player.last_dir = DIR_UP;
     } else if (dy > 0) {
         g_player.last_dir = DIR_DOWN;

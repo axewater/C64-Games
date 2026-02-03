@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define MAX_BULLETS 8
+#define MAX_BULLETS 1
 
 // Direction constants
 #define DIR_NONE 0
@@ -11,6 +11,15 @@
 #define DIR_DOWN 2
 #define DIR_LEFT 3
 #define DIR_RIGHT 4
+#define DIR_UP_LEFT 5
+#define DIR_UP_RIGHT 6
+#define DIR_DOWN_LEFT 7
+#define DIR_DOWN_RIGHT 8
+
+// Bullet sprite configuration
+#define BULLET_SPRITE_NUM 7
+#define BULLET_SPRITE_LOC 0x3100
+#define BULLET_SPRITE_PTR (BULLET_SPRITE_LOC / 64)
 
 typedef struct {
     uint16_t x;  // Pixel coordinates
