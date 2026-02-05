@@ -1,4 +1,5 @@
 #include "forum.h"
+#include "ftp.h"
 #include "release.h"
 #include "gamestate.h"
 #include "random.h"
@@ -20,6 +21,7 @@ void forum_init(void) {
 
     for (i = 0; i < MAX_POSTS; i++) {
         posts[i].active = 0;
+        posts[i].nuked = 0;
     }
 }
 
@@ -37,8 +39,17 @@ uint8_t forum_create_post(uint8_t release_id, uint8_t ftp_id, uint8_t forum_id) 
             posts[i].replies = 0;
             posts[i].age = 0;
             posts[i].rep_earned = 5;  /* Initial +5 rep bonus */
+            posts[i].nuked = 0;
 
             game_state.posts_active_count++;
+
+            /* Mark FTP as used for posts */
+            if (ftp_id < MAX_FTP_SERVERS) {
+                FTPServer* ftp = ftp_get(ftp_id);
+                if (ftp) {
+                    ftp->used_for_posts = 1;
+                }
+            }
 
             /* Grant immediate reputation */
             gamestate_add_reputation(5);
@@ -69,6 +80,11 @@ void forum_update_all_posts(void) {
         if (posts[i].age >= 20) {
             posts[i].active = 0;
             game_state.posts_active_count--;
+            continue;
+        }
+
+        /* Skip nuked posts (FTP was raided) */
+        if (posts[i].nuked) {
             continue;
         }
 

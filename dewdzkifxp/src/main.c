@@ -101,6 +101,8 @@ int main(void) {
         /* Update stats every turn */
         if (game_state.state == STATE_PLAYING) {
             forum_update_all_posts();
+            ftp_update_all_risks();
+            ftp_process_raids();
             gamestate_check_rank_up();
         }
     }
@@ -251,6 +253,18 @@ void action_browse_topsite(void) {
                 }
                 choice--;
             }
+        }
+
+        /* Check if FTP is still active (not raided) */
+        if (!ftps[ftp_idx].active) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "FTP WAS RAIDED!", COLOR_RED);
+            ui_print_centered(12, "CHOOSE ANOTHER FTP", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_FTP_SELECT;
+            return;
         }
 
         /* Check if FTP has space */

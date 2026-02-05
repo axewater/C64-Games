@@ -401,6 +401,26 @@ uint8_t ui_show_ftp_select(Release* rel) {
 
             ui_print_string(6, row, ftps[i].name, color);
 
+            /* Show raid risk if FTP has been used for posts */
+            if (ftps[i].used_for_posts) {
+                uint8_t risk = ftps[i].raid_risk;
+                const char* risk_label;
+                uint8_t risk_color;
+
+                if (risk < 34) {
+                    risk_label = "LOW";
+                    risk_color = COLOR_GREEN;
+                } else if (risk < 67) {
+                    risk_label = "MED";
+                    risk_color = COLOR_YELLOW;
+                } else {
+                    risk_label = "HGH";
+                    risk_color = COLOR_RED;
+                }
+
+                ui_print_string(30, row, risk_label, risk_color);
+            }
+
             /* Show slots */
             ui_print_string(24, row, "(", color);
             screen_print_number(25, row, ftps[i].release_count, 1, color);
@@ -699,7 +719,11 @@ void ui_show_stats(void) {
                 ui_print_string(1, row, rel->name, COLOR_WHITE);
 
                 /* FTP name (right side) */
-                ui_print_string(22, row, ftp->name, COLOR_CYAN);
+                if (post->nuked) {
+                    ui_print_string(22, row, "[NUKED]", COLOR_RED);
+                } else {
+                    ui_print_string(22, row, ftp->name, COLOR_CYAN);
+                }
                 row++;
 
                 /* Stats line */
@@ -761,13 +785,35 @@ void ui_show_ftps(void) {
             screen_print_number(25, row, ftp->bandwidth, 3, COLOR_YELLOW);
 
             /* Slots used */
-            ui_print_string(30, row, "(", COLOR_GRAY2);
-            screen_print_number(31, row, ftp->release_count, 1, COLOR_WHITE);
-            ui_print_string(32, row, "/", COLOR_GRAY2);
-            screen_print_number(33, row, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
-            ui_print_string(34, row, ")", COLOR_GRAY2);
+            ui_print_string(29, row, "(", COLOR_GRAY2);
+            screen_print_number(30, row, ftp->release_count, 1, COLOR_WHITE);
+            ui_print_string(31, row, "/", COLOR_GRAY2);
+            screen_print_number(32, row, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
+            ui_print_string(33, row, ")", COLOR_GRAY2);
 
             row++;
+
+            /* Show raid risk if FTP has been used for posts */
+            if (ftp->used_for_posts) {
+                uint8_t risk = ftp->raid_risk;
+                const char* risk_label;
+                uint8_t risk_color;
+
+                if (risk < 34) {
+                    risk_label = "LOW";
+                    risk_color = COLOR_GREEN;
+                } else if (risk < 67) {
+                    risk_label = "MED";
+                    risk_color = COLOR_YELLOW;
+                } else {
+                    risk_label = "HGH";
+                    risk_color = COLOR_RED;
+                }
+
+                ui_print_string(22, row, "RISK:", COLOR_GRAY2);
+                ui_print_string(28, row, risk_label, risk_color);
+                row++;
+            }
 
             /* Show releases on this FTP */
             if (ftp->release_count > 0) {

@@ -22,6 +22,7 @@ typedef struct {
     uint8_t replies;
     uint8_t age;           /* Age in turns (decay at 20) */
     uint16_t rep_earned;
+    uint8_t nuked;         /* 1 if FTP was raided, 0 if active */
 } ForumPost;
 
 /* Global forum data */
