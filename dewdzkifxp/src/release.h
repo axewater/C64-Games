@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define MAX_RELEASES 12
+#define MAX_RELEASES 32  /* Increased from 12 (NEW) */
 
 /* Release categories */
 #define CATEGORY_GAME  0
@@ -17,6 +17,20 @@
 #define QUALITY_PROPER 2
 #define QUALITY_SCENE  3
 
+/* Release groups */
+#define GROUP_IND  0  /* Independent */
+#define GROUP_FLT  1  /* Fairlight */
+#define GROUP_RZR  2  /* Razor 1911 */
+#define GROUP_TRSi 3  /* Tristar & Red Sector Inc */
+#define GROUP_FRY  4  /* Fairylight */
+
+/* Group data structure */
+typedef struct {
+    const char* tag;         /* 3-4 char tag (IND, FLT, RZR, etc) */
+    uint8_t rep_multiplier;  /* 1-3: reputation bonus */
+    uint8_t min_topsite;     /* Minimum topsite tier (0=newbie, 1=elite, 2=0day) */
+} GroupData;
+
 /* Release structure */
 typedef struct {
     uint8_t active;
@@ -24,10 +38,14 @@ typedef struct {
     uint16_t size_mb;
     uint8_t quality;      /* 0=NUKED, 1=OK, 2=PROPER, 3=SCENE */
     uint8_t category;     /* 0=GAME, 1=APP, 2=MOVIE, 3=XXX */
+    uint8_t group;        /* 0=IND, 1=FLT, 2=RZR, 3=TRSi, 4=FRY */
 } Release;
 
 /* Global release inventory */
 extern Release releases[MAX_RELEASES];
+
+/* Global group data */
+extern const GroupData groups[5];
 
 /* Initialize release system */
 void release_init(void);

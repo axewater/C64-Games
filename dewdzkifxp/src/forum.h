@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define MAX_POSTS 8
+#define MAX_POSTS 12  /* Increased from 8 (NEW) */
 
 /* Forum data structure */
 typedef struct {
@@ -16,6 +16,7 @@ typedef struct {
 typedef struct {
     uint8_t active;
     uint8_t release_id;
+    uint8_t ftp_id;        /* Which FTP hosts this release (NEW) */
     uint8_t forum_id;
     uint16_t downloads;
     uint8_t replies;
@@ -33,7 +34,7 @@ extern ForumPost posts[MAX_POSTS];
 void forum_init(void);
 
 /* Create forum post */
-uint8_t forum_create_post(uint8_t release_id, uint8_t forum_id);
+uint8_t forum_create_post(uint8_t release_id, uint8_t ftp_id, uint8_t forum_id);
 
 /* Update all active posts (called each turn) */
 void forum_update_all_posts(void);
@@ -43,5 +44,8 @@ ForumPost* forum_get_post(uint8_t index);
 
 /* Get forum name */
 const char* forum_get_name(uint8_t forum_id);
+
+/* Check if a post already exists for release+FTP combo */
+uint8_t forum_has_post(uint8_t release_id, uint8_t ftp_id);
 
 #endif /* FORUM_H */

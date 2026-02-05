@@ -337,11 +337,22 @@ uint8_t ui_show_topsite(uint8_t topsite_idx, Release* releases, uint8_t count) {
     /* Show releases */
     row = 7;
     for (i = 0; i < count; i++) {
+        uint8_t name_color;
+
+        /* Color code by group tier */
+        if (releases[i].group == GROUP_IND) {
+            name_color = COLOR_WHITE;
+        } else if (releases[i].group <= GROUP_RZR) {
+            name_color = COLOR_CYAN;  /* Elite groups */
+        } else {
+            name_color = COLOR_YELLOW;  /* Top groups */
+        }
+
         screen_set_char(2, row, '[', COLOR_WHITE);
         screen_print_number(3, row, i + 1, 1, COLOR_YELLOW);
         screen_set_char(4, row, ']', COLOR_WHITE);
         screen_set_char(6, row, 160, COLOR_GREEN);  /* Block */
-        ui_print_string(8, row, releases[i].name, COLOR_WHITE);
+        ui_print_string(8, row, releases[i].name, name_color);
 
         row++;
         ui_print_string(8, row, "SIZE:", COLOR_GRAY2);
@@ -450,7 +461,19 @@ uint8_t ui_show_release_select(uint8_t* out_ftp_idx, uint8_t* out_release_idx) {
 
                 /* Check if this release has been posted */
                 posted = forum_has_post(rel_id, ftp_idx);
-                name_color = posted ? COLOR_GRAY2 : COLOR_WHITE;
+
+                if (posted) {
+                    name_color = COLOR_GRAY2;  /* Posted releases are grayed out */
+                } else {
+                    /* Color code by group tier */
+                    if (rel->group == GROUP_IND) {
+                        name_color = COLOR_WHITE;
+                    } else if (rel->group <= GROUP_RZR) {
+                        name_color = COLOR_CYAN;  /* Elite groups */
+                    } else {
+                        name_color = COLOR_YELLOW;  /* Top groups */
+                    }
+                }
 
                 screen_set_char(4, row, '[', COLOR_WHITE);
                 screen_print_number(5, row, menu_idx + 1, 1, COLOR_YELLOW);
@@ -751,8 +774,19 @@ void ui_show_ftps(void) {
                 for (j = 0; j < ftp->release_count && j < MAX_RELEASES_PER_FTP; j++) {
                     rel = release_get(ftp->releases[j]);
                     if (rel && rel->active && row < 22) {
+                        uint8_t name_color;
+
+                        /* Color code by group tier */
+                        if (rel->group == GROUP_IND) {
+                            name_color = COLOR_WHITE;
+                        } else if (rel->group <= GROUP_RZR) {
+                            name_color = COLOR_CYAN;  /* Elite groups */
+                        } else {
+                            name_color = COLOR_YELLOW;  /* Top groups */
+                        }
+
                         ui_print_string(3, row, "- ", COLOR_GRAY2);
-                        ui_print_string(5, row, rel->name, COLOR_WHITE);
+                        ui_print_string(5, row, rel->name, name_color);
                         row++;
                     }
                 }

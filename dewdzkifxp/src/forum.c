@@ -3,6 +3,9 @@
 #include "gamestate.h"
 #include "random.h"
 
+/* Access to release groups for reputation calculation */
+extern const GroupData groups[5];
+
 ForumPost posts[MAX_POSTS];
 
 const ForumData forums[4] = {
@@ -20,7 +23,7 @@ void forum_init(void) {
     }
 }
 
-uint8_t forum_create_post(uint8_t release_id, uint8_t forum_id) {
+uint8_t forum_create_post(uint8_t release_id, uint8_t ftp_id, uint8_t forum_id) {
     uint8_t i;
 
     /* Find empty slot */
@@ -28,6 +31,7 @@ uint8_t forum_create_post(uint8_t release_id, uint8_t forum_id) {
         if (!posts[i].active) {
             posts[i].active = 1;
             posts[i].release_id = release_id;
+            posts[i].ftp_id = ftp_id;       /* Store FTP source (NEW) */
             posts[i].forum_id = forum_id;
             posts[i].downloads = 0;
             posts[i].replies = 0;
@@ -53,7 +57,6 @@ void forum_update_all_posts(void) {
     uint8_t downloads;
     Release* rel;
     uint16_t rep;
-    uint8_t multiplier;
 
     for (i = 0; i < MAX_POSTS; i++) {
         if (!posts[i].active) {
@@ -85,8 +88,12 @@ void forum_update_all_posts(void) {
         /* Calculate rep gain */
         rel = release_get(posts[i].release_id);
         if (rel && rel->active) {
-            multiplier = forums[posts[i].forum_id].rep_multiplier;
-            rep = (downloads * (rel->quality + 1) * multiplier) / 10;
+            uint8_t forum_mult;
+            uint8_t group_mult;
+
+            forum_mult = forums[posts[i].forum_id].rep_multiplier;
+            group_mult = groups[rel->group].rep_multiplier;
+            rep = (downloads * (rel->quality + 1) * forum_mult * group_mult) / 20;
             posts[i].rep_earned += rep;
             gamestate_add_reputation(rep);
         }
@@ -105,4 +112,18 @@ const char* forum_get_name(uint8_t forum_id) {
         forum_id = 3;
     }
     return forums[forum_id].name;
+}
+
+uint8_t forum_has_post(uint8_t release_id, uint8_t ftp_id) {
+    uint8_t i;
+
+    for (i = 0; i < MAX_POSTS; i++) {
+        if (posts[i].active &&
+            posts[i].release_id == release_id &&
+            posts[i].ftp_id == ftp_id) {
+            return 1;  /* Already posted */
+        }
+    }
+
+    return 0;  /* Not posted yet */
 }

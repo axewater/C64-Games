@@ -38,19 +38,34 @@ void ui_show_hub(void);
 /* Screen: Scanning for FTP */
 void ui_show_scan_anim(void);
 
-/* Screen: Browse topsite, returns selected index or 255 for cancel */
-uint8_t ui_show_topsite(Release* releases, uint8_t count);
+/* Screen: Topsite list, returns selected topsite index or 255 for cancel (NEW) */
+uint8_t ui_show_topsite_list(void);
+
+/* Screen: Browse topsite, returns selected release index or 255 for cancel */
+uint8_t ui_show_topsite(uint8_t topsite_idx, Release* releases, uint8_t count);
+
+/* Screen: FTP selection, returns selected FTP index or 255 for cancel (NEW) */
+uint8_t ui_show_ftp_select(Release* rel);
 
 /* Screen: FXP transfer animation */
 void ui_show_fxp_anim(Release* rel, uint8_t turns);
 
+/* Screen: Release selection for forum, outputs FTP and release indices (NEW) */
+uint8_t ui_show_release_select(uint8_t* out_ftp_idx, uint8_t* out_release_idx);
+
 /* Screen: Forum post confirmation */
-void ui_show_forum_post(Release* rel);
+void ui_show_forum_post(Release* rel, uint8_t ftp_idx);
 
 /* Screen: Rank up celebration */
 void ui_show_rank_up(void);
 
 /* Screen: Game over (win) */
 void ui_show_game_over(void);
+
+/* Screen: View detailed stats */
+void ui_show_stats(void);
+
+/* Screen: View FTP servers and releases */
+void ui_show_ftps(void);
 
 #endif /* UI_H */
