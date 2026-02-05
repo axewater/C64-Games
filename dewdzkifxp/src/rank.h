@@ -9,7 +9,6 @@ typedef struct {
     uint16_t rep_required;
     uint8_t topsites_unlocked;
     uint8_t forums_unlocked;
-    uint8_t bandwidth_bonus;
 } RankData;
 
 /* Rank progression table */

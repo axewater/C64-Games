@@ -1,0 +1,471 @@
+Modules list:
+-------------
+intro.o:
+    CODE              Offs=000000  Size=0009B3  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=00053F  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000042  Align=00001  Fill=0000
+main.o:
+    CODE              Offs=0009B3  Size=000035  Align=00001  Fill=0000
+    RODATA            Offs=00053F  Size=000025  Align=00001  Fill=0000
+screen.o:
+    CODE              Offs=0009E8  Size=00035D  Align=00001  Fill=0000
+    BSS               Offs=000042  Size=00000B  Align=00001  Fill=0000
+sprite.o:
+    CODE              Offs=000D45  Size=00018C  Align=00001  Fill=0000
+    BSS               Offs=00004D  Size=000007  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(_cursor.o):
+    BSS               Offs=000054  Size=000001  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(addysp.o):
+    CODE              Offs=000ED1  Size=00000E  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(aslax1.o):
+    CODE              Offs=000EDF  Size=000008  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(bordercolor.o):
+    CODE              Offs=000EE7  Size=000008  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(callmain.o):
+    CODE              Offs=000EEF  Size=000017  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000004  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(cgetc.o):
+    CODE              Offs=000F06  Size=000047  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(clrscr.o):
+C:\bin\cc65\lib/c64.lib(color.o):
+    CODE              Offs=000F4D  Size=000010  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(condes.o):
+    CODE              Offs=000F5D  Size=00000C  Align=00001  Fill=0000
+    DATA              Offs=000004  Size=000025  Align=00001  Fill=0000
+    ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(crt0.o):
+    STARTUP           Offs=000000  Size=000033  Align=00001  Fill=0000
+    ONCE              Offs=00000C  Size=00001A  Align=00001  Fill=0000
+    INIT              Offs=000000  Size=00001C  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(div.o):
+    CODE              Offs=000F69  Size=000015  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(exehdr.o):
+    EXEHDR            Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(incax1.o):
+    CODE              Offs=000F7E  Size=000007  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(incsp2.o):
+    CODE              Offs=000F85  Size=000016  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(incsp4.o):
+    CODE              Offs=000F9B  Size=000005  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(incsp5.o):
+    CODE              Offs=000FA0  Size=000005  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(kbhit.o):
+    CODE              Offs=000FA5  Size=000009  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(kernal.o):
+C:\bin\cc65\lib/c64.lib(ldaxsp.o):
+    CODE              Offs=000FAE  Size=000009  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(loadaddr.o):
+    LOADADDR          Offs=000000  Size=000002  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(mod.o):
+    CODE              Offs=000FB7  Size=000011  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(mul8.o):
+    CODE              Offs=000FC8  Size=00003A  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(negabs.o):
+    CODE              Offs=001002  Size=000012  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(popptr1.o):
+    CODE              Offs=001014  Size=00000E  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(pusha.o):
+    CODE              Offs=001022  Size=000016  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(pushax.o):
+    CODE              Offs=001038  Size=00001A  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(pushw.o):
+    CODE              Offs=001052  Size=00000F  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(pushwsp.o):
+    CODE              Offs=001061  Size=00001C  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(shelp.o):
+    CODE              Offs=00107D  Size=000020  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(shl.o):
+    CODE              Offs=00109D  Size=000033  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(shrax2.o):
+    CODE              Offs=0010D0  Size=00000B  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(shrax4.o):
+    CODE              Offs=0010DB  Size=000011  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(strlen.o):
+    CODE              Offs=0010EC  Size=000016  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(sub.o):
+    CODE              Offs=001102  Size=000015  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(udiv.o):
+    CODE              Offs=001117  Size=00004F  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(umod.o):
+    CODE              Offs=001166  Size=000011  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(waitvsync.o):
+    CODE              Offs=001177  Size=00000B  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(zerobss.o):
+    CODE              Offs=001182  Size=000023  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(zeropage.o):
+    ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+ZEROPAGE              000002  00001B  00001A  00001
+LOADADDR              0007FF  000800  000002  00001
+EXEHDR                000801  00080C  00000C  00001
+STARTUP               00080D  00083F  000033  00001
+CODE                  000840  0019E4  0011A5  00001
+RODATA                0019E5  001F48  000564  00001
+DATA                  001F49  001F71  000029  00001
+INIT                  001F72  001F8D  00001C  00001
+BSS                   001F8E  001FE2  000055  00001
+ONCE                  001F8E  001FB3  000026  00001
+
+
+Exports list by name:
+---------------------
+BSOUT                     00FFD2 RLA    __BSS_RUN__               001F8E RLA    
+__BSS_SIZE__              000055 REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__CONSTRUCTOR_TABLE__     001FB4 RLA    __DESTRUCTOR_COUNT__      000000 REA    
+__DESTRUCTOR_TABLE__      001F49 RLA    __EXEHDR__                000001 REA    
+__HEADER_LAST__           00080D RLA    __HIMEM__                 00D000 REA    
+__LOADADDR__              000001 REA    __MAIN_SIZE__             00C7F3 REA    
+__MAIN_START__            00080D RLA    __ONCE_RUN__              001F8E RLA    
+__STACKSIZE__             000800 REA    __STARTUP__               000001 REA    
+_bgcolor                  001795 RLA    _bordercolor              001727 RLA    
+_cgetc                    001746 RLA    _clrscr                   00E544 REA    
+_intro_run                000846 RLA    _kbhit                    0017E5 RLA    
+_main                     0011F3 RLA    _screen_clear             00123A RLA    
+_screen_draw_box          001463 RLA    _screen_init              001228 RLA    
+_screen_print_centered    00137D RLA    _screen_print_string      0012D8 RLA    
+_screen_set_char          001280 RLA    _sprite_enable            0015FB RLA    
+_sprite_init              001585 RLA    _sprite_load              00159A RLA    
+_sprite_set_color         0016C5 RLA    _sprite_set_expand_y      0016DA RLA    
+_sprite_set_position      001632 RLA    _strlen                   00192C RLA    
+_textcolor                00178D RLA    _waitvsync                0019B7 RLA    
+addysp                    001712 RLA    addysp1                   001711 RLA    
+aslax1                    00171F RLA    aslaxy                    0018E4 RLA    
+c_sp                      000002 RLZ    callmain                  00172F RLA    
+cursor                    001FE2 RLA    donelib                   00179D RLA    
+incax1                    0017BE RLA    incsp2                    0017CD RLA    
+incsp4                    0017DB RLA    incsp5                    0017E0 RLA    
+initlib                   001F8E RLA    ldax0sp                   0017EE RLA    
+ldaxysp                   0017F0 RLA    negax                     001846 RLA    
+popax                     0017C5 RLA    popptr1                   001854 RLA    
+popsargsudiv16            0018BD RLA    ptr1                      00000A RLZ    
+ptr4                      000010 RLZ    pusha                     001866 RLA    
+pusha0                    00187A RLA    pushax                    00187C RLA    
+pushw                     001892 RLA    pushwysp                  0018A3 RLA    
+shrax2                    001910 RLA    shrax4                    00191B RLA    
+sreg                      000004 RLZ    tmp1                      000012 RLZ    
+tmp2                      000013 RLZ    tosdiva0                  0017A9 RLA    
+tosmoda0                  0017F7 RLA    tossubax                  001944 RLA    
+tosudiva0                 001957 RLA    tosumoda0                 0019A6 RLA    
+tosumula0                 001808 RLA    udiv16                    001968 RLA    
+zerobss                   0019C2 RLA    
+
+
+Exports list by value:
+----------------------
+__CONSTRUCTOR_COUNT__     000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
+__LOADADDR__              000001 REA    __STARTUP__               000001 REA    
+__EXEHDR__                000001 REA    c_sp                      000002 RLZ    
+sreg                      000004 RLZ    ptr1                      00000A RLZ    
+ptr4                      000010 RLZ    tmp1                      000012 RLZ    
+tmp2                      000013 RLZ    __BSS_SIZE__              000055 REA    
+__STACKSIZE__             000800 REA    __HEADER_LAST__           00080D RLA    
+__MAIN_START__            00080D RLA    _intro_run                000846 RLA    
+_main                     0011F3 RLA    _screen_init              001228 RLA    
+_screen_clear             00123A RLA    _screen_set_char          001280 RLA    
+_screen_print_string      0012D8 RLA    _screen_print_centered    00137D RLA    
+_screen_draw_box          001463 RLA    _sprite_init              001585 RLA    
+_sprite_load              00159A RLA    _sprite_enable            0015FB RLA    
+_sprite_set_position      001632 RLA    _sprite_set_color         0016C5 RLA    
+_sprite_set_expand_y      0016DA RLA    addysp1                   001711 RLA    
+addysp                    001712 RLA    aslax1                    00171F RLA    
+_bordercolor              001727 RLA    callmain                  00172F RLA    
+_cgetc                    001746 RLA    _textcolor                00178D RLA    
+_bgcolor                  001795 RLA    donelib                   00179D RLA    
+tosdiva0                  0017A9 RLA    incax1                    0017BE RLA    
+popax                     0017C5 RLA    incsp2                    0017CD RLA    
+incsp4                    0017DB RLA    incsp5                    0017E0 RLA    
+_kbhit                    0017E5 RLA    ldax0sp                   0017EE RLA    
+ldaxysp                   0017F0 RLA    tosmoda0                  0017F7 RLA    
+tosumula0                 001808 RLA    negax                     001846 RLA    
+popptr1                   001854 RLA    pusha                     001866 RLA    
+pusha0                    00187A RLA    pushax                    00187C RLA    
+pushw                     001892 RLA    pushwysp                  0018A3 RLA    
+popsargsudiv16            0018BD RLA    aslaxy                    0018E4 RLA    
+shrax2                    001910 RLA    shrax4                    00191B RLA    
+_strlen                   00192C RLA    tossubax                  001944 RLA    
+tosudiva0                 001957 RLA    udiv16                    001968 RLA    
+tosumoda0                 0019A6 RLA    _waitvsync                0019B7 RLA    
+zerobss                   0019C2 RLA    __DESTRUCTOR_TABLE__      001F49 RLA    
+__ONCE_RUN__              001F8E RLA    initlib                   001F8E RLA    
+__BSS_RUN__               001F8E RLA    __CONSTRUCTOR_TABLE__     001FB4 RLA    
+cursor                    001FE2 RLA    __MAIN_SIZE__             00C7F3 REA    
+__HIMEM__                 00D000 REA    _clrscr                   00E544 REA    
+BSOUT                     00FFD2 RLA    
+
+
+Imports list:
+-------------
+BSOUT (kernal.o):
+    crt0.o                    c64/crt0.s:10
+__BSS_RUN__ ([linker generated]):
+    zerobss.o                 common/zerobss.s:8
+__BSS_SIZE__ ([linker generated]):
+    zerobss.o                 common/zerobss.s:8
+__CONSTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s:18
+__CONSTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s:18
+__DESTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s:19
+__DESTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s:19
+__EXEHDR__ (exehdr.o):
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:6
+__HEADER_LAST__ ([linker generated]):
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:14
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:14
+__HIMEM__ ([linker generated]):
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:15
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:14
+__LOADADDR__ (loadaddr.o):
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:5
+__MAIN_SIZE__ ([linker generated]):
+    crt0.o                    c64/crt0.s:11
+__MAIN_START__ ([linker generated]):
+    crt0.o                    c64/crt0.s:11
+__ONCE_RUN__ ([linker generated]):
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:15
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:15
+__STACKSIZE__ ([linker generated]):
+    [linker generated]        C:\bin\cc65\cfg/c64.cfg:15
+__STARTUP__ (crt0.o):
+    main.o                    build/main.c.52596.0.s:13
+_bgcolor (color.o):
+    screen.o                  build/screen.c.38944.0.s:15
+_bordercolor (bordercolor.o):
+    screen.o                  build/screen.c.38944.0.s:16
+_cgetc (cgetc.o):
+    main.o                    build/main.c.52596.0.s:16
+    intro.o                   build/intro.c.64060.0.s:31
+_clrscr (clrscr.o):
+    screen.o                  build/screen.c.38944.0.s:13
+_intro_run (intro.o):
+    main.o                    build/main.c.52596.0.s:14
+_kbhit (kbhit.o):
+    main.o                    build/main.c.52596.0.s:15
+    intro.o                   build/intro.c.64060.0.s:30
+_main (main.o):
+    callmain.o                runtime/callmain.s:11
+_screen_clear (screen.o):
+    main.o                    build/main.c.52596.0.s:17
+    intro.o                   build/intro.c.64060.0.s:33
+_screen_draw_box (screen.o):
+    intro.o                   build/intro.c.64060.0.s:37
+_screen_init (screen.o):
+    intro.o                   build/intro.c.64060.0.s:32
+_screen_print_centered (screen.o):
+    main.o                    build/main.c.52596.0.s:18
+    intro.o                   build/intro.c.64060.0.s:36
+_screen_print_string (screen.o):
+    intro.o                   build/intro.c.64060.0.s:35
+_screen_set_char (screen.o):
+    intro.o                   build/intro.c.64060.0.s:34
+_sprite_enable (sprite.o):
+    intro.o                   build/intro.c.64060.0.s:25
+_sprite_init (sprite.o):
+    intro.o                   build/intro.c.64060.0.s:23
+_sprite_load (sprite.o):
+    intro.o                   build/intro.c.64060.0.s:24
+_sprite_set_color (sprite.o):
+    intro.o                   build/intro.c.64060.0.s:27
+_sprite_set_expand_y (sprite.o):
+    intro.o                   build/intro.c.64060.0.s:28
+_sprite_set_position (sprite.o):
+    intro.o                   build/intro.c.64060.0.s:26
+_strlen (strlen.o):
+    screen.o                  build/screen.c.38944.0.s:25
+    intro.o                   build/intro.c.64060.0.s:38
+_textcolor (color.o):
+    screen.o                  build/screen.c.38944.0.s:14
+_waitvsync (waitvsync.o):
+    intro.o                   build/intro.c.64060.0.s:29
+addysp (addysp.o):
+    incsp5.o                  runtime/incsp5.s:8
+    incsp4.o                  runtime/incsp4.s:8
+addysp1 (addysp.o):
+    sub.o                     runtime/sub.s:8
+aslax1 (aslax1.o):
+    intro.o                   build/intro.c.64060.0.s:1910
+aslaxy (shl.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+c_sp (zeropage.o):
+    addysp.o                  runtime/addysp.s:8
+    sub.o                     runtime/sub.s:9
+    pushwsp.o                 runtime/pushwsp.s:8
+    pushax.o                  runtime/pushax.s:8
+    pusha.o                   runtime/pusha.s:8
+    popptr1.o                 runtime/popptr1.s:9
+    ldaxsp.o                  runtime/ldaxsp.s:8
+    incsp2.o                  runtime/incsp2.s:8
+    crt0.o                    /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
+    sprite.o                  build/sprite.c.52776.0.s:10
+    screen.o                  build/screen.c.38944.0.s:10
+    intro.o                   build/intro.c.64060.0.s:10
+callmain (callmain.o):
+    crt0.o                    c64/crt0.s:9
+cursor (_cursor.o):
+    cgetc.o                   c64/cgetc.s:8
+donelib (condes.o):
+    crt0.o                    c64/crt0.s:8
+incax1 (incax1.o):
+    intro.o                   build/intro.c.64060.0.s:1910
+incsp2 (incsp2.o):
+    popptr1.o                 runtime/popptr1.s:8
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+incsp4 (incsp4.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+incsp5 (incsp5.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    intro.o                   build/intro.c.64060.0.s:1910
+initlib (condes.o):
+    crt0.o                    c64/crt0.s:8
+ldax0sp (ldaxsp.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+ldaxysp (ldaxsp.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    intro.o                   build/intro.c.64060.0.s:1910
+negax (negabs.o):
+    shelp.o                   runtime/shelp.s:11
+    mod.o                     runtime/mod.s:11
+    div.o                     runtime/div.s:11
+popax (incsp2.o):
+    shl.o                     runtime/shl.s:15
+    shelp.o                   runtime/shelp.s:11
+popptr1 (popptr1.o):
+    umod.o                    runtime/umod.s:8
+    udiv.o                    runtime/udiv.s:9
+    mul8.o                    runtime/mul8.s:9
+popsargsudiv16 (shelp.o):
+    mod.o                     runtime/mod.s:11
+    div.o                     runtime/div.s:11
+ptr1 (zeropage.o):
+    zerobss.o                 common/zerobss.s:9
+    udiv.o                    runtime/udiv.s:10
+    shelp.o                   runtime/shelp.s:12
+    pushw.o                   runtime/pushw.s:9
+    popptr1.o                 runtime/popptr1.s:9
+    mul8.o                    runtime/mul8.s:10
+    div.o                     runtime/div.s:12
+    sprite.o                  build/sprite.c.52776.0.s:11
+    screen.o                  build/screen.c.38944.0.s:11
+    intro.o                   build/intro.c.64060.0.s:11
+ptr4 (zeropage.o):
+    umod.o                    runtime/umod.s:9
+    udiv.o                    runtime/udiv.s:10
+    strlen.o                  common/strlen.s:12
+    shelp.o                   runtime/shelp.s:12
+    mul8.o                    runtime/mul8.s:10
+pusha (pusha.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+    sprite.o                  build/sprite.c.52776.0.s:291
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    main.o                    build/main.c.52596.0.s:64
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+pusha0 (pushax.o):
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+pushax (pushax.o):
+    callmain.o                runtime/callmain.s:11
+    pushw.o                   runtime/pushw.s:8
+    sprite.o                  build/sprite.c.52776.0.s:291
+    screen.o                  build/screen.c.38944.0.s:557
+    main.o                    build/main.c.52596.0.s:64
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+pushw (pushw.o):
+    intro.o                   build/intro.c.64060.0.s:1910
+pushwysp (pushwsp.o):
+    screen.o                  build/screen.c.38944.0.s:557
+shrax2 (shrax2.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+shrax4 (shrax4.o):
+    sprite.o                  build/sprite.c.52776.0.s:291
+sreg (zeropage.o):
+    umod.o                    runtime/umod.s:9
+    udiv.o                    runtime/udiv.s:10
+    mod.o                     runtime/mod.s:12
+    sprite.o                  build/sprite.c.52776.0.s:10
+    screen.o                  build/screen.c.38944.0.s:10
+    intro.o                   build/intro.c.64060.0.s:10
+tmp1 (zeropage.o):
+    shrax4.o                  runtime/shrax4.s:8
+    shrax2.o                  runtime/shrax2.s:8
+    shl.o                     runtime/shl.s:16
+    shelp.o                   runtime/shelp.s:12
+    mod.o                     runtime/mod.s:12
+    div.o                     runtime/div.s:12
+    aslax1.o                  runtime/aslax1.s:8
+tmp2 (zeropage.o):
+    shelp.o                   runtime/shelp.s:12
+    div.o                     runtime/div.s:12
+tosdiva0 (div.o):
+    screen.o                  build/screen.c.38944.0.s:557
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+tosmoda0 (mod.o):
+    intro.o                   build/intro.c.64060.0.s:1910
+tossubax (sub.o):
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+tosudiva0 (udiv.o):
+    intro.o                   build/intro.c.64060.0.s:1910
+tosumoda0 (umod.o):
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+tosumula0 (mul8.o):
+    screen.o                  build/screen.c.38944.0.s:557
+    screen.o                  build/screen.c.38944.0.s:557
+    intro.o                   build/intro.c.64060.0.s:1910
+    intro.o                   build/intro.c.64060.0.s:1910
+udiv16 (udiv.o):
+    umod.o                    runtime/umod.s:8
+    shelp.o                   runtime/shelp.s:11
+zerobss (zerobss.o):
+    crt0.o                    c64/crt0.s:9
+

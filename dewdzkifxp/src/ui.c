@@ -8,6 +8,7 @@
 #include "input.h"
 #include "random.h"
 #include <conio.h>
+#include <stdio.h>
 #include <string.h>
 
 /* Matrix animation characters */
@@ -167,8 +168,8 @@ void ui_render_hud(void) {
     screen_print_number(19, 0, game_state.reputation, 4, COLOR_YELLOW);
 
     ui_print_string(26, 0, "BW:", COLOR_WHITE);
-    screen_print_number(29, 0, game_state.bandwidth, 2, COLOR_CYAN);
-    ui_print_string(31, 0, "MB/S", COLOR_CYAN);
+    screen_print_number(29, 0, game_state.bandwidth, 3, COLOR_CYAN);
+    ui_print_string(32, 0, "KB/S", COLOR_CYAN);
 
     /* Row 1: ACT:3  SITES:2  POSTS:5   TURN:012 */
     ui_print_string(0, 1, "ACT:", COLOR_WHITE);
@@ -239,12 +240,13 @@ void ui_show_hub(void) {
     }
 
     /* Menu */
-    ui_draw_hline(0, 14, 40, '-', COLOR_BLUE);
-    ui_print_centered(15, "[1] SCAN FOR FTPS", COLOR_WHITE);
-    ui_print_centered(16, "[2] BROWSE TOPSITE", COLOR_WHITE);
-    ui_print_centered(17, "[3] POST TO FORUM", COLOR_WHITE);
-    ui_print_centered(18, "[4] VIEW STATS", COLOR_WHITE);
-    ui_print_centered(19, "[5] VIEW FTPS", COLOR_WHITE);
+    ui_draw_hline(0, 13, 40, '-', COLOR_BLUE);
+    ui_print_centered(14, "[1] SCAN FOR FTPS", COLOR_WHITE);
+    ui_print_centered(15, "[2] BROWSE TOPSITE", COLOR_WHITE);
+    ui_print_centered(16, "[3] POST TO FORUM", COLOR_WHITE);
+    ui_print_centered(17, "[4] VIEW STATS", COLOR_WHITE);
+    ui_print_centered(18, "[5] VIEW FTPS", COLOR_WHITE);
+    ui_print_centered(19, "[6] HARDWARE SHOP", COLOR_WHITE);
     ui_print_centered(21, "[Q] QUIT", COLOR_WHITE);
 }
 
@@ -375,7 +377,13 @@ uint8_t ui_show_ftp_select(Release* rel) {
     uint8_t menu_idx;
     uint8_t has_space;
     uint8_t color;
+    uint8_t choice;
+    uint8_t ftp_index_map[MAX_FTP_SERVERS];
+    uint8_t selected_ftp_idx;
+    uint8_t risk;
+    char key;
 
+show_menu:
     screen_clear();
     ui_render_hud();
 
@@ -395,6 +403,9 @@ uint8_t ui_show_ftp_select(Release* rel) {
             has_space = ftp_has_space(i);
             color = has_space ? COLOR_WHITE : COLOR_GRAY2;
 
+            /* Store mapping for later (NEW) */
+            ftp_index_map[menu_idx] = i;
+
             screen_set_char(2, row, '[', color);
             screen_print_number(3, row, menu_idx + 1, 1, color);
             screen_set_char(4, row, ']', color);
@@ -404,21 +415,21 @@ uint8_t ui_show_ftp_select(Release* rel) {
             /* Show raid risk if FTP has been used for posts */
             if (ftps[i].used_for_posts) {
                 uint8_t risk = ftps[i].raid_risk;
-                const char* risk_label;
                 uint8_t risk_color;
 
                 if (risk < 34) {
-                    risk_label = "LOW";
                     risk_color = COLOR_GREEN;
                 } else if (risk < 67) {
-                    risk_label = "MED";
                     risk_color = COLOR_YELLOW;
                 } else {
-                    risk_label = "HGH";
                     risk_color = COLOR_RED;
                 }
 
-                ui_print_string(30, row, risk_label, risk_color);
+                /* Show risk percentage (NEW) */
+                screen_set_char(29, row, '[', color);
+                screen_print_number(30, row, risk, 2, risk_color);
+                screen_set_char(32, row, '%', color);
+                screen_set_char(33, row, ']', color);
             }
 
             /* Show slots */
@@ -435,7 +446,56 @@ uint8_t ui_show_ftp_select(Release* rel) {
 
     ui_print_centered(18, "[Q] CANCEL", COLOR_WHITE);
 
-    return input_read_menu(menu_idx);
+    choice = input_read_menu(menu_idx);
+
+    /* Check for cancel */
+    if (choice == 255) {
+        return 255;
+    }
+
+    /* Get selected FTP and check risk (NEW) */
+    if (choice < menu_idx) {
+        selected_ftp_idx = ftp_index_map[choice];
+
+        /* Check if FTP has been used and has high risk */
+        if (ftps[selected_ftp_idx].used_for_posts) {
+            risk = ftps[selected_ftp_idx].raid_risk;
+
+            if (risk >= 67) {
+                /* High risk - show warning and ask for confirmation */
+                screen_clear();
+                ui_render_hud();
+
+                ui_draw_hline(0, 6, 40, 160, COLOR_RED);
+                ui_print_centered(8, "!!! WARNING !!!", COLOR_RED);
+                ui_print_centered(10, "HIGH RAID RISK!", COLOR_YELLOW);
+                ui_draw_hline(0, 12, 40, 160, COLOR_RED);
+
+                ui_print_string(8, 14, "RAID RISK:", COLOR_WHITE);
+                screen_print_number(19, 14, risk, 2, COLOR_RED);
+                ui_print_string(21, 14, "%", COLOR_WHITE);
+
+                ui_print_centered(16, "POST ANYWAY?", COLOR_WHITE);
+                ui_print_centered(18, "[Y] YES  [N] NO", COLOR_WHITE);
+
+                /* Wait for Y/N */
+                while (1) {
+                    if (kbhit()) {
+                        key = cgetc();
+                        if (key == 'y' || key == 'Y') {
+                            /* Confirmed - proceed with post */
+                            return choice;
+                        } else if (key == 'n' || key == 'N' || key == 'q' || key == 'Q') {
+                            /* Cancelled - show menu again */
+                            goto show_menu;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return choice;
 }
 
 uint8_t ui_show_release_select(uint8_t* out_ftp_idx, uint8_t* out_release_idx) {
@@ -605,8 +665,8 @@ void ui_show_fxp_anim(Release* rel, uint8_t turns) {
         ui_draw_progress_bar(5, 12, 30, progress);
 
         ui_print_string(5, 14, "SPEED:", COLOR_WHITE);
-        screen_print_number(12, 14, game_state.bandwidth, 2, COLOR_GREEN);
-        ui_print_string(14, 14, "MB/S", COLOR_WHITE);
+        screen_print_number(12, 14, game_state.bandwidth, 3, COLOR_GREEN);
+        ui_print_string(15, 14, "KB/S", COLOR_WHITE);
 
         waitvsync();
 
@@ -853,4 +913,221 @@ void ui_show_ftps(void) {
 
     ui_print_centered(23, "[SPACE] CONTINUE", COLOR_WHITE);
     input_wait_key();
+}
+
+uint8_t ui_show_hardware_shop(void) {
+    uint8_t i;
+    uint8_t row;
+    uint8_t color;
+    char stat_buf[32];
+    extern const HardwareTier hardware_tiers[6];
+
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "HARDWARE SHOP", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
+
+    /* Show current hardware */
+    ui_print_string(2, 5, "CURRENT:", COLOR_WHITE);
+    if (game_state.hardware_tier < 255) {
+        ui_print_string(11, 5, hardware_tiers[game_state.hardware_tier].name, COLOR_GREEN);
+    } else {
+        ui_print_string(11, 5, "NONE", COLOR_RED);
+    }
+
+    row = 7;
+
+    /* List all 6 tiers */
+    for (i = 0; i < 6; i++) {
+        const HardwareTier* tier = &hardware_tiers[i];
+        uint8_t is_current = (game_state.hardware_tier < 255 && i == game_state.hardware_tier);
+        uint8_t can_afford = (game_state.reputation >= tier->rep_cost);
+        uint8_t is_upgrade = (game_state.hardware_tier == 255 || i > game_state.hardware_tier);
+
+        /* Determine color: green=current, white=affordable upgrade, gray=can't afford/owned */
+        if (is_current) {
+            color = COLOR_GREEN;
+        } else if (is_upgrade && can_afford) {
+            color = COLOR_WHITE;
+        } else {
+            color = COLOR_GRAY2;
+        }
+
+        /* Menu number */
+        screen_set_char(2, row, '[', color);
+        screen_print_number(3, row, i + 1, 1, color);
+        screen_set_char(4, row, ']', color);
+
+        /* Hardware name */
+        ui_print_string(6, row, tier->name, color);
+
+        /* Current indicator */
+        if (is_current) {
+            ui_print_string(26, row, "<CURRENT>", COLOR_GREEN);
+        }
+
+        row++;
+
+        /* REP cost */
+        ui_print_string(8, row, "REP:", COLOR_GRAY2);
+        screen_print_number(13, row, tier->rep_cost, 3, color);
+
+        /* Stats */
+        sprintf(stat_buf, "BW:%dMB/S FAIL:%d%%",
+                tier->bandwidth, tier->fail_rate);
+        ui_print_string(18, row, stat_buf, color);
+
+        row++;
+        if (row >= 20) break;  /* Prevent overflow */
+    }
+
+    ui_print_centered(21, "[1-6] PURCHASE [Q] BACK", COLOR_WHITE);
+
+    return input_read_menu(6);
+}
+
+void ui_show_raid_alert(void) {
+    uint8_t i;
+    uint8_t posts_nuked;
+    uint8_t flash;
+
+    screen_clear();
+    ui_render_hud();
+
+    /* Flashing red border effect */
+    for (flash = 0; flash < 3; flash++) {
+        /* Draw red border */
+        ui_draw_hline(0, 2, 40, 160, COLOR_RED);
+        ui_draw_hline(0, 18, 40, 160, COLOR_RED);
+
+        ui_print_centered(8, "!!! POLICE RAID !!!", COLOR_RED);
+        ui_print_centered(10, "FTP SERVER SEIZED", COLOR_WHITE);
+
+        /* Show downloads that triggered raid */
+        ui_print_string(8, 12, "DOWNLOADS:", COLOR_GRAY2);
+        screen_print_number(19, 12, game_state.last_raid_downloads, 5, COLOR_YELLOW);
+
+        /* Count nuked posts */
+        posts_nuked = 0;
+        for (i = 0; i < MAX_POSTS; i++) {
+            if (posts[i].active && posts[i].nuked &&
+                posts[i].ftp_id == game_state.last_raid_ftp_idx) {
+                posts_nuked++;
+            }
+        }
+
+        ui_print_string(8, 13, "POSTS NUKED:", COLOR_GRAY2);
+        screen_print_number(21, 13, posts_nuked, 2, COLOR_RED);
+
+        ui_print_centered(16, "YOUR WAREZ ARE GONE!", COLOR_RED);
+
+        /* Flash delay */
+        for (i = 0; i < 10; i++) {
+            waitvsync();
+        }
+
+        /* Clear for next flash */
+        if (flash < 2) {
+            screen_clear();
+            ui_render_hud();
+            for (i = 0; i < 5; i++) {
+                waitvsync();
+            }
+        }
+    }
+
+    ui_print_centered(20, "[SPACE] CONTINUE", COLOR_WHITE);
+    input_wait_key();
+
+    /* Reset raid tracking */
+    game_state.last_raid_ftp_idx = 255;
+}
+
+void ui_show_event(void) {
+    const char* event_titles[10] = {
+        "ELITE NOTICED YOUR WORK!",
+        "RELEASE WENT VIRAL!",
+        "FORUM FEATURED POST!",
+        "ACCUSED OF DUPING!",
+        "RELEASE WAS FAKE!",
+        "FORUM DRAMA!",
+        "BANDWIDTH UPGRADE!",
+        "ISP THROTTLING!",
+        "HOT TIP: NEW FTP!",
+        "COURIER HINT!"
+    };
+
+    const char* event_descriptions[10] = {
+        "AN ELITE MEMBER SAW YOUR POST",
+        "YOUR RELEASE IS TRENDING",
+        "MODERATORS LIKED YOUR CONTENT",
+        "SOMEONE CLAIMS YOU'RE A FAKER",
+        "YOUR UPLOAD WAS CORRUPTED",
+        "YOU GOT INTO AN ARGUMENT",
+        "YOUR ISP UPGRADED SERVICE",
+        "CONNECTION ISSUES DETECTED",
+        "A COURIER SHARED FTP INFO",
+        "INSIDER TIP ON TOPSITE"
+    };
+
+    uint8_t event_type;
+
+    screen_clear();
+    ui_render_hud();
+
+    event_type = game_state.current_event - 1;  /* 1-10 -> 0-9 */
+
+    if (event_type >= 10) {
+        return;  /* Invalid event */
+    }
+
+    ui_draw_hline(0, 6, 40, 160, COLOR_CYAN);
+    ui_print_centered(8, "*** RANDOM EVENT ***", COLOR_YELLOW);
+    ui_draw_hline(0, 10, 40, 160, COLOR_CYAN);
+
+    ui_print_centered(12, event_titles[event_type], COLOR_WHITE);
+    ui_print_centered(14, event_descriptions[event_type], COLOR_GRAY2);
+
+    /* Show effect based on event type */
+    if (event_type == 0) {
+        /* Elite noticed: +REP */
+        ui_print_string(12, 16, "REP:", COLOR_WHITE);
+        ui_print_string(17, 16, "+", COLOR_GREEN);
+        screen_print_number(18, 16, game_state.event_value, 3, COLOR_GREEN);
+    } else if (event_type == 1) {
+        /* Viral release: double downloads message */
+        ui_print_centered(16, "DOWNLOADS DOUBLED!", COLOR_GREEN);
+    } else if (event_type == 2) {
+        /* Featured post: +REP */
+        ui_print_string(14, 16, "REP: +25", COLOR_GREEN);
+    } else if (event_type == 3 || event_type == 5) {
+        /* Duping/Drama: -REP */
+        ui_print_string(12, 16, "REP:", COLOR_WHITE);
+        ui_print_string(17, 16, "-", COLOR_RED);
+        screen_print_number(18, 16, game_state.event_value, 2, COLOR_RED);
+    } else if (event_type == 4) {
+        /* Fake release: nuked */
+        ui_print_centered(16, "POST NUKED!", COLOR_RED);
+    } else if (event_type == 6) {
+        /* BW upgrade */
+        ui_print_string(10, 16, "BANDWIDTH +20 FOR 5 TURNS", COLOR_GREEN);
+    } else if (event_type == 7) {
+        /* ISP throttle */
+        ui_print_string(10, 16, "BANDWIDTH -15 FOR 3 TURNS", COLOR_RED);
+    } else if (event_type == 8) {
+        /* New FTP discovered */
+        ui_print_centered(16, "FTP AUTO-DISCOVERED!", COLOR_GREEN);
+    } else if (event_type == 9) {
+        /* Topsite preview */
+        ui_print_centered(16, "TOPSITE UNLOCKED!", COLOR_GREEN);
+    }
+
+    ui_print_centered(20, "[SPACE] CONTINUE", COLOR_WHITE);
+    input_wait_key();
+
+    /* Reset event */
+    game_state.current_event = 0;
+    game_state.event_value = 0;
 }

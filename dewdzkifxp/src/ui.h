@@ -68,4 +68,13 @@ void ui_show_stats(void);
 /* Screen: View FTP servers and releases */
 void ui_show_ftps(void);
 
+/* Screen: Hardware shop, returns selected tier index or 255 for cancel */
+uint8_t ui_show_hardware_shop(void);
+
+/* Screen: Raid alert notification (NEW) */
+void ui_show_raid_alert(void);
+
+/* Screen: Random event (NEW) */
+void ui_show_event(void);
+
 #endif /* UI_H */

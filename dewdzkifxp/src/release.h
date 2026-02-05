@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define MAX_RELEASES 32  /* Increased from 12 (NEW) */
+#define MAX_RELEASES 48  /* Support 8 FTPs × 5 releases + buffer */
 
 /* Release categories */
 #define CATEGORY_GAME  0
@@ -61,5 +61,8 @@ Release* release_get(uint8_t index);
 
 /* Count active releases */
 uint8_t release_count_active(void);
+
+/* Cleanup unused releases (not on any FTP, not in any active post) */
+uint8_t release_cleanup_unused(void);
 
 #endif /* RELEASE_H */

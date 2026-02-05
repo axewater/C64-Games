@@ -106,10 +106,17 @@ void forum_update_all_posts(void) {
         if (rel && rel->active) {
             uint8_t forum_mult;
             uint8_t group_mult;
+            uint32_t rep_calc;
 
             forum_mult = forums[posts[i].forum_id].rep_multiplier;
             group_mult = groups[rel->group].rep_multiplier;
-            rep = (downloads * (rel->quality + 1) * forum_mult * group_mult) / 20;
+            /* Use uint32_t for intermediate calculation to prevent overflow */
+            rep_calc = ((uint32_t)downloads * (rel->quality + 1) * forum_mult * group_mult) / 20;
+            /* Cap at uint16_t max for rep variable */
+            if (rep_calc > 65535U) {
+                rep_calc = 65535U;
+            }
+            rep = (uint16_t)rep_calc;
             posts[i].rep_earned += rep;
             gamestate_add_reputation(rep);
         }
@@ -136,10 +143,11 @@ uint8_t forum_has_post(uint8_t release_id, uint8_t ftp_id) {
     for (i = 0; i < MAX_POSTS; i++) {
         if (posts[i].active &&
             posts[i].release_id == release_id &&
-            posts[i].ftp_id == ftp_id) {
-            return 1;  /* Already posted */
+            posts[i].ftp_id == ftp_id &&
+            !posts[i].nuked) {  /* Don't count nuked posts */
+            return 1;  /* Already posted (and still active) */
         }
     }
 
-    return 0;  /* Not posted yet */
+    return 0;  /* Not posted yet (or nuked) */
 }

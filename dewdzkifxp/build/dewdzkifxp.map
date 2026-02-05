@@ -1,197 +1,216 @@
 Modules list:
 -------------
 forum.o:
-    CODE              Offs=000000  Size=00038C  Align=00001  Fill=0000
+    CODE              Offs=000000  Size=000599  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=00004B  Align=00001  Fill=0000
-    BSS               Offs=000000  Size=000053  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000097  Align=00001  Fill=0000
 ftp.o:
-    CODE              Offs=00038C  Size=00015C  Align=00001  Fill=0000
-    RODATA            Offs=00004B  Size=000042  Align=00001  Fill=0000
-    BSS               Offs=000053  Size=0000D4  Align=00001  Fill=0000
+    CODE              Offs=000599  Size=0006CE  Align=00001  Fill=0000
+    RODATA            Offs=00004B  Size=0000AB  Align=00001  Fill=0000
+    BSS               Offs=000097  Size=00014D  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000010  Align=00001  Fill=0000
 gamestate.o:
-    CODE              Offs=0004E8  Size=0000D5  Align=00001  Fill=0000
-    BSS               Offs=000127  Size=00000D  Align=00001  Fill=0000
+    CODE              Offs=000C67  Size=000124  Align=00001  Fill=0000
+    BSS               Offs=0001E4  Size=000019  Align=00001  Fill=0000
 input.o:
-    CODE              Offs=0005BD  Size=000081  Align=00001  Fill=0000
-    BSS               Offs=000134  Size=000002  Align=00001  Fill=0000
+    CODE              Offs=000D8B  Size=0000AB  Align=00001  Fill=0000
+    BSS               Offs=0001FD  Size=000003  Align=00001  Fill=0000
 main.o:
-    CODE              Offs=00063E  Size=0002E8  Align=00001  Fill=0000
-    RODATA            Offs=00008D  Size=000061  Align=00001  Fill=0000
-    BSS               Offs=000136  Size=000057  Align=00001  Fill=0000
+    CODE              Offs=000E36  Size=000CD9  Align=00001  Fill=0000
+    RODATA            Offs=0000F6  Size=00024E  Align=00001  Fill=0000
+    BSS               Offs=000200  Size=00007A  Align=00001  Fill=0000
 random.o:
-    CODE              Offs=000926  Size=0000EE  Align=00001  Fill=0000
-    BSS               Offs=00018D  Size=000003  Align=00001  Fill=0000
+    CODE              Offs=001B0F  Size=0000EE  Align=00001  Fill=0000
+    BSS               Offs=00027A  Size=000003  Align=00001  Fill=0000
     DATA              Offs=000010  Size=000002  Align=00001  Fill=0000
 rank.o:
-    CODE              Offs=000A14  Size=0000D9  Align=00001  Fill=0000
-    RODATA            Offs=0000EE  Size=000053  Align=00001  Fill=0000
-    BSS               Offs=000190  Size=000003  Align=00001  Fill=0000
+    CODE              Offs=001BFD  Size=0000C1  Align=00001  Fill=0000
+    RODATA            Offs=000344  Size=00004D  Align=00001  Fill=0000
+    BSS               Offs=00027D  Size=000003  Align=00001  Fill=0000
 release.o:
-    CODE              Offs=000AED  Size=0001F9  Align=00001  Fill=0000
-    RODATA            Offs=000141  Size=000025  Align=00001  Fill=0000
-    BSS               Offs=000193  Size=000134  Align=00001  Fill=0000
-    DATA              Offs=000012  Size=000008  Align=00001  Fill=0000
+    CODE              Offs=001CBE  Size=000838  Align=00001  Fill=0000
+    RODATA            Offs=000391  Size=000047  Align=00001  Fill=0000
+    BSS               Offs=000280  Size=000502  Align=00001  Fill=0000
 screen.o:
-    CODE              Offs=000CE6  Size=00015D  Align=00001  Fill=0000
-    BSS               Offs=0002C7  Size=000008  Align=00001  Fill=0000
+    CODE              Offs=0024F6  Size=00015D  Align=00001  Fill=0000
+    BSS               Offs=000782  Size=000008  Align=00001  Fill=0000
+topsite.o:
+    CODE              Offs=002653  Size=000064  Align=00001  Fill=0000
+    RODATA            Offs=0003D8  Size=00003D  Align=00001  Fill=0000
+    BSS               Offs=00078A  Size=000001  Align=00001  Fill=0000
 ui.o:
-    CODE              Offs=000E43  Size=000C78  Align=00001  Fill=0000
-    RODATA            Offs=000166  Size=00022D  Align=00001  Fill=0000
-    BSS               Offs=0002CF  Size=000024  Align=00001  Fill=0000
+    CODE              Offs=0026B7  Size=002633  Align=00001  Fill=0000
+    RODATA            Offs=000415  Size=000787  Align=00001  Fill=0000
+    BSS               Offs=00078B  Size=000106  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_cursor.o):
-    BSS               Offs=0002F3  Size=000001  Align=00001  Fill=0000
+    BSS               Offs=000891  Size=000001  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_directerrno.o):
-    CODE              Offs=001ABB  Size=00000A  Align=00001  Fill=0000
+    CODE              Offs=004CEA  Size=00000A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_hextab.o):
-    RODATA            Offs=000393  Size=000010  Align=00001  Fill=0000
+    RODATA            Offs=000B9C  Size=000010  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_longminstr.o):
-    RODATA            Offs=0003A3  Size=00000C  Align=00001  Fill=0000
+    RODATA            Offs=000BAC  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_oserror.o):
-    BSS               Offs=0002F4  Size=000001  Align=00001  Fill=0000
+    BSS               Offs=000892  Size=000001  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_printf.o):
-    CODE              Offs=001AC5  Size=0003A2  Align=00001  Fill=0000
-    BSS               Offs=0002F5  Size=00002B  Align=00001  Fill=0000
-    DATA              Offs=00001A  Size=000003  Align=00001  Fill=0000
+    CODE              Offs=004CF4  Size=0003A2  Align=00001  Fill=0000
+    BSS               Offs=000893  Size=00002B  Align=00001  Fill=0000
+    DATA              Offs=000012  Size=000003  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_seterrno.o):
-    CODE              Offs=001E67  Size=000009  Align=00001  Fill=0000
+    CODE              Offs=005096  Size=000009  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(add.o):
-    CODE              Offs=001E70  Size=00001C  Align=00001  Fill=0000
+    CODE              Offs=00509F  Size=00001C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(addysp.o):
-    CODE              Offs=001E8C  Size=00000E  Align=00001  Fill=0000
+    CODE              Offs=0050BB  Size=00000E  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(aslax1.o):
+    CODE              Offs=0050C9  Size=000008  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(aslax2.o):
-    CODE              Offs=001E9A  Size=00000B  Align=00001  Fill=0000
+    CODE              Offs=0050D1  Size=00000B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(axlong.o):
-    CODE              Offs=001EA5  Size=00000D  Align=00001  Fill=0000
+    CODE              Offs=0050DC  Size=00000D  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(bneg.o):
+    CODE              Offs=0050E9  Size=00000E  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(bordercolor.o):
-    CODE              Offs=001EB2  Size=000008  Align=00001  Fill=0000
+    CODE              Offs=0050F7  Size=000008  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(callmain.o):
-    CODE              Offs=001EBA  Size=000017  Align=00001  Fill=0000
-    DATA              Offs=00001D  Size=000004  Align=00001  Fill=0000
+    CODE              Offs=0050FF  Size=000017  Align=00001  Fill=0000
+    DATA              Offs=000015  Size=000004  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(cgetc.o):
-    CODE              Offs=001ED1  Size=000047  Align=00001  Fill=0000
+    CODE              Offs=005116  Size=000047  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(clrscr.o):
 C:\bin\cc65\lib/c64.lib(color.o):
-    CODE              Offs=001F18  Size=000010  Align=00001  Fill=0000
+    CODE              Offs=00515D  Size=000010  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(condes.o):
-    CODE              Offs=001F28  Size=00000C  Align=00001  Fill=0000
-    DATA              Offs=000021  Size=000025  Align=00001  Fill=0000
+    CODE              Offs=00516D  Size=00000C  Align=00001  Fill=0000
+    DATA              Offs=000019  Size=000025  Align=00001  Fill=0000
     ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(crt0.o):
     STARTUP           Offs=000000  Size=000033  Align=00001  Fill=0000
     ONCE              Offs=00000C  Size=00001A  Align=00001  Fill=0000
     INIT              Offs=000000  Size=00001C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ctype.o):
-    RODATA            Offs=0003AF  Size=00008B  Align=00001  Fill=0000
+    RODATA            Offs=000BB8  Size=00008B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ctypemask.o):
-    CODE              Offs=001F34  Size=00001E  Align=00001  Fill=0000
+    CODE              Offs=005179  Size=00001E  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(decax1.o):
+    CODE              Offs=005197  Size=000007  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(decaxy.o):
-    CODE              Offs=001F52  Size=000009  Align=00001  Fill=0000
+    CODE              Offs=00519E  Size=000009  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(decsp4.o):
-    CODE              Offs=001F5B  Size=00000D  Align=00001  Fill=0000
+    CODE              Offs=0051A7  Size=00000D  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(decsp6.o):
-    CODE              Offs=001F68  Size=00000D  Align=00001  Fill=0000
+    CODE              Offs=0051B4  Size=00000D  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(div.o):
-    CODE              Offs=001F75  Size=000015  Align=00001  Fill=0000
+    CODE              Offs=0051C1  Size=000015  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(errno.o):
-    BSS               Offs=000320  Size=000002  Align=00001  Fill=0000
+    BSS               Offs=0008BE  Size=000002  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(exehdr.o):
     EXEHDR            Offs=000000  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(icmp.o):
-    CODE              Offs=001F8A  Size=00002E  Align=00001  Fill=0000
+    CODE              Offs=0051D6  Size=00002E  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incax1.o):
-    CODE              Offs=001FB8  Size=000007  Align=00001  Fill=0000
+    CODE              Offs=005204  Size=000007  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incaxy.o):
-    CODE              Offs=001FBF  Size=00000B  Align=00001  Fill=0000
+    CODE              Offs=00520B  Size=00000B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp1.o):
-    CODE              Offs=001FCA  Size=000007  Align=00001  Fill=0000
+    CODE              Offs=005216  Size=000007  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp2.o):
-    CODE              Offs=001FD1  Size=000016  Align=00001  Fill=0000
+    CODE              Offs=00521D  Size=000016  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp3.o):
-    CODE              Offs=001FE7  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=005233  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp4.o):
-    CODE              Offs=001FEC  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=005238  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp5.o):
-    CODE              Offs=001FF1  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=00523D  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp6.o):
-    CODE              Offs=001FF6  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=005242  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(kbhit.o):
-    CODE              Offs=001FFB  Size=000009  Align=00001  Fill=0000
+    CODE              Offs=005247  Size=000009  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(kernal.o):
 C:\bin\cc65\lib/c64.lib(ldaxi.o):
-    CODE              Offs=002004  Size=00000D  Align=00001  Fill=0000
+    CODE              Offs=005250  Size=00000D  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ldaxsp.o):
-    CODE              Offs=002011  Size=000009  Align=00001  Fill=0000
+    CODE              Offs=00525D  Size=000009  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ldptr1sp.o):
-    CODE              Offs=00201A  Size=00000C  Align=00001  Fill=0000
+    CODE              Offs=005266  Size=00000C  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(lmul.o):
+    CODE              Offs=005272  Size=00005C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(lneg.o):
-    CODE              Offs=002026  Size=00001E  Align=00001  Fill=0000
+    CODE              Offs=0052CE  Size=00001E  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(loadaddr.o):
     LOADADDR          Offs=000000  Size=000002  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(lpush.o):
-    CODE              Offs=002044  Size=000021  Align=00001  Fill=0000
+    CODE              Offs=0052EC  Size=000021  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ltoa.o):
-    CODE              Offs=002065  Size=000095  Align=00001  Fill=0000
+    CODE              Offs=00530D  Size=000095  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(ludiv.o):
+    CODE              Offs=0053A2  Size=00007A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(makebool.o):
-    CODE              Offs=0020FA  Size=00002C  Align=00001  Fill=0000
+    CODE              Offs=00541C  Size=00002C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(memcpy.o):
-    CODE              Offs=002126  Size=00003C  Align=00001  Fill=0000
+    CODE              Offs=005448  Size=00003C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mod.o):
-    CODE              Offs=002162  Size=000011  Align=00001  Fill=0000
+    CODE              Offs=005484  Size=000011  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mul.o):
-    CODE              Offs=002173  Size=000045  Align=00001  Fill=0000
+    CODE              Offs=005495  Size=000045  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mul8.o):
-    CODE              Offs=0021B8  Size=00003A  Align=00001  Fill=0000
+    CODE              Offs=0054DA  Size=00003A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mulax10.o):
-    CODE              Offs=0021F2  Size=000019  Align=00001  Fill=0000
-C:\bin\cc65\lib/c64.lib(mulax7.o):
-    CODE              Offs=00220B  Size=000019  Align=00001  Fill=0000
+    CODE              Offs=005514  Size=000019  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(mulax3.o):
+    CODE              Offs=00552D  Size=000011  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(mulax5.o):
+    CODE              Offs=00553E  Size=000014  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(mulax6.o):
+    CODE              Offs=005552  Size=000016  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mulax9.o):
-    CODE              Offs=002224  Size=000017  Align=00001  Fill=0000
+    CODE              Offs=005568  Size=000017  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(negabs.o):
-    CODE              Offs=00223B  Size=000012  Align=00001  Fill=0000
+    CODE              Offs=00557F  Size=000012  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(popptr1.o):
-    CODE              Offs=00224D  Size=00000E  Align=00001  Fill=0000
+    CODE              Offs=005591  Size=00000E  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(push1.o):
-    CODE              Offs=00225B  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=00559F  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pusha.o):
-    CODE              Offs=002260  Size=000016  Align=00001  Fill=0000
+    CODE              Offs=0055A4  Size=000016  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pushax.o):
-    CODE              Offs=002276  Size=00001A  Align=00001  Fill=0000
+    CODE              Offs=0055BA  Size=00001A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pushw.o):
-    CODE              Offs=002290  Size=00000F  Align=00001  Fill=0000
+    CODE              Offs=0055D4  Size=00000F  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pushwsp.o):
-    CODE              Offs=00229F  Size=00001C  Align=00001  Fill=0000
+    CODE              Offs=0055E3  Size=00001C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(shelp.o):
-    CODE              Offs=0022BB  Size=000020  Align=00001  Fill=0000
+    CODE              Offs=0055FF  Size=000020  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(sprintf.o):
-    CODE              Offs=0022DB  Size=00002B  Align=00001  Fill=0000
-    BSS               Offs=000322  Size=000001  Align=00001  Fill=0000
+    CODE              Offs=00561F  Size=00002B  Align=00001  Fill=0000
+    BSS               Offs=0008C0  Size=000001  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(staspidx.o):
-    CODE              Offs=002306  Size=000016  Align=00001  Fill=0000
+    CODE              Offs=00564A  Size=000016  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(staxsp.o):
-    CODE              Offs=00231C  Size=00000B  Align=00001  Fill=0000
+    CODE              Offs=005660  Size=00000B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(staxspi.o):
-    CODE              Offs=002327  Size=00001B  Align=00001  Fill=0000
+    CODE              Offs=00566B  Size=00001B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(strlen.o):
-    CODE              Offs=002342  Size=000016  Align=00001  Fill=0000
+    CODE              Offs=005686  Size=000016  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(strlower.o):
-    CODE              Offs=002358  Size=000027  Align=00001  Fill=0000
+    CODE              Offs=00569C  Size=000027  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(sub.o):
-    CODE              Offs=00237F  Size=000015  Align=00001  Fill=0000
+    CODE              Offs=0056C3  Size=000015  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(udiv.o):
-    CODE              Offs=002394  Size=00004F  Align=00001  Fill=0000
+    CODE              Offs=0056D8  Size=00004F  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(uge.o):
+    CODE              Offs=005727  Size=00000A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(umod.o):
-    CODE              Offs=0023E3  Size=000011  Align=00001  Fill=0000
+    CODE              Offs=005731  Size=000011  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(vsnprintf.o):
-    CODE              Offs=0023F4  Size=0000DA  Align=00001  Fill=0000
-    DATA              Offs=000046  Size=000008  Align=00001  Fill=0000
+    CODE              Offs=005742  Size=0000DA  Align=00001  Fill=0000
+    DATA              Offs=00003E  Size=000008  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(vsprintf.o):
-    CODE              Offs=0024CE  Size=000012  Align=00001  Fill=0000
+    CODE              Offs=00581C  Size=000012  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(waitvsync.o):
-    CODE              Offs=0024E0  Size=00000B  Align=00001  Fill=0000
+    CODE              Offs=00582E  Size=00000B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(zerobss.o):
-    CODE              Offs=0024EB  Size=000023  Align=00001  Fill=0000
+    CODE              Offs=005839  Size=000023  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(zeropage.o):
     ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
 
@@ -204,180 +223,214 @@ ZEROPAGE              000002  00001B  00001A  00001
 LOADADDR              0007FF  000800  000002  00001
 EXEHDR                000801  00080C  00000C  00001
 STARTUP               00080D  00083F  000033  00001
-CODE                  000840  002D4D  00250E  00001
-RODATA                002D4E  003187  00043A  00001
-DATA                  003188  0031D5  00004E  00001
-INIT                  0031D6  0031F1  00001C  00001
-BSS                   0031F2  003514  000323  00001
-ONCE                  0031F2  003217  000026  00001
+CODE                  000840  00609B  00585C  00001
+RODATA                00609C  006CDE  000C43  00001
+DATA                  006CDF  006D24  000046  00001
+INIT                  006D25  006D40  00001C  00001
+BSS                   006D41  007601  0008C1  00001
+ONCE                  006D41  006D66  000026  00001
 
 
 Exports list by name:
 ---------------------
-BSOUT                     00FFD2 RLA    __BSS_RUN__               0031F2 RLA    
-__BSS_SIZE__              000323 REA    __CONSTRUCTOR_COUNT__     000000 REA    
-__CONSTRUCTOR_TABLE__     003218 RLA    __DESTRUCTOR_COUNT__      000000 REA    
-__DESTRUCTOR_TABLE__      003188 RLA    __EXEHDR__                000001 REA    
+BSOUT                     00FFD2 RLA    __BSS_RUN__               006D41 RLA    
+__BSS_SIZE__              0008C1 REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__CONSTRUCTOR_TABLE__     006D67 RLA    __DESTRUCTOR_COUNT__      000000 REA    
+__DESTRUCTOR_TABLE__      006CDF RLA    __EXEHDR__                000001 REA    
 __HEADER_LAST__           00080D RLA    __HIMEM__                 00D000 REA    
 __LOADADDR__              000001 REA    __MAIN_SIZE__             00C7F3 REA    
-__MAIN_START__            00080D RLA    __ONCE_RUN__              0031F2 RLA    
+__MAIN_START__            00080D RLA    __ONCE_RUN__              006D41 RLA    
 __STACKSIZE__             000800 REA    __STARTUP__               000001 REA    
-___directerrno            0022FB RLA    ___errno                  003512 RLA    
-___oserror                0034E6 RLA    ___seterrno               0026A7 RLA    
-__ctype                   0030FD RLA    __ctypeidx                003108 RLA    
-__hextab                  0030E1 RLA    __longminstr              0030F1 RLA    
-__printf                  0023F6 RLA    _bgcolor                  002760 RLA    
-_bordercolor              0026F2 RLA    _cgetc                    002711 RLA    
-_clrscr                   00E544 REA    _forum_create_post        00086A RLA    
-_forum_get_name           000BA7 RLA    _forum_get_post           000B85 RLA    
-_forum_init               000840 RLA    _forum_update_all_posts   000957 RLA    
-_ftp_get                  000CA2 RLA    _ftp_init                 000BCC RLA    
-_ftp_scan                 000BF9 RLA    _game_state               003319 RLA    
-_gamestate_add_reputation 000DD0 RLA    _gamestate_advance_turn   000D86 RLA    
-_gamestate_check_rank_up  000D9E RLA    _gamestate_init           000D28 RLA    
-_gamestate_start_game     000D55 RLA    _input_check_quit         000E5D RLA    
-_input_init               000DFD RLA    _input_read_menu          000DFE RLA    
-_input_wait_key           000E48 RLA    _kbhit                    00283B RLA    
-_ltoa                     0028BD RLA    _main                     0010B4 RLA    
-_memcpy                   002966 RLA    _random_init              001166 RLA    
-_random_range             0011AF RLA    _rank_apply_bonuses       0012C1 RLA    
-_rank_get_name            001254 RLA    _rank_get_next            001279 RLA    
-_release_add              00146A RLA    _release_count_active     0014F1 RLA    
-_release_generate         00135A RLA    _release_get              0014CA RLA    
-_release_init             00132D RLA    _screen_clear             001538 RLA    
-_screen_init              001526 RLA    _screen_print_number      0015EB RLA    
-_screen_set_char          00157E RLA    _sprintf                  002B1B RLA    
-_strlen                   002B82 RLA    _strlower                 002B98 RLA    
-_textcolor                002758 RLA    _ui_init                  001683 RLA    
-_ui_print_centered        00189F RLA    _ui_render_hud            001686 RLA    
-_ui_show_forum_post       0020CD RLA    _ui_show_fxp_anim         001F27 RLA    
-_ui_show_game_over        002250 RLA    _ui_show_hub              001B26 RLA    
-_ui_show_menu             001AF0 RLA    _ui_show_rank_up          0021BC RLA    
-_ui_show_scan_anim        001D05 RLA    _ui_show_splash           001AB7 RLA    
-_ui_show_topsite          001D6D RLA    _ultoa                    0028FE RLA    
-_vsprintf                 002D0E RLA    _waitvsync                002D20 RLA    
-addysp                    0026CD RLA    addysp1                   0026CC RLA    
-aslax2                    0026DA RLA    axlong                    0026E5 RLA    
-axulong                   0026EB RLA    boolult                   002959 RLA    
-c_sp                      000002 RLZ    callmain                  0026FA RLA    
-ctypemaskdirect           002778 RLA    cursor                    0034E5 RLA    
-decaxy                    002792 RLA    decsp4                    00279B RLA    
-decsp6                    0027A8 RLA    donelib                   002768 RLA    
-incax1                    0027F8 RLA    incaxy                    002801 RLA    
-incsp1                    00280A RLA    incsp2                    002819 RLA    
-incsp3                    002827 RLA    incsp4                    00282C RLA    
-incsp5                    002831 RLA    incsp6                    002836 RLA    
-initlib                   0031F2 RLA    ldax0sp                   002851 RLA    
-ldaxi                     002844 RLA    ldaxidx                   002846 RLA    
-ldaxysp                   002853 RLA    ldptr1ysp                 00285C RLA    
-mul8x16                   0029FA RLA    mul8x16a                  002A04 RLA    
-mulax10                   002A32 RLA    mulax7                    002A4B RLA    
-mulax9                    002A64 RLA    negax                     002A7F RLA    
-negeax                    002866 RLA    popax                     002811 RLA    
-popptr1                   002A8D RLA    popsargsudiv16            002AFB RLA    
-ptr1                      00000A RLZ    ptr2                      00000C RLZ    
-ptr3                      00000E RLZ    ptr4                      000010 RLZ    
-push1                     002A9B RLA    pusha                     002AA4 RLA    
-pusha0                    002AB8 RLA    pushax                    002ABA RLA    
-pusheax                   00288D RLA    pushw                     002AD0 RLA    
-pushw0sp                  002ADF RLA    pushwidx                  002AD2 RLA    
-pushwysp                  002AE1 RLA    regbank                   000016 RLZ    
-sreg                      000004 RLZ    staspidx                  002B46 RLA    
-staxspidx                 002B67 RLA    staxysp                   002B5E RLA    
+___directerrno            00552A RLA    ___errno                  0075FF RLA    
+___oserror                0075D3 RLA    ___seterrno               0058D6 RLA    
+__ctype                   006C54 RLA    __ctypeidx                006C5F RLA    
+__hextab                  006C38 RLA    __longminstr              006C48 RLA    
+__printf                  005625 RLA    _bgcolor                  0059A5 RLA    
+_bordercolor              005937 RLA    _cgetc                    005956 RLA    
+_clrscr                   00E544 REA    _forum_create_post        000888 RLA    
+_forum_get_name           000D19 RLA    _forum_get_post           000CF2 RLA    
+_forum_has_post           000D3E RLA    _forum_init               000840 RLA    
+_forum_update_all_posts   0009FC RLA    _ftp_add_release          001015 RLA    
+_ftp_get                  000F8F RLA    _ftp_has_space            0010E4 RLA    
+_ftp_init                 000DD9 RLA    _ftp_process_raids        001451 RLA    
+_ftp_scan                 000E5A RLA    _ftp_update_all_risks     0012FF RLA    
+_ftps                     006DD8 RLA    _game_state               006F25 RLA    
+_gamestate_add_reputation 001588 RLA    _gamestate_advance_turn   00153E RLA    
+_gamestate_can_use_action 0015B5 RLA    _gamestate_check_rank_up  001556 RLA    
+_gamestate_init           0014A7 RLA    _gamestate_start_game     0014F1 RLA    
+_gamestate_use_action     0015BB RLA    _groups                   006445 RLA    
+_hardware_tiers           0060E7 RLA    _input_check_quit         001655 RLA    
+_input_init               0015CB RLA    _input_read_menu          0015CC RLA    
+_input_wait_key           001640 RLA    _kbhit                    005A87 RLA    
+_ltoa                     005B65 RLA    _main                     00201B RLA    
+_memcpy                   005C88 RLA    _posts                    006D41 RLA    
+_random_init              00234F RLA    _random_range             002398 RLA    
+_rank_apply_bonuses       0024AA RLA    _rank_get_name            00243D RLA    
+_rank_get_next            002462 RLA    _release_add              00290A RLA    
+_release_cleanup_unused   002BCB RLA    _release_generate         00252B RLA    
+_release_get              002B51 RLA    _release_init             0024FE RLA    
+_screen_clear             002D48 RLA    _screen_init              002D36 RLA    
+_screen_print_number      002DFB RLA    _screen_set_char          002D8E RLA    
+_sprintf                  005E5F RLA    _strlen                   005EC6 RLA    
+_strlower                 005EDC RLA    _textcolor                00599D RLA    
+_topsite_allows_category  002E93 RLA    _topsites                 006474 RLA    
+_ui_init                  002EF7 RLA    _ui_print_centered        003114 RLA    
+_ui_print_string          00306F RLA    _ui_render_hud            002EFA RLA    
+_ui_show_event            00530C RLA    _ui_show_forum_post       0046E1 RLA    
+_ui_show_ftp_select       003C40 RLA    _ui_show_ftps             004BCD RLA    
+_ui_show_fxp_anim         004056 RLA    _ui_show_game_over        0048AA RLA    
+_ui_show_hardware_shop    004F13 RLA    _ui_show_hub              00362B RLA    
+_ui_show_menu             0035F5 RLA    _ui_show_raid_alert       005170 RLA    
+_ui_show_rank_up          004816 RLA    _ui_show_release_select   004201 RLA    
+_ui_show_scan_anim        00383D RLA    _ui_show_splash           0035BC RLA    
+_ui_show_stats            004955 RLA    _ui_show_topsite          0039FD RLA    
+_ui_show_topsite_list     0038A5 RLA    _ultoa                    005BA6 RLA    
+_vsprintf                 00605C RLA    _waitvsync                00606E RLA    
+addysp                    0058FC RLA    addysp1                   0058FB RLA    
+aslax2                    005911 RLA    axlong                    00591C RLA    
+axulong                   005922 RLA    bnegax                    005929 RLA    
+boolne                    005C5C RLA    booluge                   005C83 RLA    
+boolult                   005C7B RLA    c_sp                      000002 RLZ    
+callmain                  00593F RLA    ctypemaskdirect           0059BD RLA    
+cursor                    0075D2 RLA    decax1                    0059D7 RLA    
+decaxy                    0059DE RLA    decsp4                    0059E7 RLA    
+decsp6                    0059F4 RLA    donelib                   0059AD RLA    
+incax1                    005A44 RLA    incaxy                    005A4D RLA    
+incsp1                    005A56 RLA    incsp2                    005A65 RLA    
+incsp3                    005A73 RLA    incsp4                    005A78 RLA    
+incsp5                    005A7D RLA    incsp6                    005A82 RLA    
+initlib                   006D41 RLA    ldax0sp                   005A9D RLA    
+ldaxi                     005A90 RLA    ldaxidx                   005A92 RLA    
+ldaxysp                   005A9F RLA    ldptr10sp                 005AA6 RLA    
+ldptr1ysp                 005AA8 RLA    mul8x16                   005D1C RLA    
+mul8x16a                  005D26 RLA    mulax10                   005D54 RLA    
+mulax3                    005D6D RLA    mulax5                    005D7E RLA    
+mulax6                    005D92 RLA    mulax9                    005DA8 RLA    
+negax                     005DC3 RLA    negeax                    005B0E RLA    
+popax                     005A5D RLA    popptr1                   005DD1 RLA    
+popsargsudiv16            005E3F RLA    ptr1                      00000A RLZ    
+ptr2                      00000C RLZ    ptr3                      00000E RLZ    
+ptr4                      000010 RLZ    push1                     005DDF RLA    
+pusha                     005DE8 RLA    pusha0                    005DFC RLA    
+pushax                    005DFE RLA    pusheax                   005B35 RLA    
+pushw                     005E14 RLA    pushw0sp                  005E23 RLA    
+pushwidx                  005E16 RLA    pushwysp                  005E25 RLA    
+regbank                   000016 RLZ    shlax1                    005909 RLA    
+sreg                      000004 RLZ    staspidx                  005E8A RLA    
+staxspidx                 005EAB RLA    staxysp                   005EA2 RLA    
 tmp1                      000012 RLZ    tmp2                      000013 RLZ    
-tosadda0                  0026B0 RLA    tosaddax                  0026B2 RLA    
-tosdiva0                  0027B5 RLA    tosicmp                   0027CC RLA    
-tosmoda0                  0029A2 RLA    tosmodax                  0029A4 RLA    
-tosmula0                  0029F8 RLA    tosmulax                  0029B3 RLA    
-tossuba0                  002BBF RLA    tosudiva0                 002BD4 RLA    
-tosudivax                 002BD6 RLA    tosumoda0                 002C23 RLA    
-tosumula0                 0029F8 RLA    udiv16                    002BE5 RLA    
-vsnprintf                 002C37 RLA    zerobss                   002D2B RLA    
-
+tmp3                      000014 RLZ    tmp4                      000015 RLZ    
+tosaddax                  0058E1 RLA    tosdiva0                  005A01 RLA    
+tosicmp                   005A18 RLA    tosicmp0                  005A16 RLA    
+tosmoda0                  005CC4 RLA    tosmodax                  005CC6 RLA    
+tosmula0                  005D1A RLA    tosmulax                  005CD5 RLA    
+tossuba0                  005F03 RLA    tosudiv0ax                005BE2 RLA    
+tosudiva0                 005F18 RLA    tosudivax                 005F1A RLA    
+tosugeax                  005F6B RLA    tosumoda0                 005F71 RLA    
+tosumula0                 005D1A RLA    tosumuleax                005AB8 RLA    
+udiv16                    005F29 RLA    vsnprintf                 005F85 RLA    
+zerobss                   006079 RLA    
 
 
 Exports list by value:
 ----------------------
-__CONSTRUCTOR_COUNT__     000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
-__EXEHDR__                000001 REA    __STARTUP__               000001 REA    
+__DESTRUCTOR_COUNT__      000000 REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__STARTUP__               000001 REA    __EXEHDR__                000001 REA    
 __LOADADDR__              000001 REA    c_sp                      000002 RLZ    
 sreg                      000004 RLZ    ptr1                      00000A RLZ    
 ptr2                      00000C RLZ    ptr3                      00000E RLZ    
 ptr4                      000010 RLZ    tmp1                      000012 RLZ    
-tmp2                      000013 RLZ    regbank                   000016 RLZ    
-__BSS_SIZE__              000323 REA    __STACKSIZE__             000800 REA    
-__MAIN_START__            00080D RLA    __HEADER_LAST__           00080D RLA    
-_forum_init               000840 RLA    _forum_create_post        00086A RLA    
-_forum_update_all_posts   000957 RLA    _forum_get_post           000B85 RLA    
-_forum_get_name           000BA7 RLA    _ftp_init                 000BCC RLA    
-_ftp_scan                 000BF9 RLA    _ftp_get                  000CA2 RLA    
-_gamestate_init           000D28 RLA    _gamestate_start_game     000D55 RLA    
-_gamestate_advance_turn   000D86 RLA    _gamestate_check_rank_up  000D9E RLA    
-_gamestate_add_reputation 000DD0 RLA    _input_init               000DFD RLA    
-_input_read_menu          000DFE RLA    _input_wait_key           000E48 RLA    
-_input_check_quit         000E5D RLA    _main                     0010B4 RLA    
-_random_init              001166 RLA    _random_range             0011AF RLA    
-_rank_get_name            001254 RLA    _rank_get_next            001279 RLA    
-_rank_apply_bonuses       0012C1 RLA    _release_init             00132D RLA    
-_release_generate         00135A RLA    _release_add              00146A RLA    
-_release_get              0014CA RLA    _release_count_active     0014F1 RLA    
-_screen_init              001526 RLA    _screen_clear             001538 RLA    
-_screen_set_char          00157E RLA    _screen_print_number      0015EB RLA    
-_ui_init                  001683 RLA    _ui_render_hud            001686 RLA    
-_ui_print_centered        00189F RLA    _ui_show_splash           001AB7 RLA    
-_ui_show_menu             001AF0 RLA    _ui_show_hub              001B26 RLA    
-_ui_show_scan_anim        001D05 RLA    _ui_show_topsite          001D6D RLA    
-_ui_show_fxp_anim         001F27 RLA    _ui_show_forum_post       0020CD RLA    
-_ui_show_rank_up          0021BC RLA    _ui_show_game_over        002250 RLA    
-___directerrno            0022FB RLA    __printf                  0023F6 RLA    
-___seterrno               0026A7 RLA    tosadda0                  0026B0 RLA    
-tosaddax                  0026B2 RLA    addysp1                   0026CC RLA    
-addysp                    0026CD RLA    aslax2                    0026DA RLA    
-axlong                    0026E5 RLA    axulong                   0026EB RLA    
-_bordercolor              0026F2 RLA    callmain                  0026FA RLA    
-_cgetc                    002711 RLA    _textcolor                002758 RLA    
-_bgcolor                  002760 RLA    donelib                   002768 RLA    
-ctypemaskdirect           002778 RLA    decaxy                    002792 RLA    
-decsp4                    00279B RLA    decsp6                    0027A8 RLA    
-tosdiva0                  0027B5 RLA    tosicmp                   0027CC RLA    
-incax1                    0027F8 RLA    incaxy                    002801 RLA    
-incsp1                    00280A RLA    popax                     002811 RLA    
-incsp2                    002819 RLA    incsp3                    002827 RLA    
-incsp4                    00282C RLA    incsp5                    002831 RLA    
-incsp6                    002836 RLA    _kbhit                    00283B RLA    
-ldaxi                     002844 RLA    ldaxidx                   002846 RLA    
-ldax0sp                   002851 RLA    ldaxysp                   002853 RLA    
-ldptr1ysp                 00285C RLA    negeax                    002866 RLA    
-pusheax                   00288D RLA    _ltoa                     0028BD RLA    
-_ultoa                    0028FE RLA    boolult                   002959 RLA    
-_memcpy                   002966 RLA    tosmoda0                  0029A2 RLA    
-tosmodax                  0029A4 RLA    tosmulax                  0029B3 RLA    
-tosmula0                  0029F8 RLA    tosumula0                 0029F8 RLA    
-mul8x16                   0029FA RLA    mul8x16a                  002A04 RLA    
-mulax10                   002A32 RLA    mulax7                    002A4B RLA    
-mulax9                    002A64 RLA    negax                     002A7F RLA    
-popptr1                   002A8D RLA    push1                     002A9B RLA    
-pusha                     002AA4 RLA    pusha0                    002AB8 RLA    
-pushax                    002ABA RLA    pushw                     002AD0 RLA    
-pushwidx                  002AD2 RLA    pushw0sp                  002ADF RLA    
-pushwysp                  002AE1 RLA    popsargsudiv16            002AFB RLA    
-_sprintf                  002B1B RLA    staspidx                  002B46 RLA    
-staxysp                   002B5E RLA    staxspidx                 002B67 RLA    
-_strlen                   002B82 RLA    _strlower                 002B98 RLA    
-tossuba0                  002BBF RLA    tosudiva0                 002BD4 RLA    
-tosudivax                 002BD6 RLA    udiv16                    002BE5 RLA    
-tosumoda0                 002C23 RLA    vsnprintf                 002C37 RLA    
-_vsprintf                 002D0E RLA    _waitvsync                002D20 RLA    
-zerobss                   002D2B RLA    __hextab                  0030E1 RLA    
-__longminstr              0030F1 RLA    __ctype                   0030FD RLA    
-__ctypeidx                003108 RLA    __DESTRUCTOR_TABLE__      003188 RLA    
-initlib                   0031F2 RLA    __ONCE_RUN__              0031F2 RLA    
-__BSS_RUN__               0031F2 RLA    __CONSTRUCTOR_TABLE__     003218 RLA    
-_game_state               003319 RLA    cursor                    0034E5 RLA    
-___oserror                0034E6 RLA    ___errno                  003512 RLA    
-__MAIN_SIZE__             00C7F3 REA    __HIMEM__                 00D000 REA    
-_clrscr                   00E544 REA    BSOUT                     00FFD2 RLA    
-
+tmp2                      000013 RLZ    tmp3                      000014 RLZ    
+tmp4                      000015 RLZ    regbank                   000016 RLZ    
+__STACKSIZE__             000800 REA    __HEADER_LAST__           00080D RLA    
+__MAIN_START__            00080D RLA    _forum_init               000840 RLA    
+_forum_create_post        000888 RLA    __BSS_SIZE__              0008C1 REA    
+_forum_update_all_posts   0009FC RLA    _forum_get_post           000CF2 RLA    
+_forum_get_name           000D19 RLA    _forum_has_post           000D3E RLA    
+_ftp_init                 000DD9 RLA    _ftp_scan                 000E5A RLA    
+_ftp_get                  000F8F RLA    _ftp_add_release          001015 RLA    
+_ftp_has_space            0010E4 RLA    _ftp_update_all_risks     0012FF RLA    
+_ftp_process_raids        001451 RLA    _gamestate_init           0014A7 RLA    
+_gamestate_start_game     0014F1 RLA    _gamestate_advance_turn   00153E RLA    
+_gamestate_check_rank_up  001556 RLA    _gamestate_add_reputation 001588 RLA    
+_gamestate_can_use_action 0015B5 RLA    _gamestate_use_action     0015BB RLA    
+_input_init               0015CB RLA    _input_read_menu          0015CC RLA    
+_input_wait_key           001640 RLA    _input_check_quit         001655 RLA    
+_main                     00201B RLA    _random_init              00234F RLA    
+_random_range             002398 RLA    _rank_get_name            00243D RLA    
+_rank_get_next            002462 RLA    _rank_apply_bonuses       0024AA RLA    
+_release_init             0024FE RLA    _release_generate         00252B RLA    
+_release_add              00290A RLA    _release_get              002B51 RLA    
+_release_cleanup_unused   002BCB RLA    _screen_init              002D36 RLA    
+_screen_clear             002D48 RLA    _screen_set_char          002D8E RLA    
+_screen_print_number      002DFB RLA    _topsite_allows_category  002E93 RLA    
+_ui_init                  002EF7 RLA    _ui_render_hud            002EFA RLA    
+_ui_print_string          00306F RLA    _ui_print_centered        003114 RLA    
+_ui_show_splash           0035BC RLA    _ui_show_menu             0035F5 RLA    
+_ui_show_hub              00362B RLA    _ui_show_scan_anim        00383D RLA    
+_ui_show_topsite_list     0038A5 RLA    _ui_show_topsite          0039FD RLA    
+_ui_show_ftp_select       003C40 RLA    _ui_show_fxp_anim         004056 RLA    
+_ui_show_release_select   004201 RLA    _ui_show_forum_post       0046E1 RLA    
+_ui_show_rank_up          004816 RLA    _ui_show_game_over        0048AA RLA    
+_ui_show_stats            004955 RLA    _ui_show_ftps             004BCD RLA    
+_ui_show_hardware_shop    004F13 RLA    _ui_show_raid_alert       005170 RLA    
+_ui_show_event            00530C RLA    ___directerrno            00552A RLA    
+__printf                  005625 RLA    ___seterrno               0058D6 RLA    
+tosaddax                  0058E1 RLA    addysp1                   0058FB RLA    
+addysp                    0058FC RLA    shlax1                    005909 RLA    
+aslax2                    005911 RLA    axlong                    00591C RLA    
+axulong                   005922 RLA    bnegax                    005929 RLA    
+_bordercolor              005937 RLA    callmain                  00593F RLA    
+_cgetc                    005956 RLA    _textcolor                00599D RLA    
+_bgcolor                  0059A5 RLA    donelib                   0059AD RLA    
+ctypemaskdirect           0059BD RLA    decax1                    0059D7 RLA    
+decaxy                    0059DE RLA    decsp4                    0059E7 RLA    
+decsp6                    0059F4 RLA    tosdiva0                  005A01 RLA    
+tosicmp0                  005A16 RLA    tosicmp                   005A18 RLA    
+incax1                    005A44 RLA    incaxy                    005A4D RLA    
+incsp1                    005A56 RLA    popax                     005A5D RLA    
+incsp2                    005A65 RLA    incsp3                    005A73 RLA    
+incsp4                    005A78 RLA    incsp5                    005A7D RLA    
+incsp6                    005A82 RLA    _kbhit                    005A87 RLA    
+ldaxi                     005A90 RLA    ldaxidx                   005A92 RLA    
+ldax0sp                   005A9D RLA    ldaxysp                   005A9F RLA    
+ldptr10sp                 005AA6 RLA    ldptr1ysp                 005AA8 RLA    
+tosumuleax                005AB8 RLA    negeax                    005B0E RLA    
+pusheax                   005B35 RLA    _ltoa                     005B65 RLA    
+_ultoa                    005BA6 RLA    tosudiv0ax                005BE2 RLA    
+boolne                    005C5C RLA    boolult                   005C7B RLA    
+booluge                   005C83 RLA    _memcpy                   005C88 RLA    
+tosmoda0                  005CC4 RLA    tosmodax                  005CC6 RLA    
+tosmulax                  005CD5 RLA    tosumula0                 005D1A RLA    
+tosmula0                  005D1A RLA    mul8x16                   005D1C RLA    
+mul8x16a                  005D26 RLA    mulax10                   005D54 RLA    
+mulax3                    005D6D RLA    mulax5                    005D7E RLA    
+mulax6                    005D92 RLA    mulax9                    005DA8 RLA    
+negax                     005DC3 RLA    popptr1                   005DD1 RLA    
+push1                     005DDF RLA    pusha                     005DE8 RLA    
+pusha0                    005DFC RLA    pushax                    005DFE RLA    
+pushw                     005E14 RLA    pushwidx                  005E16 RLA    
+pushw0sp                  005E23 RLA    pushwysp                  005E25 RLA    
+popsargsudiv16            005E3F RLA    _sprintf                  005E5F RLA    
+staspidx                  005E8A RLA    staxysp                   005EA2 RLA    
+staxspidx                 005EAB RLA    _strlen                   005EC6 RLA    
+_strlower                 005EDC RLA    tossuba0                  005F03 RLA    
+tosudiva0                 005F18 RLA    tosudivax                 005F1A RLA    
+udiv16                    005F29 RLA    tosugeax                  005F6B RLA    
+tosumoda0                 005F71 RLA    vsnprintf                 005F85 RLA    
+_vsprintf                 00605C RLA    _waitvsync                00606E RLA    
+zerobss                   006079 RLA    _hardware_tiers           0060E7 RLA    
+_groups                   006445 RLA    _topsites                 006474 RLA    
+__hextab                  006C38 RLA    __longminstr              006C48 RLA    
+__ctype                   006C54 RLA    __ctypeidx                006C5F RLA    
+__DESTRUCTOR_TABLE__      006CDF RLA    __ONCE_RUN__              006D41 RLA    
+__BSS_RUN__               006D41 RLA    _posts                    006D41 RLA    
+initlib                   006D41 RLA    __CONSTRUCTOR_TABLE__     006D67 RLA    
+_ftps                     006DD8 RLA    _game_state               006F25 RLA    
+cursor                    0075D2 RLA    ___oserror                0075D3 RLA    
+___errno                  0075FF RLA    __MAIN_SIZE__             00C7F3 REA    
+__HIMEM__                 00D000 REA    _clrscr                   00E544 REA    
+BSOUT                     00FFD2 RLA    
 
 
 Imports list:
@@ -416,7 +469,7 @@ __ONCE_RUN__ ([linker generated]):
 __STACKSIZE__ ([linker generated]):
     [linker generated]        C:\bin\cc65\cfg/c64.cfg:15
 __STARTUP__ (crt0.o):
-    main.o                    build/main.c.43156.0.s:13
+    main.o                    build/main.c.50448.0.s:13
 ___directerrno (_directerrno.o):
     vsnprintf.o               /home/runner/work/cc65/cc65/asminc/errno.inc:10
 ___errno (errno.o):
@@ -436,141 +489,198 @@ __longminstr (_longminstr.o):
 __printf (_printf.o):
     vsnprintf.o               common/vsnprintf.s:10
 _bgcolor (color.o):
-    screen.o                  build/screen.c.28468.0.s:15
+    screen.o                  build/screen.c.56356.0.s:15
 _bordercolor (bordercolor.o):
-    screen.o                  build/screen.c.28468.0.s:16
+    screen.o                  build/screen.c.56356.0.s:16
 _cgetc (cgetc.o):
-    ui.o                      build/ui.c.31080.0.s:15
-    input.o                   build/input.c.32864.0.s:18
+    ui.o                      build/ui.c.21948.0.s:15
+    input.o                   build/input.c.23452.0.s:18
 _clrscr (clrscr.o):
-    screen.o                  build/screen.c.28468.0.s:13
+    screen.o                  build/screen.c.56356.0.s:13
 _forum_create_post (forum.o):
-    main.o                    build/main.c.43156.0.s:34
+    main.o                    build/main.c.50448.0.s:46
 _forum_get_name (forum.o):
-    ui.o                      build/ui.c.31080.0.s:40
+    ui.o                      build/ui.c.21948.0.s:49
 _forum_get_post (forum.o):
-    ui.o                      build/ui.c.31080.0.s:39
+    ui.o                      build/ui.c.21948.0.s:48
+    main.o                    build/main.c.50448.0.s:48
+_forum_has_post (forum.o):
+    ui.o                      build/ui.c.21948.0.s:50
+    main.o                    build/main.c.50448.0.s:49
 _forum_init (forum.o):
-    main.o                    build/main.c.43156.0.s:33
+    main.o                    build/main.c.50448.0.s:45
 _forum_update_all_posts (forum.o):
-    main.o                    build/main.c.43156.0.s:35
+    main.o                    build/main.c.50448.0.s:47
+_ftp_add_release (ftp.o):
+    main.o                    build/main.c.50448.0.s:35
 _ftp_get (ftp.o):
-    main.o                    build/main.c.43156.0.s:27
+    ui.o                      build/ui.c.21948.0.s:53
+    main.o                    build/main.c.50448.0.s:34
+    forum.o                   build/forum.c.62224.0.s:21
+_ftp_has_space (ftp.o):
+    ui.o                      build/ui.c.21948.0.s:54
+    main.o                    build/main.c.50448.0.s:36
 _ftp_init (ftp.o):
-    main.o                    build/main.c.43156.0.s:25
+    main.o                    build/main.c.50448.0.s:32
+_ftp_process_raids (ftp.o):
+    main.o                    build/main.c.50448.0.s:38
 _ftp_scan (ftp.o):
-    main.o                    build/main.c.43156.0.s:26
+    main.o                    build/main.c.50448.0.s:33
+_ftp_update_all_risks (ftp.o):
+    main.o                    build/main.c.50448.0.s:37
+_ftps (ftp.o):
+    ui.o                      build/ui.c.21948.0.s:52
+    release.o                 build/release.c.12280.0.s:23
+    main.o                    build/main.c.50448.0.s:31
 _game_state (gamestate.o):
-    ui.o                      build/ui.c.31080.0.s:37
-    rank.o                    build/rank.c.14908.0.s:17
-    main.o                    build/main.c.43156.0.s:20
-    ftp.o                     build/ftp.c.34844.0.s:19
-    forum.o                   build/forum.c.47396.0.s:21
+    ui.o                      build/ui.c.21948.0.s:45
+    rank.o                    build/rank.c.49124.0.s:17
+    main.o                    build/main.c.50448.0.s:22
+    ftp.o                     build/ftp.c.11008.0.s:31
+    forum.o                   build/forum.c.62224.0.s:24
 _gamestate_add_reputation (gamestate.o):
-    forum.o                   build/forum.c.47396.0.s:22
+    main.o                    build/main.c.50448.0.s:27
+    forum.o                   build/forum.c.62224.0.s:25
 _gamestate_advance_turn (gamestate.o):
-    main.o                    build/main.c.43156.0.s:23
+    main.o                    build/main.c.50448.0.s:25
+_gamestate_can_use_action (gamestate.o):
+    main.o                    build/main.c.50448.0.s:28
 _gamestate_check_rank_up (gamestate.o):
-    main.o                    build/main.c.43156.0.s:24
+    main.o                    build/main.c.50448.0.s:26
 _gamestate_init (gamestate.o):
-    main.o                    build/main.c.43156.0.s:21
+    main.o                    build/main.c.50448.0.s:23
 _gamestate_start_game (gamestate.o):
-    main.o                    build/main.c.43156.0.s:22
+    main.o                    build/main.c.50448.0.s:24
+_gamestate_use_action (gamestate.o):
+    main.o                    build/main.c.50448.0.s:29
+_groups (release.o):
+    forum.o                   build/forum.c.62224.0.s:22
+_hardware_tiers (ftp.o):
+    ui.o                      build/ui.c.21948.0.s:51
+    main.o                    build/main.c.50448.0.s:30
 _input_check_quit (input.o):
-    ui.o                      build/ui.c.31080.0.s:43
-    main.o                    build/main.c.43156.0.s:18
+    ui.o                      build/ui.c.21948.0.s:57
+    main.o                    build/main.c.50448.0.s:19
 _input_init (input.o):
-    main.o                    build/main.c.43156.0.s:15
+    main.o                    build/main.c.50448.0.s:16
 _input_read_menu (input.o):
-    ui.o                      build/ui.c.31080.0.s:41
-    main.o                    build/main.c.43156.0.s:16
+    ui.o                      build/ui.c.21948.0.s:55
+    main.o                    build/main.c.50448.0.s:17
 _input_wait_key (input.o):
-    ui.o                      build/ui.c.31080.0.s:42
-    main.o                    build/main.c.43156.0.s:17
+    ui.o                      build/ui.c.21948.0.s:56
+    main.o                    build/main.c.50448.0.s:18
 _kbhit (kbhit.o):
-    ui.o                      build/ui.c.31080.0.s:14
-    input.o                   build/input.c.32864.0.s:17
+    ui.o                      build/ui.c.21948.0.s:14
+    input.o                   build/input.c.23452.0.s:17
 _ltoa (ltoa.o):
     _printf.o                 common/_printf.s:12
 _main (main.o):
     callmain.o                runtime/callmain.s:11
 _memcpy (memcpy.o):
     vsnprintf.o               common/vsnprintf.s:10
-    release.o                 build/release.c.24300.0.s:380
-    ftp.o                     build/ftp.c.34844.0.s:299
+    release.o                 build/release.c.12280.0.s:25
+    ftp.o                     build/ftp.c.11008.0.s:1182
+_posts (forum.o):
+    ui.o                      build/ui.c.21948.0.s:47
+    release.o                 build/release.c.12280.0.s:24
+    ftp.o                     build/ftp.c.11008.0.s:29
 _random_init (random.o):
-    main.o                    build/main.c.43156.0.s:19
+    main.o                    build/main.c.50448.0.s:20
 _random_range (random.o):
-    release.o                 build/release.c.24300.0.s:19
-    ftp.o                     build/ftp.c.34844.0.s:18
-    forum.o                   build/forum.c.47396.0.s:23
+    release.o                 build/release.c.12280.0.s:22
+    main.o                    build/main.c.50448.0.s:21
+    ftp.o                     build/ftp.c.11008.0.s:30
+    forum.o                   build/forum.c.62224.0.s:26
 _rank_apply_bonuses (rank.o):
-    gamestate.o               build/gamestate.c.51036.0.s:20
+    gamestate.o               build/gamestate.c.40688.0.s:22
 _rank_get_name (rank.o):
-    ui.o                      build/ui.c.31080.0.s:38
+    ui.o                      build/ui.c.21948.0.s:46
 _rank_get_next (rank.o):
-    gamestate.o               build/gamestate.c.51036.0.s:19
+    gamestate.o               build/gamestate.c.40688.0.s:21
 _release_add (release.o):
-    main.o                    build/main.c.43156.0.s:30
-_release_count_active (release.o):
-    main.o                    build/main.c.43156.0.s:32
+    main.o                    build/main.c.50448.0.s:42
+_release_cleanup_unused (release.o):
+    main.o                    build/main.c.50448.0.s:44
 _release_generate (release.o):
-    main.o                    build/main.c.43156.0.s:29
+    main.o                    build/main.c.50448.0.s:41
 _release_get (release.o):
-    ui.o                      build/ui.c.31080.0.s:16
-    main.o                    build/main.c.43156.0.s:31
-    forum.o                   build/forum.c.47396.0.s:20
+    ui.o                      build/ui.c.21948.0.s:16
+    main.o                    build/main.c.50448.0.s:43
+    forum.o                   build/forum.c.62224.0.s:23
 _release_init (release.o):
-    main.o                    build/main.c.43156.0.s:28
+    main.o                    build/main.c.50448.0.s:40
 _screen_clear (screen.o):
-    ui.o                      build/ui.c.31080.0.s:34
-    main.o                    build/main.c.43156.0.s:14
+    ui.o                      build/ui.c.21948.0.s:42
+    main.o                    build/main.c.50448.0.s:14
 _screen_init (screen.o):
-    ui.o                      build/ui.c.31080.0.s:33
+    ui.o                      build/ui.c.21948.0.s:41
 _screen_print_number (screen.o):
-    ui.o                      build/ui.c.31080.0.s:36
+    ui.o                      build/ui.c.21948.0.s:44
+    main.o                    build/main.c.50448.0.s:15
 _screen_set_char (screen.o):
-    ui.o                      build/ui.c.31080.0.s:35
+    ui.o                      build/ui.c.21948.0.s:43
 _sprintf (sprintf.o):
-    release.o                 build/release.c.24300.0.s:20
-    ftp.o                     build/ftp.c.34844.0.s:20
+    ui.o                      build/ui.c.21948.0.s:58
+    ftp.o                     build/ftp.c.11008.0.s:32
 _strlen (strlen.o):
     _printf.o                 common/_printf.s:13
-    ui.o                      build/ui.c.31080.0.s:44
+    ui.o                      build/ui.c.21948.0.s:59
 _strlower (strlower.o):
     _printf.o                 common/_printf.s:13
 _textcolor (color.o):
-    screen.o                  build/screen.c.28468.0.s:14
+    screen.o                  build/screen.c.56356.0.s:14
+_topsite_allows_category (topsite.o):
+    release.o                 build/release.c.12280.0.s:21
+_topsites (topsite.o):
+    main.o                    build/main.c.50448.0.s:39
 _ui_init (ui.o):
-    main.o                    build/main.c.43156.0.s:36
+    main.o                    build/main.c.50448.0.s:50
 _ui_print_centered (ui.o):
-    main.o                    build/main.c.43156.0.s:38
+    main.o                    build/main.c.50448.0.s:53
+_ui_print_string (ui.o):
+    main.o                    build/main.c.50448.0.s:52
 _ui_render_hud (ui.o):
-    main.o                    build/main.c.43156.0.s:37
+    main.o                    build/main.c.50448.0.s:51
+_ui_show_event (ui.o):
+    main.o                    build/main.c.50448.0.s:70
 _ui_show_forum_post (ui.o):
-    main.o                    build/main.c.43156.0.s:45
+    main.o                    build/main.c.50448.0.s:63
+_ui_show_ftp_select (ui.o):
+    main.o                    build/main.c.50448.0.s:60
+_ui_show_ftps (ui.o):
+    main.o                    build/main.c.50448.0.s:67
 _ui_show_fxp_anim (ui.o):
-    main.o                    build/main.c.43156.0.s:44
+    main.o                    build/main.c.50448.0.s:61
 _ui_show_game_over (ui.o):
-    main.o                    build/main.c.43156.0.s:47
+    main.o                    build/main.c.50448.0.s:65
+_ui_show_hardware_shop (ui.o):
+    main.o                    build/main.c.50448.0.s:68
 _ui_show_hub (ui.o):
-    main.o                    build/main.c.43156.0.s:41
+    main.o                    build/main.c.50448.0.s:56
 _ui_show_menu (ui.o):
-    main.o                    build/main.c.43156.0.s:40
+    main.o                    build/main.c.50448.0.s:55
+_ui_show_raid_alert (ui.o):
+    main.o                    build/main.c.50448.0.s:69
 _ui_show_rank_up (ui.o):
-    main.o                    build/main.c.43156.0.s:46
+    main.o                    build/main.c.50448.0.s:64
+_ui_show_release_select (ui.o):
+    main.o                    build/main.c.50448.0.s:62
 _ui_show_scan_anim (ui.o):
-    main.o                    build/main.c.43156.0.s:42
+    main.o                    build/main.c.50448.0.s:57
 _ui_show_splash (ui.o):
-    main.o                    build/main.c.43156.0.s:39
+    main.o                    build/main.c.50448.0.s:54
+_ui_show_stats (ui.o):
+    main.o                    build/main.c.50448.0.s:66
 _ui_show_topsite (ui.o):
-    main.o                    build/main.c.43156.0.s:43
+    main.o                    build/main.c.50448.0.s:59
+_ui_show_topsite_list (ui.o):
+    main.o                    build/main.c.50448.0.s:58
 _ultoa (ltoa.o):
     _printf.o                 common/_printf.s:12
 _vsprintf (vsprintf.o):
     sprintf.o                 common/sprintf.s:8
 _waitvsync (waitvsync.o):
-    ui.o                      build/ui.c.31080.0.s:13
+    ui.o                      build/ui.c.21948.0.s:13
 addysp (addysp.o):
     sprintf.o                 common/sprintf.s:8
     incsp6.o                  runtime/incsp6.s:8
@@ -579,17 +689,30 @@ addysp (addysp.o):
     incsp3.o                  runtime/incsp3.s:8
 addysp1 (addysp.o):
     sub.o                     runtime/sub.s:8
+    ludiv.o                   runtime/ludiv.s:9
+    lmul.o                    runtime/lmul.s:9
 aslax2 (aslax2.o):
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
+    release.o                 build/release.c.12280.0.s:1164
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
 axlong (axlong.o):
     _printf.o                 common/_printf.s:11
+    forum.o                   build/forum.c.62224.0.s:832
 axulong (axlong.o):
     _printf.o                 common/_printf.s:11
+    forum.o                   build/forum.c.62224.0.s:832
+bnegax (bneg.o):
+    main.o                    build/main.c.50448.0.s:1667
+boolne (makebool.o):
+    topsite.o                 build/topsite.c.37152.0.s:96
+    gamestate.o               build/gamestate.c.40688.0.s:237
+booluge (makebool.o):
+    uge.o                     runtime/uge.s:8
 boolult (makebool.o):
-    ftp.o                     build/ftp.c.34844.0.s:299
+    main.o                    build/main.c.50448.0.s:1667
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
 c_sp (zeropage.o):
-    lpush.o                   runtime/lpush.s:13
     decsp6.o                  runtime/decsp6.s:8
     _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
     vsnprintf.o               common/vsnprintf.s:11
@@ -605,6 +728,9 @@ c_sp (zeropage.o):
     pusha.o                   runtime/pusha.s:8
     popptr1.o                 runtime/popptr1.s:9
     memcpy.o                  common/memcpy.s:15
+    ludiv.o                   runtime/ludiv.s:10
+    lpush.o                   runtime/lpush.s:13
+    lmul.o                    runtime/lmul.s:10
     ldptr1sp.o                runtime/ldptr1sp.s:8
     ldaxsp.o                  runtime/ldaxsp.s:8
     incsp2.o                  runtime/incsp2.s:8
@@ -612,117 +738,164 @@ c_sp (zeropage.o):
     icmp.o                    runtime/icmp.s:9
     crt0.o                    /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
     add.o                     runtime/add.s:12
-    ui.o                      build/ui.c.31080.0.s:10
-    screen.o                  build/screen.c.28468.0.s:10
-    release.o                 build/release.c.24300.0.s:10
-    rank.o                    build/rank.c.14908.0.s:10
-    random.o                  build/random.c.20268.0.s:10
-    input.o                   build/input.c.32864.0.s:10
-    gamestate.o               build/gamestate.c.51036.0.s:10
-    ftp.o                     build/ftp.c.34844.0.s:10
-    forum.o                   build/forum.c.47396.0.s:10
+    ui.o                      build/ui.c.21948.0.s:10
+    topsite.o                 build/topsite.c.37152.0.s:10
+    screen.o                  build/screen.c.56356.0.s:10
+    release.o                 build/release.c.12280.0.s:10
+    rank.o                    build/rank.c.49124.0.s:10
+    random.o                  build/random.c.27568.0.s:10
+    input.o                   build/input.c.23452.0.s:10
+    gamestate.o               build/gamestate.c.40688.0.s:10
+    ftp.o                     build/ftp.c.11008.0.s:10
+    forum.o                   build/forum.c.62224.0.s:10
 callmain (callmain.o):
     crt0.o                    c64/crt0.s:9
 ctypemaskdirect (ctypemask.o):
     strlower.o                common/strlower.s:14
 cursor (_cursor.o):
     cgetc.o                   c64/cgetc.s:8
+decax1 (decax1.o):
+    ui.o                      build/ui.c.21948.0.s:4923
 decaxy (decaxy.o):
-    input.o                   build/input.c.32864.0.s:139
+    input.o                   build/input.c.23452.0.s:160
 decsp4 (decsp4.o):
-    lpush.o                   runtime/lpush.s:12
     sprintf.o                 common/sprintf.s:8
+    lpush.o                   runtime/lpush.s:12
 decsp6 (decsp6.o):
     _printf.o                 common/_printf.s:11
 donelib (condes.o):
     crt0.o                    c64/crt0.s:8
 incax1 (incax1.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    release.o                 build/release.c.24300.0.s:380
-    rank.o                    build/rank.c.14908.0.s:211
-    main.o                    build/main.c.43156.0.s:482
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    main.o                    build/main.c.50448.0.s:1667
+    forum.o                   build/forum.c.62224.0.s:832
 incaxy (incaxy.o):
-    screen.o                  build/screen.c.28468.0.s:254
-    rank.o                    build/rank.c.14908.0.s:211
-    random.o                  build/random.c.20268.0.s:183
-    input.o                   build/input.c.32864.0.s:139
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    random.o                  build/random.c.27568.0.s:183
+    main.o                    build/main.c.50448.0.s:1667
+    input.o                   build/input.c.23452.0.s:160
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
 incsp1 (incsp1.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    release.o                 build/release.c.24300.0.s:380
-    rank.o                    build/rank.c.14908.0.s:211
-    input.o                   build/input.c.32864.0.s:139
-    gamestate.o               build/gamestate.c.51036.0.s:180
-    ftp.o                     build/ftp.c.34844.0.s:299
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    input.o                   build/input.c.23452.0.s:160
+    gamestate.o               build/gamestate.c.40688.0.s:237
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
 incsp2 (incsp2.o):
     vsnprintf.o               common/vsnprintf.s:9
     staxspi.o                 runtime/staxspi.s:9
     staspidx.o                runtime/staspidx.s:8
     popptr1.o                 runtime/popptr1.s:8
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
-    release.o                 build/release.c.24300.0.s:380
-    random.o                  build/random.c.20268.0.s:183
-    gamestate.o               build/gamestate.c.51036.0.s:180
-    ftp.o                     build/ftp.c.34844.0.s:299
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    topsite.o                 build/topsite.c.37152.0.s:96
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
+    random.o                  build/random.c.27568.0.s:183
+    gamestate.o               build/gamestate.c.40688.0.s:237
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    forum.o                   build/forum.c.62224.0.s:832
 incsp3 (incsp3.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    release.o                 build/release.c.24300.0.s:380
-    rank.o                    build/rank.c.14908.0.s:211
-    random.o                  build/random.c.20268.0.s:183
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    random.o                  build/random.c.27568.0.s:183
+    forum.o                   build/forum.c.62224.0.s:832
 incsp4 (incsp4.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    screen.o                  build/screen.c.56356.0.s:254
 incsp5 (incsp5.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
 incsp6 (incsp6.o):
     vsnprintf.o               common/vsnprintf.s:9
-    screen.o                  build/screen.c.28468.0.s:254
+    screen.o                  build/screen.c.56356.0.s:254
 initlib (condes.o):
     crt0.o                    c64/crt0.s:8
 ldax0sp (ldaxsp.o):
-    gamestate.o               build/gamestate.c.51036.0.s:180
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
+    gamestate.o               build/gamestate.c.40688.0.s:237
 ldaxi (ldaxi.o):
-    rank.o                    build/rank.c.14908.0.s:211
-    forum.o                   build/forum.c.47396.0.s:581
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    forum.o                   build/forum.c.62224.0.s:832
 ldaxidx (ldaxi.o):
-    rank.o                    build/rank.c.14908.0.s:211
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    forum.o                   build/forum.c.62224.0.s:832
 ldaxysp (ldaxsp.o):
     vsnprintf.o               common/vsnprintf.s:9
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    release.o                 build/release.c.24300.0.s:380
-    random.o                  build/random.c.20268.0.s:183
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
+    random.o                  build/random.c.27568.0.s:183
+ldptr10sp (ldptr1sp.o):
+    release.o                 build/release.c.12280.0.s:1164
 ldptr1ysp (ldptr1sp.o):
-    release.o                 build/release.c.24300.0.s:380
-    random.o                  build/random.c.20268.0.s:183
+    release.o                 build/release.c.12280.0.s:1164
+    random.o                  build/random.c.27568.0.s:183
 mul8x16 (mul8.o):
     mul.o                     runtime/mul.s:8
 mul8x16a (mul8.o):
     mul.o                     runtime/mul.s:8
 mulax10 (mulax10.o):
-    screen.o                  build/screen.c.28468.0.s:254
-mulax7 (mulax7.o):
-    rank.o                    build/rank.c.14908.0.s:211
-    rank.o                    build/rank.c.14908.0.s:211
-    rank.o                    build/rank.c.14908.0.s:211
+    screen.o                  build/screen.c.56356.0.s:254
+mulax3 (mulax3.o):
+    ui.o                      build/ui.c.21948.0.s:4923
+mulax5 (mulax5.o):
+    topsite.o                 build/topsite.c.37152.0.s:96
+    main.o                    build/main.c.50448.0.s:1667
+mulax6 (mulax6.o):
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    rank.o                    build/rank.c.49124.0.s:195
+    rank.o                    build/rank.c.49124.0.s:195
 mulax9 (mulax9.o):
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    main.o                    build/main.c.50448.0.s:1667
+    ftp.o                     build/ftp.c.11008.0.s:1182
 negax (negabs.o):
     shelp.o                   runtime/shelp.s:11
     mod.o                     runtime/mod.s:11
@@ -759,30 +932,39 @@ ptr1 (zeropage.o):
     pushw.o                   runtime/pushw.s:9
     popptr1.o                 runtime/popptr1.s:9
     mulax9.o                  runtime/mulax9.s:10
-    mulax7.o                  runtime/mulax7.s:10
+    mulax6.o                  runtime/mulax6.s:9
+    mulax5.o                  runtime/mulax5.s:9
+    mulax3.o                  runtime/mulax3.s:9
     mulax10.o                 runtime/mulax10.s:9
     mul8.o                    runtime/mul8.s:10
     mul.o                     runtime/mul.s:10
     memcpy.o                  common/memcpy.s:15
+    ludiv.o                   runtime/ludiv.s:10
+    lmul.o                    runtime/lmul.s:10
     ldptr1sp.o                runtime/ldptr1sp.s:8
     ldaxi.o                   runtime/ldaxi.s:8
     div.o                     runtime/div.s:12
-    ui.o                      build/ui.c.31080.0.s:11
-    screen.o                  build/screen.c.28468.0.s:11
-    release.o                 build/release.c.24300.0.s:11
-    rank.o                    build/rank.c.14908.0.s:11
-    random.o                  build/random.c.20268.0.s:11
-    main.o                    build/main.c.43156.0.s:11
-    ftp.o                     build/ftp.c.34844.0.s:11
-    forum.o                   build/forum.c.47396.0.s:11
+    ui.o                      build/ui.c.21948.0.s:11
+    topsite.o                 build/topsite.c.37152.0.s:11
+    screen.o                  build/screen.c.56356.0.s:11
+    release.o                 build/release.c.12280.0.s:11
+    rank.o                    build/rank.c.49124.0.s:11
+    random.o                  build/random.c.27568.0.s:11
+    main.o                    build/main.c.50448.0.s:11
+    ftp.o                     build/ftp.c.11008.0.s:11
+    forum.o                   build/forum.c.62224.0.s:11
 ptr2 (zeropage.o):
     strlower.o                common/strlower.s:13
     ltoa.o                    common/ltoa.s:11
     _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:12
     memcpy.o                  common/memcpy.s:15
+    ludiv.o                   runtime/ludiv.s:10
+    ftp.o                     build/ftp.c.11008.0.s:11
 ptr3 (zeropage.o):
     ltoa.o                    common/ltoa.s:11
     memcpy.o                  common/memcpy.s:15
+    ludiv.o                   runtime/ludiv.s:10
+    lmul.o                    runtime/lmul.s:10
 ptr4 (zeropage.o):
     umod.o                    runtime/umod.s:9
     udiv.o                    runtime/udiv.s:10
@@ -790,134 +972,207 @@ ptr4 (zeropage.o):
     shelp.o                   runtime/shelp.s:12
     mul8.o                    runtime/mul8.s:10
     mul.o                     runtime/mul.s:10
+    ludiv.o                   runtime/ludiv.s:10
+    lmul.o                    runtime/lmul.s:10
 push1 (push1.o):
     _printf.o                 common/_printf.s:11
 pusha (pusha.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
-    screen.o                  build/screen.c.28468.0.s:254
-    screen.o                  build/screen.c.28468.0.s:254
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    rank.o                    build/rank.c.14908.0.s:211
-    random.o                  build/random.c.20268.0.s:183
-    random.o                  build/random.c.20268.0.s:183
-    main.o                    build/main.c.43156.0.s:482
-    main.o                    build/main.c.43156.0.s:482
-    input.o                   build/input.c.32864.0.s:139
-    gamestate.o               build/gamestate.c.51036.0.s:180
-    gamestate.o               build/gamestate.c.51036.0.s:180
-    ftp.o                     build/ftp.c.34844.0.s:299
-    ftp.o                     build/ftp.c.34844.0.s:299
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    topsite.o                 build/topsite.c.37152.0.s:96
+    screen.o                  build/screen.c.56356.0.s:254
+    screen.o                  build/screen.c.56356.0.s:254
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    random.o                  build/random.c.27568.0.s:183
+    random.o                  build/random.c.27568.0.s:183
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    input.o                   build/input.c.23452.0.s:160
+    gamestate.o               build/gamestate.c.40688.0.s:237
+    gamestate.o               build/gamestate.c.40688.0.s:237
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
 pusha0 (pushax.o):
     push1.o                   runtime/push1.s:8
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    rank.o                    build/rank.c.14908.0.s:211
-    random.o                  build/random.c.20268.0.s:183
-    main.o                    build/main.c.43156.0.s:482
-    input.o                   build/input.c.32864.0.s:139
-    ftp.o                     build/ftp.c.34844.0.s:299
-    ftp.o                     build/ftp.c.34844.0.s:299
-    ftp.o                     build/ftp.c.34844.0.s:299
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    random.o                  build/random.c.27568.0.s:183
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
 pushax (pushax.o):
     _printf.o                 common/_printf.s:11
     callmain.o                runtime/callmain.s:11
     pushw.o                   runtime/pushw.s:8
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    rank.o                    build/rank.c.14908.0.s:211
-    random.o                  build/random.c.20268.0.s:183
-    random.o                  build/random.c.20268.0.s:183
-    main.o                    build/main.c.43156.0.s:482
-    main.o                    build/main.c.43156.0.s:482
-    main.o                    build/main.c.43156.0.s:482
-    gamestate.o               build/gamestate.c.51036.0.s:180
-    ftp.o                     build/ftp.c.34844.0.s:299
-    ftp.o                     build/ftp.c.34844.0.s:299
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    rank.o                    build/rank.c.49124.0.s:195
+    random.o                  build/random.c.27568.0.s:183
+    random.o                  build/random.c.27568.0.s:183
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    gamestate.o               build/gamestate.c.40688.0.s:237
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    forum.o                   build/forum.c.62224.0.s:832
 pusheax (lpush.o):
     _printf.o                 common/_printf.s:11
+    forum.o                   build/forum.c.62224.0.s:832
 pushw (pushw.o):
-    release.o                 build/release.c.24300.0.s:380
-    ftp.o                     build/ftp.c.34844.0.s:299
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    main.o                    build/main.c.50448.0.s:1667
+    ftp.o                     build/ftp.c.11008.0.s:1182
 pushw0sp (pushwsp.o):
     vsprintf.o                common/vsprintf.s:8
-    rank.o                    build/rank.c.14908.0.s:211
+    rank.o                    build/rank.c.49124.0.s:195
 pushwidx (pushw.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    main.o                    build/main.c.43156.0.s:482
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
 pushwysp (pushwsp.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    ftp.o                     build/ftp.c.34844.0.s:299
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    ftp.o                     build/ftp.c.11008.0.s:1182
 regbank (zeropage.o):
     _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:14
+shlax1 (aslax1.o):
+    main.o                    build/main.c.50448.0.s:1667
 sreg (zeropage.o):
     lneg.o                    runtime/lneg.s:11
     ltoa.o                    common/ltoa.s:11
-    lpush.o                   runtime/lpush.s:13
-    axlong.o                  runtime/axlong.s:9
     _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
     umod.o                    runtime/umod.s:9
     udiv.o                    runtime/udiv.s:10
     mod.o                     runtime/mod.s:12
+    ludiv.o                   runtime/ludiv.s:10
+    lpush.o                   runtime/lpush.s:13
+    lmul.o                    runtime/lmul.s:10
     icmp.o                    runtime/icmp.s:9
-    ui.o                      build/ui.c.31080.0.s:10
-    random.o                  build/random.c.20268.0.s:10
-    forum.o                   build/forum.c.47396.0.s:10
+    axlong.o                  runtime/axlong.s:9
+    ui.o                      build/ui.c.21948.0.s:10
+    release.o                 build/release.c.12280.0.s:10
+    random.o                  build/random.c.27568.0.s:10
+    main.o                    build/main.c.50448.0.s:10
+    ftp.o                     build/ftp.c.11008.0.s:10
+    forum.o                   build/forum.c.62224.0.s:10
 staspidx (staspidx.o):
-    release.o                 build/release.c.24300.0.s:380
-    forum.o                   build/forum.c.47396.0.s:581
+    release.o                 build/release.c.12280.0.s:1164
+    forum.o                   build/forum.c.62224.0.s:832
 staxspidx (staxspi.o):
-    release.o                 build/release.c.24300.0.s:380
+    release.o                 build/release.c.12280.0.s:1164
 staxysp (staxsp.o):
     vsprintf.o                common/vsprintf.s:8
 tmp1 (zeropage.o):
@@ -932,60 +1187,102 @@ tmp1 (zeropage.o):
     div.o                     runtime/div.s:12
     decaxy.o                  runtime/decaxy.s:8
     aslax2.o                  runtime/aslax2.s:8
+    aslax1.o                  runtime/aslax1.s:8
     add.o                     runtime/add.s:12
+    main.o                    build/main.c.50448.0.s:11
 tmp2 (zeropage.o):
     shelp.o                   runtime/shelp.s:12
+    lmul.o                    runtime/lmul.s:10
     div.o                     runtime/div.s:12
-tosadda0 (add.o):
-    ui.o                      build/ui.c.31080.0.s:1739
+tmp3 (zeropage.o):
+    ludiv.o                   runtime/ludiv.s:10
+    lmul.o                    runtime/lmul.s:10
+tmp4 (zeropage.o):
+    ludiv.o                   runtime/ludiv.s:10
+    lmul.o                    runtime/lmul.s:10
 tosaddax (add.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    random.o                  build/random.c.20268.0.s:183
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    random.o                  build/random.c.27568.0.s:183
+    forum.o                   build/forum.c.62224.0.s:832
 tosdiva0 (div.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    forum.o                   build/forum.c.62224.0.s:832
 tosicmp (icmp.o):
-    rank.o                    build/rank.c.14908.0.s:211
-    rank.o                    build/rank.c.14908.0.s:211
-    input.o                   build/input.c.32864.0.s:139
+    uge.o                     runtime/uge.s:8
+    rank.o                    build/rank.c.49124.0.s:195
+    rank.o                    build/rank.c.49124.0.s:195
+    main.o                    build/main.c.50448.0.s:1667
+tosicmp0 (icmp.o):
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
 tosmoda0 (mod.o):
-    ui.o                      build/ui.c.31080.0.s:1739
+    ui.o                      build/ui.c.21948.0.s:4923
 tosmodax (mod.o):
-    random.o                  build/random.c.20268.0.s:183
+    random.o                  build/random.c.27568.0.s:183
 tosmula0 (mul8.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    release.o                 build/release.c.24300.0.s:380
-    main.o                    build/main.c.43156.0.s:482
-    ftp.o                     build/ftp.c.34844.0.s:299
-    ftp.o                     build/ftp.c.34844.0.s:299
-    ftp.o                     build/ftp.c.34844.0.s:299
-    forum.o                   build/forum.c.47396.0.s:581
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    release.o                 build/release.c.12280.0.s:1164
+    main.o                    build/main.c.50448.0.s:1667
+    main.o                    build/main.c.50448.0.s:1667
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    ftp.o                     build/ftp.c.11008.0.s:1182
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
+    forum.o                   build/forum.c.62224.0.s:832
 tosmulax (mul.o):
-    forum.o                   build/forum.c.47396.0.s:581
+    forum.o                   build/forum.c.62224.0.s:832
 tossuba0 (sub.o):
-    random.o                  build/random.c.20268.0.s:183
-    forum.o                   build/forum.c.47396.0.s:581
+    random.o                  build/random.c.27568.0.s:183
+    forum.o                   build/forum.c.62224.0.s:832
+tosudiv0ax (ludiv.o):
+    forum.o                   build/forum.c.62224.0.s:832
 tosudiva0 (udiv.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
-    main.o                    build/main.c.43156.0.s:482
+    ui.o                      build/ui.c.21948.0.s:4923
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
+    ftp.o                     build/ftp.c.11008.0.s:1182
 tosudivax (udiv.o):
-    screen.o                  build/screen.c.28468.0.s:254
+    screen.o                  build/screen.c.56356.0.s:254
+    main.o                    build/main.c.50448.0.s:1667
+tosugeax (uge.o):
+    ui.o                      build/ui.c.21948.0.s:4923
 tosumoda0 (umod.o):
-    screen.o                  build/screen.c.28468.0.s:254
+    screen.o                  build/screen.c.56356.0.s:254
+    release.o                 build/release.c.12280.0.s:1164
 tosumula0 (mul8.o):
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    ui.o                      build/ui.c.31080.0.s:1739
-    screen.o                  build/screen.c.28468.0.s:254
-    random.o                  build/random.c.20268.0.s:183
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    ui.o                      build/ui.c.21948.0.s:4923
+    screen.o                  build/screen.c.56356.0.s:254
+    random.o                  build/random.c.27568.0.s:183
+tosumuleax (lmul.o):
+    forum.o                   build/forum.c.62224.0.s:832
 udiv16 (udiv.o):
     umod.o                    runtime/umod.s:8
     shelp.o                   runtime/shelp.s:11

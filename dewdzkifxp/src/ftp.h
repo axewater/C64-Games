@@ -6,11 +6,23 @@
 #define MAX_FTP_SERVERS 8
 #define MAX_RELEASES_PER_FTP 5  /* Limited storage (NEW) */
 
+/* Hardware upgrade tier structure */
+typedef struct {
+    const char* name;          /* e.g., "FREE DIALUP" */
+    uint16_t rep_cost;         /* Reputation required */
+    uint8_t ftps_min;          /* Min FTPs found on success */
+    uint8_t ftps_max;          /* Max FTPs found on success */
+    uint8_t fail_rate;         /* Failure % (0-100) */
+    uint16_t bandwidth;        /* Bandwidth in KB/s */
+} HardwareTier;
+
+extern const HardwareTier hardware_tiers[6];
+
 /* FTP Server structure */
 typedef struct {
     uint8_t active;
     char name[20];
-    uint8_t bandwidth;              /* 10-100 MB/s */
+    uint16_t bandwidth;             /* Bandwidth in KB/s (64-512) */
     uint8_t status;                 /* 0=closed, 1=open */
 
     /* Release storage on this FTP (NEW) */
@@ -29,7 +41,7 @@ extern FTPServer ftps[MAX_FTP_SERVERS];
 /* Initialize FTP system */
 void ftp_init(void);
 
-/* Scan for new public FTP (80% success rate) */
+/* Scan for new public FTP - returns number of FTPs found (0 on failure) */
 uint8_t ftp_scan(void);
 
 /* Get FTP server by index */

@@ -1,5 +1,8 @@
 #include "release.h"
+#include "topsite.h"
 #include "random.h"
+#include "ftp.h"
+#include "forum.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -49,7 +52,11 @@ void release_generate(Release* rel, uint8_t topsite_idx) {
     uint8_t available_groups[5];
     uint8_t group_count;
     uint8_t group_idx;
+    uint8_t available_categories[4];
+    uint8_t category_count;
+    uint8_t category_idx;
     uint8_t i;
+    uint8_t game_size_choice;
 
     /* Ensure topsite index is valid */
     if (topsite_idx >= 3) {
@@ -71,17 +78,45 @@ void release_generate(Release* rel, uint8_t topsite_idx) {
     group_idx = random_range(0, group_count);
     rel->group = available_groups[group_idx];
 
+    /* Build list of allowed categories for this topsite */
+    category_count = 0;
+    for (i = 0; i < 4; i++) {
+        if (topsite_allows_category(topsite_idx, i)) {
+            available_categories[category_count++] = i;
+        }
+    }
+
+    /* Select random category from allowed */
+    if (category_count > 0) {
+        category_idx = random_range(0, category_count);
+        rel->category = available_categories[category_idx];
+    } else {
+        rel->category = CATEGORY_APP;  /* Fallback */
+    }
+
     rel->active = 1;
     rel->quality = random_range(quality_min, quality_max + 1);
-    rel->category = random_range(0, 4);
 
-    /* Size based on category */
+    /* Size based on category - realistic scene sizes */
     if (rel->category == CATEGORY_MOVIE) {
-        rel->size_mb = random_range(700, 1501);
+        /* Movies are 700 MB (CD-R size) */
+        rel->size_mb = 700;
     } else if (rel->category == CATEGORY_APP) {
-        rel->size_mb = random_range(50, 301);
+        /* Apps are small: 5-50 MB */
+        rel->size_mb = random_range(5, 51);
+    } else if (rel->category == CATEGORY_GAME) {
+        /* Games: 700 MB (1 CD), 1400 MB (2 CDs), or 2300 MB (3+ CDs) */
+        game_size_choice = random_range(0, 3);
+        if (game_size_choice == 0) {
+            rel->size_mb = 700;
+        } else if (game_size_choice == 1) {
+            rel->size_mb = 1400;
+        } else {
+            rel->size_mb = 2300;
+        }
     } else {
-        rel->size_mb = random_range(200, 701);
+        /* XXX: similar to movies */
+        rel->size_mb = 700;
     }
 
     /* Generate name - manual string building for C64 reliability */
@@ -125,6 +160,7 @@ void release_generate(Release* rel, uint8_t topsite_idx) {
 uint8_t release_add(Release* rel) {
     uint8_t i;
 
+    /* First try to find empty slot */
     for (i = 0; i < MAX_RELEASES; i++) {
         if (!releases[i].active) {
             /* Use memcpy to copy entire struct */
@@ -144,7 +180,24 @@ uint8_t release_add(Release* rel) {
         }
     }
 
-    return 255;  /* Pool full */
+    /* Pool full - try cleanup and retry once */
+    if (release_cleanup_unused() > 0) {
+        /* Cleanup successful, try again */
+        for (i = 0; i < MAX_RELEASES; i++) {
+            if (!releases[i].active) {
+                memcpy(&releases[i], rel, sizeof(Release));
+                releases[i].active = 1;
+                releases[i].size_mb = rel->size_mb;
+                releases[i].quality = rel->quality;
+                releases[i].category = rel->category;
+                releases[i].group = rel->group;
+                releases[i].name[19] = '\0';
+                return i;
+            }
+        }
+    }
+
+    return 255;  /* Pool full even after cleanup */
 }
 
 Release* release_get(uint8_t index) {
@@ -170,4 +223,60 @@ uint8_t release_count_active(void) {
     }
 
     return count;
+}
+
+uint8_t release_cleanup_unused(void) {
+    uint8_t i, j, k;
+    uint8_t in_use;
+    uint8_t cleaned = 0;
+
+    /* Cleanup releases that are:
+     * - Not on any active FTP
+     * - Not referenced by any active non-nuked post
+     */
+    for (i = 0; i < MAX_RELEASES; i++) {
+        if (!releases[i].active) {
+            continue;  /* Already inactive */
+        }
+
+        in_use = 0;
+
+        /* Check if release is on any active FTP */
+        for (j = 0; j < MAX_FTP_SERVERS; j++) {
+            if (!ftps[j].active) {
+                continue;
+            }
+
+            for (k = 0; k < ftps[j].release_count; k++) {
+                if (ftps[j].releases[k] == i) {
+                    in_use = 1;
+                    break;
+                }
+            }
+
+            if (in_use) {
+                break;
+            }
+        }
+
+        if (in_use) {
+            continue;  /* Release is on an FTP, keep it */
+        }
+
+        /* Check if release has any active non-nuked posts */
+        for (j = 0; j < MAX_POSTS; j++) {
+            if (posts[j].active && posts[j].release_id == i && !posts[j].nuked) {
+                in_use = 1;
+                break;
+            }
+        }
+
+        if (!in_use) {
+            /* Release is not used anywhere, free it */
+            releases[i].active = 0;
+            cleaned++;
+        }
+    }
+
+    return cleaned;
 }
