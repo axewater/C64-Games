@@ -72,26 +72,87 @@ void ui_draw_progress_bar(uint8_t x, uint8_t y, uint8_t width, uint8_t percent) 
 }
 
 void ui_animate_matrix(uint8_t frame) {
-    /* Optimized: Only update a small scanning line instead of full matrix */
-    uint8_t x;
-    uint8_t y;
-    uint8_t scan_row;
+    /* Radar sweep animation - sweeps in a circle like a radar scanner */
+    uint8_t angle;
+    uint8_t prev_angle;
+    uint8_t cx, cy;  /* Center point */
+    uint8_t radius;
+    int8_t dx, dy;
+    uint8_t x, y;
 
-    /* Calculate which row to draw the scanning line on (moves down) */
-    scan_row = 6 + (frame % 9);
+    /* Center of scan area */
+    cx = 20;
+    cy = 10;
 
-    /* Clear previous scan line (row above) */
-    if (frame > 0) {
-        y = 6 + ((frame - 1) % 9);
-        for (x = 5; x < 35; x++) {
+    /* Current angle (0-15 for 16 directions, wrapping for multiple sweeps) */
+    angle = frame % 16;
+    prev_angle = (frame > 0) ? ((frame - 1) % 16) : 15;
+
+    /* Clear previous sweep line */
+    for (radius = 1; radius < 12; radius++) {
+        /* Calculate direction based on previous angle (16 directions) */
+        if (prev_angle == 0) { dx = 0; dy = -1; }        /* N */
+        else if (prev_angle == 1) { dx = 1; dy = -1; }   /* NE */
+        else if (prev_angle == 2) { dx = 1; dy = -1; }   /* NE */
+        else if (prev_angle == 3) { dx = 1; dy = 0; }    /* E */
+        else if (prev_angle == 4) { dx = 1; dy = 0; }    /* E */
+        else if (prev_angle == 5) { dx = 1; dy = 1; }    /* SE */
+        else if (prev_angle == 6) { dx = 1; dy = 1; }    /* SE */
+        else if (prev_angle == 7) { dx = 0; dy = 1; }    /* S */
+        else if (prev_angle == 8) { dx = 0; dy = 1; }    /* S */
+        else if (prev_angle == 9) { dx = -1; dy = 1; }   /* SW */
+        else if (prev_angle == 10) { dx = -1; dy = 1; }  /* SW */
+        else if (prev_angle == 11) { dx = -1; dy = 0; }  /* W */
+        else if (prev_angle == 12) { dx = -1; dy = 0; }  /* W */
+        else if (prev_angle == 13) { dx = -1; dy = -1; } /* NW */
+        else if (prev_angle == 14) { dx = -1; dy = -1; } /* NW */
+        else { dx = 0; dy = -1; }                        /* N */
+
+        x = cx + (dx * radius) / 2;
+        y = cy + (dy * radius) / 3;
+
+        if (x >= 5 && x < 35 && y >= 6 && y < 15) {
             screen_set_char(x, y, ' ', COLOR_BLACK);
         }
     }
 
-    /* Draw new scan line */
-    for (x = 5; x < 35; x++) {
-        screen_set_char(x, scan_row, '-', COLOR_CYAN);
+    /* Draw new sweep line in current direction */
+    for (radius = 1; radius < 12; radius++) {
+        /* Calculate direction based on current angle */
+        if (angle == 0) { dx = 0; dy = -1; }        /* N */
+        else if (angle == 1) { dx = 1; dy = -1; }   /* NE */
+        else if (angle == 2) { dx = 1; dy = -1; }   /* NE */
+        else if (angle == 3) { dx = 1; dy = 0; }    /* E */
+        else if (angle == 4) { dx = 1; dy = 0; }    /* E */
+        else if (angle == 5) { dx = 1; dy = 1; }    /* SE */
+        else if (angle == 6) { dx = 1; dy = 1; }    /* SE */
+        else if (angle == 7) { dx = 0; dy = 1; }    /* S */
+        else if (angle == 8) { dx = 0; dy = 1; }    /* S */
+        else if (angle == 9) { dx = -1; dy = 1; }   /* SW */
+        else if (angle == 10) { dx = -1; dy = 1; }  /* SW */
+        else if (angle == 11) { dx = -1; dy = 0; }  /* W */
+        else if (angle == 12) { dx = -1; dy = 0; }  /* W */
+        else if (angle == 13) { dx = -1; dy = -1; } /* NW */
+        else if (angle == 14) { dx = -1; dy = -1; } /* NW */
+        else { dx = 0; dy = -1; }                   /* N */
+
+        x = cx + (dx * radius) / 2;
+        y = cy + (dy * radius) / 3;
+
+        if (x >= 5 && x < 35 && y >= 6 && y < 15) {
+            /* Bright at the tip, dimmer further back */
+            if (radius > 8) {
+                screen_set_char(x, y, 160, COLOR_CYAN);  /* Solid block */
+            } else if (radius > 4) {
+                screen_set_char(x, y, '+', COLOR_CYAN);
+            } else {
+                screen_set_char(x, y, '.', COLOR_BLUE);
+            }
+        }
     }
+
+    /* Draw center dot */
+    screen_set_char(cx, cy, 'O', COLOR_GREEN);
 }
 
 void ui_render_hud(void) {
@@ -197,8 +258,8 @@ void ui_show_scan_anim(void) {
     ui_print_centered(3, "SCANNING FOR PUBLIC FTPS", COLOR_CYAN);
     ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
 
-    /* Optimized: Only 9 frames (one scan line sweep) - MUCH faster! */
-    for (frame = 0; frame < 9; frame++) {
+    /* Radar sweep: 48 frames = 3 full rotations (16 directions x 3) */
+    for (frame = 0; frame < 48; frame++) {
         ui_animate_matrix(frame);
 
         /* Simple delay */
@@ -384,11 +445,23 @@ uint8_t ui_show_release_select(uint8_t* out_ftp_idx, uint8_t* out_release_idx) {
             rel = release_get(rel_id);
 
             if (rel && rel->active) {
+                uint8_t posted;
+                uint8_t name_color;
+
+                /* Check if this release has been posted */
+                posted = forum_has_post(rel_id, ftp_idx);
+                name_color = posted ? COLOR_GRAY2 : COLOR_WHITE;
+
                 screen_set_char(4, row, '[', COLOR_WHITE);
                 screen_print_number(5, row, menu_idx + 1, 1, COLOR_YELLOW);
                 screen_set_char(6, row, ']', COLOR_WHITE);
 
-                ui_print_string(8, row, rel->name, COLOR_WHITE);
+                ui_print_string(8, row, rel->name, name_color);
+
+                /* Show [POSTED] indicator if already posted */
+                if (posted) {
+                    ui_print_string(29, row, "[POSTED]", COLOR_GRAY2);
+                }
 
                 /* Store mapping */
                 selection_map[menu_idx][0] = ftp_idx;
