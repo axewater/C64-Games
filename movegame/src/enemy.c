@@ -119,10 +119,13 @@ void enemy_init(void) {
     sprite_load_enemy_data();
 }
 
-void enemy_spawn(uint8_t type) {
+void enemy_spawn(uint8_t type, uint16_t player_x, uint16_t player_y) {
     uint8_t i;
     uint8_t edge;
     uint8_t sprite_ptr;
+    uint8_t attempts;
+    int16_t dx, dy;
+    uint16_t dist_sq;
 
     /* Find free slot */
     for (i = 0; i < MAX_ENEMIES; i++) {
@@ -158,26 +161,42 @@ void enemy_spawn(uint8_t type) {
             /* Set sprite pointer */
             SPRITE_PTRS[enemies[i].sprite_num] = sprite_ptr;
 
-            /* Spawn from random edge */
-            edge = random_get() & 3; // 0-3
-            switch (edge) {
-                case 0: // Top
-                    enemies[i].x = 24 + (random_get() % 296);
-                    enemies[i].y = 50;
-                    break;
-                case 1: // Bottom
-                    enemies[i].x = 24 + (random_get() % 296);
-                    enemies[i].y = 229;
-                    break;
-                case 2: // Left
-                    enemies[i].x = 24;
-                    enemies[i].y = 50 + (random_get() % 179);
-                    break;
-                case 3: // Right
-                    enemies[i].x = 320;
-                    enemies[i].y = 50 + (random_get() % 179);
-                    break;
-            }
+            /* Spawn from random edge, ensure minimum distance from player */
+            /* Minimum distance: 80 pixels (approximately 1/3 of screen) */
+            attempts = 0;
+            do {
+                edge = random_get() & 3; // 0-3
+                switch (edge) {
+                    case 0: // Top
+                        enemies[i].x = 24 + (random_get() % 296);
+                        enemies[i].y = 50;
+                        break;
+                    case 1: // Bottom
+                        enemies[i].x = 24 + (random_get() % 296);
+                        enemies[i].y = 229;
+                        break;
+                    case 2: // Left
+                        enemies[i].x = 24;
+                        enemies[i].y = 50 + (random_get() % 179);
+                        break;
+                    case 3: // Right
+                        enemies[i].x = 320;
+                        enemies[i].y = 50 + (random_get() % 179);
+                        break;
+                }
+
+                /* Check distance from player */
+                dx = (int16_t)enemies[i].x - (int16_t)player_x;
+                dy = (int16_t)enemies[i].y - (int16_t)player_y;
+
+                /* Use squared distance to avoid expensive sqrt */
+                /* 80*80 = 6400 minimum distance squared */
+                if (dx < 0) dx = -dx;
+                if (dy < 0) dy = -dy;
+                dist_sq = (uint16_t)dx * (uint16_t)dx + (uint16_t)dy * (uint16_t)dy;
+
+                attempts++;
+            } while (dist_sq < 6400 && attempts < 10);
 
             /* Set initial velocity to zero */
             enemies[i].dx = 0;
@@ -318,7 +337,7 @@ void enemy_clear_all(void) {
     }
 }
 
-void enemy_spawn_wave(void) {
+void enemy_spawn_wave(uint16_t player_x, uint16_t player_y) {
     uint8_t i;
     uint8_t type;
     uint8_t wave_difficulty;
@@ -339,6 +358,6 @@ void enemy_spawn_wave(void) {
             type = i % 3;
         }
 
-        enemy_spawn(type);
+        enemy_spawn(type, player_x, player_y);
     }
 }

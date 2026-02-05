@@ -24,11 +24,11 @@ typedef struct {
 extern Enemy enemies[MAX_ENEMIES];
 
 void enemy_init(void);
-void enemy_spawn(uint8_t type);
+void enemy_spawn(uint8_t type, uint16_t player_x, uint16_t player_y);
 void enemy_update_all(uint16_t player_x, uint16_t player_y);
 void enemy_hit(uint8_t index);
 uint8_t enemy_count_active(void);
 void enemy_clear_all(void);
-void enemy_spawn_wave(void);
+void enemy_spawn_wave(uint16_t player_x, uint16_t player_y);
 
 #endif

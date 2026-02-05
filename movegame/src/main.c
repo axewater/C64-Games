@@ -39,7 +39,8 @@ int main(void) {
     gamestate_start_game();
 
     /* Spawn wave 1 */
-    enemy_spawn_wave();
+    p = player_get();
+    enemy_spawn_wave(p->x, p->y);
 
     /* Initial UI draw */
     gamestate_render_ui();
@@ -106,7 +107,8 @@ int main(void) {
 
                     /* Spawn next wave */
                     gamestate_next_wave();
-                    enemy_spawn_wave();
+                    p = player_get();
+                    enemy_spawn_wave(p->x, p->y);
                 }
             } else {
                 /* Enemies still alive, keep exits locked */
