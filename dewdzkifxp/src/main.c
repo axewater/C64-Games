@@ -57,21 +57,36 @@ int main(void) {
                 action_scan();
                 break;
 
+            case STATE_TOPSITE_LIST:
             case STATE_TOPSITE:
+            case STATE_FTP_SELECT:
+                /* All topsite/FXP steps handled by same function */
                 action_browse_topsite();
                 break;
 
             case STATE_FXP:
-                /* FXP animation already shown in action_browse_topsite */
+                /* Step 4: FXP animation - handled in action_browse_topsite */
                 game_state.state = STATE_PLAYING;
                 break;
 
+            case STATE_RELEASE_SELECT:
             case STATE_FORUM:
+                /* All forum posting steps handled by same function */
                 action_post_to_forum();
                 break;
 
             case STATE_RANK_UP:
                 ui_show_rank_up();
+                game_state.state = STATE_PLAYING;
+                break;
+
+            case STATE_VIEW_STATS:
+                ui_show_stats();
+                game_state.state = STATE_PLAYING;
+                break;
+
+            case STATE_VIEW_FTPS:
+                ui_show_ftps();
                 game_state.state = STATE_PLAYING;
                 break;
 
@@ -97,17 +112,23 @@ void handle_playing_state(void) {
     uint8_t choice;
 
     ui_show_hub();
-    choice = input_read_menu(3);
+    choice = input_read_menu(5);
 
     if (choice == 0) {
         /* Scan for FTPs */
         game_state.state = STATE_SCAN;
     } else if (choice == 1) {
-        /* Browse topsite */
-        game_state.state = STATE_TOPSITE;
+        /* Browse topsites (multi-step) */
+        game_state.state = STATE_TOPSITE_LIST;
     } else if (choice == 2) {
-        /* Post to forum */
-        game_state.state = STATE_FORUM;
+        /* Post to forum (multi-step) */
+        game_state.state = STATE_RELEASE_SELECT;
+    } else if (choice == 3) {
+        /* View stats */
+        game_state.state = STATE_VIEW_STATS;
+    } else if (choice == 4) {
+        /* View FTPs */
+        game_state.state = STATE_VIEW_FTPS;
     } else if (choice == 255) {
         /* Quit */
         game_state.state = STATE_GAME_OVER;
@@ -153,73 +174,222 @@ void action_browse_topsite(void) {
     uint8_t i;
     uint8_t choice;
     uint8_t turns;
+    uint8_t ftp_idx;
+    Release* rel;
 
-    /* Generate 3 random releases */
-    for (i = 0; i < 3; i++) {
-        release_generate(&temp_releases[i], game_state.current_topsite);
-    }
+    /* Multi-step flow based on current state */
+    if (game_state.state == STATE_TOPSITE_LIST) {
+        /* Step 1: Select topsite */
+        choice = ui_show_topsite_list();
 
-    /* Show topsite and get selection */
-    choice = ui_show_topsite(temp_releases, 3);
-
-    if (choice < 3) {
-        /* Valid selection - start FXP transfer */
-        /* Calculate transfer time (1-3 turns) */
-        turns = (temp_releases[choice].size_mb / game_state.bandwidth) / 20;
-        if (turns < 1) {
-            turns = 1;
+        if (choice == 255) {
+            /* Cancelled */
+            game_state.state = STATE_PLAYING;
+            return;
         }
-        if (turns > 3) {
-            turns = 3;
+
+        /* Store selected topsite and generate releases */
+        game_state.selected_topsite_idx = choice;
+
+        for (i = 0; i < 3; i++) {
+            release_generate(&temp_releases[i], choice);
         }
+
+        /* Move to release browse */
+        game_state.state = STATE_TOPSITE;
+
+    } else if (game_state.state == STATE_TOPSITE) {
+        /* Step 2: Browse releases */
+        choice = ui_show_topsite(game_state.selected_topsite_idx, temp_releases, 3);
+
+        if (choice == 255) {
+            /* Cancelled - back to topsite list */
+            game_state.state = STATE_TOPSITE_LIST;
+            return;
+        }
+
+        if (choice >= 3) {
+            game_state.state = STATE_PLAYING;
+            return;
+        }
+
+        /* Check if any FTPs discovered */
+        if (game_state.ftps_known_count == 0) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "NO FTPS DISCOVERED!", COLOR_RED);
+            ui_print_centered(12, "SCAN FOR FTPS FIRST", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_PLAYING;
+            return;
+        }
+
+        /* Store selected release */
+        game_state.selected_release_idx = choice;
+
+        /* Move to FTP selection */
+        game_state.state = STATE_FTP_SELECT;
+
+    } else if (game_state.state == STATE_FTP_SELECT) {
+        /* Step 3: Select FTP for transfer */
+        choice = ui_show_ftp_select(&temp_releases[game_state.selected_release_idx]);
+
+        if (choice == 255) {
+            /* Cancelled - back to release browse */
+            game_state.state = STATE_TOPSITE;
+            return;
+        }
+
+        /* Find actual FTP index from menu choice */
+        ftp_idx = 0;
+        for (i = 0; i < MAX_FTP_SERVERS; i++) {
+            if (ftps[i].active) {
+                if (choice == 0) {
+                    ftp_idx = i;
+                    break;
+                }
+                choice--;
+            }
+        }
+
+        /* Check if FTP has space */
+        if (!ftp_has_space(ftp_idx)) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "FTP IS FULL!", COLOR_RED);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_FTP_SELECT;
+            return;
+        }
+
+        /* Add release to global pool if needed */
+        selected_release_id = release_add(&temp_releases[game_state.selected_release_idx]);
+
+        /* Check if release pool is full */
+        if (selected_release_id == 255) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "RELEASE POOL FULL!", COLOR_RED);
+            ui_print_centered(12, "MAX CAPACITY REACHED", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_FTP_SELECT;
+            return;
+        }
+
+        /* Get the release from global pool */
+        rel = release_get(selected_release_id);
+
+        /* Safety check: verify release was retrieved */
+        if (!rel || !rel->active) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "ERROR: RELEASE NOT FOUND!", COLOR_RED);
+            ui_print_centered(12, "TRY AGAIN", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_FTP_SELECT;
+            return;
+        }
+
+        /* Calculate transfer time */
+        turns = (rel->size_mb / game_state.bandwidth) / 20;
+        if (turns < 1) turns = 1;
+        if (turns > 3) turns = 3;
 
         /* Show FXP animation */
-        ui_show_fxp_anim(&temp_releases[choice], turns);
+        ui_show_fxp_anim(rel, turns);
 
-        /* Add to inventory */
-        selected_release_id = release_add(&temp_releases[choice]);
+        /* Add release to FTP */
+        ftp_add_release(ftp_idx, selected_release_id);
 
         /* Cost: 1 action, N turns */
         if (game_state.actions_remaining > 0) {
             game_state.actions_remaining--;
         }
         gamestate_advance_turn(turns);
-    }
 
-    game_state.state = STATE_PLAYING;
+        /* Move to FXP state (will return to hub) */
+        game_state.state = STATE_FXP;
+    }
 }
 
 void action_post_to_forum(void) {
-    uint8_t count;
+    uint8_t choice;
+    uint8_t ftp_idx;
+    uint8_t release_idx;
     Release* rel;
+    uint8_t i;
+    uint8_t has_releases;
 
-    count = release_count_active();
+    /* Multi-step flow based on current state */
+    if (game_state.state == STATE_RELEASE_SELECT) {
+        /* Step 1: Check if any FTPs have releases */
+        has_releases = 0;
+        for (i = 0; i < MAX_FTP_SERVERS; i++) {
+            if (ftps[i].active && ftps[i].release_count > 0) {
+                has_releases = 1;
+                break;
+            }
+        }
 
-    if (count == 0) {
-        /* No releases to post */
-        screen_clear();
-        ui_render_hud();
-        ui_print_centered(10, "NO RELEASES TO POST!", COLOR_RED);
-        ui_print_centered(12, "GET WAREZ FROM TOPSITE", COLOR_WHITE);
-        ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
-        input_wait_key();
+        if (!has_releases) {
+            /* No releases on any FTP */
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "NO RELEASES ON FTPS!", COLOR_RED);
+            ui_print_centered(12, "FXP WAREZ FIRST", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_PLAYING;
+            return;
+        }
+
+        /* Show release selection */
+        choice = ui_show_release_select(&ftp_idx, &release_idx);
+
+        if (choice == 255) {
+            /* Cancelled */
+            game_state.state = STATE_PLAYING;
+            return;
+        }
+
+        /* Store selections */
+        game_state.selected_ftp_idx = ftp_idx;
+        game_state.selected_release_idx = release_idx;
+
+        /* Get release */
+        rel = release_get(release_idx);
+
+        if (rel && rel->active) {
+            /* Check if already posted */
+            if (forum_has_post(release_idx, ftp_idx)) {
+                screen_clear();
+                ui_render_hud();
+                ui_print_centered(10, "ALREADY POSTED!", COLOR_RED);
+                ui_print_centered(12, "CHOOSE DIFFERENT RELEASE", COLOR_WHITE);
+                ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+                input_wait_key();
+                game_state.state = STATE_RELEASE_SELECT;
+                return;
+            }
+
+            /* Create forum post with FTP tracking */
+            forum_create_post(release_idx, ftp_idx, game_state.current_forum);
+
+            /* Show confirmation */
+            ui_show_forum_post(rel, ftp_idx);
+
+            /* Cost: 0 actions, 1 turn */
+            gamestate_advance_turn(1);
+        }
+
+        /* Move to forum state (will return to hub) */
+        game_state.state = STATE_FORUM;
+    } else if (game_state.state == STATE_FORUM) {
+        /* Step 2: Return to hub after posting */
         game_state.state = STATE_PLAYING;
-        return;
     }
-
-    /* Use last added release */
-    rel = release_get(selected_release_id);
-
-    if (rel && rel->active) {
-        /* Create forum post */
-        forum_create_post(selected_release_id, game_state.current_forum);
-
-        /* Show confirmation */
-        ui_show_forum_post(rel);
-
-        /* Cost: 0 actions, 1 turn */
-        gamestate_advance_turn(1);
-    }
-
-    game_state.state = STATE_PLAYING;
 }

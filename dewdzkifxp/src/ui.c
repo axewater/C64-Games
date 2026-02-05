@@ -4,6 +4,7 @@
 #include "rank.h"
 #include "forum.h"
 #include "release.h"
+#include "ftp.h"
 #include "input.h"
 #include "random.h"
 #include <conio.h>
@@ -71,24 +72,25 @@ void ui_draw_progress_bar(uint8_t x, uint8_t y, uint8_t width, uint8_t percent) 
 }
 
 void ui_animate_matrix(uint8_t frame) {
-    uint8_t colors[3];
-    uint8_t y;
+    /* Optimized: Only update a small scanning line instead of full matrix */
     uint8_t x;
-    uint8_t ch;
-    uint8_t color;
+    uint8_t y;
+    uint8_t scan_row;
 
-    colors[0] = COLOR_CYAN;
-    colors[1] = COLOR_BLUE;
-    colors[2] = COLOR_WHITE;
+    /* Calculate which row to draw the scanning line on (moves down) */
+    scan_row = 6 + (frame % 9);
 
-    for (y = 6; y < 15; y++) {
+    /* Clear previous scan line (row above) */
+    if (frame > 0) {
+        y = 6 + ((frame - 1) % 9);
         for (x = 5; x < 35; x++) {
-            if ((x + y + frame) % 3 == 0) {
-                ch = matrix_chars[(x * y + frame) % 7];
-                color = colors[(x + frame) % 3];
-                screen_set_char(x, y, ch, color);
-            }
+            screen_set_char(x, y, ' ', COLOR_BLACK);
         }
+    }
+
+    /* Draw new scan line */
+    for (x = 5; x < 35; x++) {
+        screen_set_char(x, scan_row, '-', COLOR_CYAN);
     }
 }
 
@@ -176,11 +178,13 @@ void ui_show_hub(void) {
     }
 
     /* Menu */
-    ui_draw_hline(0, 15, 40, '-', COLOR_BLUE);
-    ui_print_centered(17, "[1] SCAN FOR FTPS", COLOR_WHITE);
-    ui_print_centered(18, "[2] BROWSE TOPSITE", COLOR_WHITE);
-    ui_print_centered(19, "[3] POST TO FORUM", COLOR_WHITE);
-    ui_print_centered(20, "[Q] QUIT", COLOR_WHITE);
+    ui_draw_hline(0, 14, 40, '-', COLOR_BLUE);
+    ui_print_centered(15, "[1] SCAN FOR FTPS", COLOR_WHITE);
+    ui_print_centered(16, "[2] BROWSE TOPSITE", COLOR_WHITE);
+    ui_print_centered(17, "[3] POST TO FORUM", COLOR_WHITE);
+    ui_print_centered(18, "[4] VIEW STATS", COLOR_WHITE);
+    ui_print_centered(19, "[5] VIEW FTPS", COLOR_WHITE);
+    ui_print_centered(21, "[Q] QUIT", COLOR_WHITE);
 }
 
 void ui_show_scan_anim(void) {
@@ -193,8 +197,8 @@ void ui_show_scan_anim(void) {
     ui_print_centered(3, "SCANNING FOR PUBLIC FTPS", COLOR_CYAN);
     ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
 
-    /* Animate for 60 frames */
-    for (frame = 0; frame < 60; frame++) {
+    /* Optimized: Only 9 frames (one scan line sweep) - MUCH faster! */
+    for (frame = 0; frame < 9; frame++) {
         ui_animate_matrix(frame);
 
         /* Simple delay */
@@ -207,7 +211,50 @@ void ui_show_scan_anim(void) {
     }
 }
 
-uint8_t ui_show_topsite(Release* releases, uint8_t count) {
+uint8_t ui_show_topsite_list(void) {
+    const char* topsite_names[] = {
+        "NEWBIE.DUMP.US",
+        "ELITE.WAREZ.NL",
+        "0DAY.TOPSITE.SE"
+    };
+    const char* topsite_quality[] = {
+        "LOW QUALITY",
+        "GOOD QUALITY",
+        "SCENE QUALITY"
+    };
+    uint8_t max_topsites;
+    uint8_t i;
+
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "SELECT TOPSITE", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
+
+    /* Show unlocked topsites based on rank */
+    max_topsites = game_state.current_topsite + 1;
+
+    for (i = 0; i < max_topsites && i < 3; i++) {
+        screen_set_char(5, 7 + i * 3, '[', COLOR_WHITE);
+        screen_print_number(6, 7 + i * 3, i + 1, 1, COLOR_YELLOW);
+        screen_set_char(7, 7 + i * 3, ']', COLOR_WHITE);
+
+        ui_print_string(9, 7 + i * 3, topsite_names[i], COLOR_CYAN);
+        ui_print_string(11, 8 + i * 3, topsite_quality[i], COLOR_GRAY2);
+    }
+
+    ui_print_centered(18, "[Q] BACK TO HUB", COLOR_WHITE);
+
+    return input_read_menu(max_topsites);
+}
+
+uint8_t ui_show_topsite(uint8_t topsite_idx, Release* releases, uint8_t count) {
+    const char* topsite_names[] = {
+        "NEWBIE.DUMP.US",
+        "ELITE.WAREZ.NL",
+        "0DAY.TOPSITE.SE"
+    };
     uint8_t i;
     uint8_t row;
 
@@ -215,7 +262,13 @@ uint8_t ui_show_topsite(Release* releases, uint8_t count) {
     ui_render_hud();
 
     ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
-    ui_print_centered(3, "TOPSITE: ELITE.WAREZ.NL", COLOR_CYAN);
+
+    /* Show topsite name dynamically */
+    if (topsite_idx < 3) {
+        ui_print_string(10, 3, "TOPSITE: ", COLOR_WHITE);
+        ui_print_string(19, 3, topsite_names[topsite_idx], COLOR_CYAN);
+    }
+
     ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
 
     ui_print_string(2, 5, "AVAILABLE RELEASES:", COLOR_WHITE);
@@ -239,9 +292,174 @@ uint8_t ui_show_topsite(Release* releases, uint8_t count) {
 
     ui_draw_hline(0, row, 40, '-', COLOR_BLUE);
     ui_print_centered(row + 2, "SELECT RELEASE (1-3)", COLOR_WHITE);
-    ui_print_centered(row + 3, "[Q] BACK TO HUB", COLOR_WHITE);
+    ui_print_centered(row + 3, "[Q] BACK", COLOR_WHITE);
 
     return input_read_menu(count);
+}
+
+uint8_t ui_show_ftp_select(Release* rel) {
+    uint8_t i;
+    uint8_t row;
+    uint8_t menu_idx;
+    uint8_t has_space;
+    uint8_t color;
+
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "SELECT DESTINATION FTP", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
+
+    ui_print_string(2, 6, "RELEASE:", COLOR_WHITE);
+    ui_print_string(11, 6, rel->name, COLOR_YELLOW);
+
+    row = 9;
+    menu_idx = 0;
+
+    /* Show all discovered FTPs */
+    for (i = 0; i < MAX_FTP_SERVERS; i++) {
+        if (ftps[i].active) {
+            has_space = ftp_has_space(i);
+            color = has_space ? COLOR_WHITE : COLOR_GRAY2;
+
+            screen_set_char(2, row, '[', color);
+            screen_print_number(3, row, menu_idx + 1, 1, color);
+            screen_set_char(4, row, ']', color);
+
+            ui_print_string(6, row, ftps[i].name, color);
+
+            /* Show slots */
+            ui_print_string(24, row, "(", color);
+            screen_print_number(25, row, ftps[i].release_count, 1, color);
+            screen_set_char(26, row, '/', color);
+            screen_print_number(27, row, MAX_RELEASES_PER_FTP, 1, color);
+            ui_print_string(28, row, ")", color);
+
+            row++;
+            menu_idx++;
+        }
+    }
+
+    ui_print_centered(18, "[Q] CANCEL", COLOR_WHITE);
+
+    return input_read_menu(menu_idx);
+}
+
+uint8_t ui_show_release_select(uint8_t* out_ftp_idx, uint8_t* out_release_idx) {
+    uint8_t ftp_idx;
+    uint8_t i;
+    uint8_t row;
+    uint8_t menu_idx;
+    uint8_t rel_id;
+    Release* rel;
+    uint8_t selection_map[32][2];
+    uint8_t choice;
+    uint8_t active_ftps;
+    uint8_t total_releases;
+
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "SELECT RELEASE TO POST", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
+
+    row = 6;
+    menu_idx = 0;
+
+    /* Loop through FTPs and show releases */
+    for (ftp_idx = 0; ftp_idx < MAX_FTP_SERVERS; ftp_idx++) {
+        if (!ftps[ftp_idx].active || ftps[ftp_idx].release_count == 0) {
+            continue;
+        }
+
+        /* Show FTP name */
+        ui_print_string(2, row, ftps[ftp_idx].name, COLOR_CYAN);
+        row++;
+
+        /* Show releases on this FTP */
+        for (i = 0; i < ftps[ftp_idx].release_count; i++) {
+            rel_id = ftps[ftp_idx].releases[i];
+            rel = release_get(rel_id);
+
+            if (rel && rel->active) {
+                screen_set_char(4, row, '[', COLOR_WHITE);
+                screen_print_number(5, row, menu_idx + 1, 1, COLOR_YELLOW);
+                screen_set_char(6, row, ']', COLOR_WHITE);
+
+                ui_print_string(8, row, rel->name, COLOR_WHITE);
+
+                /* Store mapping */
+                selection_map[menu_idx][0] = ftp_idx;
+                selection_map[menu_idx][1] = rel_id;
+
+                menu_idx++;
+                row++;
+            }
+        }
+
+        row++;  /* Spacing between FTPs */
+    }
+
+    if (menu_idx == 0) {
+        /* Debug: Show why no releases found */
+        screen_clear();
+        ui_render_hud();
+        ui_print_centered(8, "DEBUG: NO RELEASES FOUND", COLOR_RED);
+
+        /* Count active FTPs */
+        active_ftps = 0;
+        total_releases = 0;
+        for (i = 0; i < MAX_FTP_SERVERS; i++) {
+            if (ftps[i].active) {
+                active_ftps++;
+                total_releases += ftps[i].release_count;
+            }
+        }
+
+        ui_print_string(5, 10, "ACTIVE FTPS: ", COLOR_WHITE);
+        screen_print_number(18, 10, active_ftps, 1, COLOR_YELLOW);
+
+        ui_print_string(5, 11, "TOTAL RELS: ", COLOR_WHITE);
+        screen_print_number(18, 11, total_releases, 2, COLOR_YELLOW);
+
+        /* Show first release details */
+        for (i = 0; i < MAX_FTP_SERVERS; i++) {
+            if (ftps[i].active && ftps[i].release_count > 0) {
+                rel_id = ftps[i].releases[0];
+                rel = release_get(rel_id);
+
+                ui_print_string(5, 13, "REL ID: ", COLOR_WHITE);
+                screen_print_number(13, 13, rel_id, 3, COLOR_YELLOW);
+
+                if (rel) {
+                    ui_print_string(5, 14, "REL PTR: OK", COLOR_GREEN);
+                    ui_print_string(5, 15, "ACTIVE: ", COLOR_WHITE);
+                    screen_print_number(13, 15, rel->active, 1, COLOR_YELLOW);
+                } else {
+                    ui_print_string(5, 14, "REL PTR: NULL", COLOR_RED);
+                }
+                break;
+            }
+        }
+
+        ui_print_centered(20, "[SPACE] CONTINUE", COLOR_WHITE);
+        input_wait_key();
+        return 255;  /* No releases available */
+    }
+
+    ui_print_centered(20, "[Q] CANCEL", COLOR_WHITE);
+
+    choice = input_read_menu(menu_idx);
+
+    if (choice < menu_idx) {
+        *out_ftp_idx = selection_map[choice][0];
+        *out_release_idx = selection_map[choice][1];
+        return choice;
+    }
+
+    return 255;  /* Cancelled */
 }
 
 void ui_show_fxp_anim(Release* rel, uint8_t turns) {
@@ -290,8 +508,9 @@ void ui_show_fxp_anim(Release* rel, uint8_t turns) {
     input_wait_key();
 }
 
-void ui_show_forum_post(Release* rel) {
+void ui_show_forum_post(Release* rel, uint8_t ftp_idx) {
     const char* forum_name;
+    FTPServer* ftp;
 
     screen_clear();
     ui_render_hud();
@@ -304,6 +523,13 @@ void ui_show_forum_post(Release* rel) {
 
     ui_print_string(5, 6, "POSTING:", COLOR_WHITE);
     ui_print_string(5, 7, rel->name, COLOR_YELLOW);
+
+    /* Show FTP source (NEW) */
+    ftp = ftp_get(ftp_idx);
+    if (ftp) {
+        ui_print_string(5, 9, "FROM FTP:", COLOR_GRAY2);
+        ui_print_string(15, 9, ftp->name, COLOR_CYAN);
+    }
 
     ui_print_centered(12, "[NEW RELEASE]", COLOR_GREEN);
     ui_print_centered(14, "[POST CREATED]", COLOR_GREEN);
@@ -345,4 +571,133 @@ void ui_show_game_over(void) {
     ui_print_centered(18, "YOU ARE NOW SCENE LEGEND!", COLOR_CYAN);
 
     ui_print_centered(22, "[Q] QUIT", COLOR_WHITE);
+}
+
+void ui_show_stats(void) {
+    uint8_t i;
+    uint8_t row;
+    uint8_t count;
+    ForumPost* post;
+    Release* rel;
+    FTPServer* ftp;
+
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "ACTIVE FORUM POSTS", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, '-', COLOR_BLUE);
+
+    row = 6;
+    count = 0;
+
+    /* Show all active posts with details */
+    for (i = 0; i < MAX_POSTS; i++) {
+        post = forum_get_post(i);
+        if (post && post->active) {
+            rel = release_get(post->release_id);
+            ftp = ftp_get(post->ftp_id);
+
+            if (rel && rel->active && ftp && row < 22) {
+                /* Release name (truncated if needed) */
+                ui_print_string(1, row, rel->name, COLOR_WHITE);
+
+                /* FTP name (right side) */
+                ui_print_string(22, row, ftp->name, COLOR_CYAN);
+                row++;
+
+                /* Stats line */
+                ui_print_string(2, row, "DL:", COLOR_GRAY2);
+                screen_print_number(5, row, post->downloads, 3, COLOR_YELLOW);
+
+                ui_print_string(10, row, "REP:", COLOR_GRAY2);
+                screen_print_number(14, row, post->rep_earned, 3, COLOR_GREEN);
+
+                ui_print_string(19, row, "AGE:", COLOR_GRAY2);
+                screen_print_number(23, row, post->age, 2, COLOR_WHITE);
+
+                ui_print_string(27, row, "RPL:", COLOR_GRAY2);
+                screen_print_number(31, row, post->replies, 2, COLOR_WHITE);
+
+                row++;
+                count++;
+            }
+        }
+    }
+
+    if (count == 0) {
+        ui_print_centered(10, "NO ACTIVE POSTS", COLOR_GRAY2);
+        ui_print_centered(12, "POST RELEASES TO FORUMS!", COLOR_WHITE);
+    }
+
+    ui_print_centered(23, "[SPACE] CONTINUE", COLOR_WHITE);
+    input_wait_key();
+}
+
+void ui_show_ftps(void) {
+    uint8_t i;
+    uint8_t j;
+    uint8_t row;
+    uint8_t count;
+    FTPServer* ftp;
+    Release* rel;
+
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "DISCOVERED FTP SERVERS", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, '-', COLOR_BLUE);
+
+    row = 6;
+    count = 0;
+
+    /* Show all discovered FTPs */
+    for (i = 0; i < MAX_FTP_SERVERS; i++) {
+        if (ftps[i].active && row < 22) {
+            ftp = &ftps[i];
+
+            /* FTP name and info */
+            ui_print_string(1, row, ftp->name, COLOR_CYAN);
+
+            /* Bandwidth */
+            ui_print_string(22, row, "BW:", COLOR_GRAY2);
+            screen_print_number(25, row, ftp->bandwidth, 3, COLOR_YELLOW);
+
+            /* Slots used */
+            ui_print_string(30, row, "(", COLOR_GRAY2);
+            screen_print_number(31, row, ftp->release_count, 1, COLOR_WHITE);
+            ui_print_string(32, row, "/", COLOR_GRAY2);
+            screen_print_number(33, row, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
+            ui_print_string(34, row, ")", COLOR_GRAY2);
+
+            row++;
+
+            /* Show releases on this FTP */
+            if (ftp->release_count > 0) {
+                for (j = 0; j < ftp->release_count && j < MAX_RELEASES_PER_FTP; j++) {
+                    rel = release_get(ftp->releases[j]);
+                    if (rel && rel->active && row < 22) {
+                        ui_print_string(3, row, "- ", COLOR_GRAY2);
+                        ui_print_string(5, row, rel->name, COLOR_WHITE);
+                        row++;
+                    }
+                }
+            } else {
+                ui_print_string(3, row, "- EMPTY", COLOR_GRAY2);
+                row++;
+            }
+
+            row++;  /* Spacing between FTPs */
+            count++;
+        }
+    }
+
+    if (count == 0) {
+        ui_print_centered(10, "NO FTP SERVERS FOUND", COLOR_GRAY2);
+        ui_print_centered(12, "SCAN FOR FTPS FIRST!", COLOR_WHITE);
+    }
+
+    ui_print_centered(23, "[SPACE] CONTINUE", COLOR_WHITE);
+    input_wait_key();
 }

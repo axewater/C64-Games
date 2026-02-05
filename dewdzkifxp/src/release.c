@@ -1,6 +1,7 @@
 #include "release.h"
 #include "random.h"
 #include <stdio.h>
+#include <string.h>
 
 Release releases[MAX_RELEASES];
 
@@ -53,9 +54,38 @@ void release_generate(Release* rel, uint8_t topsite_idx) {
         rel->size_mb = random_range(200, 701);
     }
 
-    /* Generate name */
+    /* Generate name - manual string building for C64 reliability */
     num = random_range(100, 1000);
-    sprintf(rel->name, "%s.%03d.ISO", category_prefixes[rel->category], num);
+    {
+        const char* prefix;
+        uint8_t pos;
+
+        prefix = category_prefixes[rel->category];
+        pos = 0;
+
+        /* Copy prefix */
+        while (prefix[pos] != '\0' && pos < 19) {
+            rel->name[pos] = prefix[pos];
+            pos++;
+        }
+
+        /* Add dot */
+        if (pos < 19) rel->name[pos++] = '.';
+
+        /* Add three-digit number */
+        if (pos < 19) rel->name[pos++] = '0' + (num / 100);
+        if (pos < 19) rel->name[pos++] = '0' + ((num / 10) % 10);
+        if (pos < 19) rel->name[pos++] = '0' + (num % 10);
+
+        /* Add extension */
+        if (pos < 19) rel->name[pos++] = '.';
+        if (pos < 19) rel->name[pos++] = 'I';
+        if (pos < 19) rel->name[pos++] = 'S';
+        if (pos < 19) rel->name[pos++] = 'O';
+
+        /* Null terminate */
+        if (pos < 20) rel->name[pos] = '\0';
+    }
 }
 
 uint8_t release_add(Release* rel) {
@@ -63,7 +93,18 @@ uint8_t release_add(Release* rel) {
 
     for (i = 0; i < MAX_RELEASES; i++) {
         if (!releases[i].active) {
-            releases[i] = *rel;
+            /* Use memcpy to copy entire struct */
+            memcpy(&releases[i], rel, sizeof(Release));
+
+            /* Explicitly ensure critical fields are copied (defensive programming for C64) */
+            releases[i].active = 1;
+            releases[i].size_mb = rel->size_mb;
+            releases[i].quality = rel->quality;
+            releases[i].category = rel->category;
+
+            /* Ensure name is null-terminated */
+            releases[i].name[19] = '\0';
+
             return i;
         }
     }
@@ -73,6 +114,10 @@ uint8_t release_add(Release* rel) {
 
 Release* release_get(uint8_t index) {
     if (index >= MAX_RELEASES) {
+        return 0;
+    }
+    /* Return NULL if release is not active */
+    if (!releases[index].active) {
         return 0;
     }
     return &releases[index];
