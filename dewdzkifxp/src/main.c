@@ -18,6 +18,8 @@ void action_scan(void);
 void action_browse_topsite(void);
 void action_post_to_forum(void);
 void action_hardware_shop(void);
+void action_move_releases(void);
+void action_rep_shop(void);
 void handle_playing_state(void);
 
 int main(void) {
@@ -106,6 +108,14 @@ int main(void) {
                 game_state.state = STATE_PLAYING;
                 break;
 
+            case STATE_MOVE_RELEASES:
+                action_move_releases();
+                break;
+
+            case STATE_REP_SHOP:
+                action_rep_shop();
+                break;
+
             case STATE_GAME_OVER:
                 ui_show_game_over();
                 if (input_check_quit()) {
@@ -131,7 +141,7 @@ int main(void) {
                 uint8_t i;
                 ForumPost* post;
 
-                event_type = random_range(1, 11);  /* 1-10 */
+                event_type = random_range(1, 14);  /* 1-13 */
                 game_state.current_event = event_type;
 
                 /* Apply event effects */
@@ -197,6 +207,18 @@ int main(void) {
                     if (game_state.current_topsite < 2) {
                         game_state.current_topsite++;
                     }
+                } else if (event_type == 11) {
+                    /* Friend lends T1 line for 10 turns (NEW) */
+                    game_state.event_value = 10;
+                    gamestate_apply_temp_equipment(TEMP_EQUIP_T1_LOAN, 10);
+                } else if (event_type == 12) {
+                    /* Cable modem access for 5 turns (NEW) */
+                    game_state.event_value = 5;
+                    gamestate_apply_temp_equipment(TEMP_EQUIP_CABLE, 5);
+                } else if (event_type == 13) {
+                    /* Corporate T3 line for 3 turns (NEW) */
+                    game_state.event_value = 3;
+                    gamestate_apply_temp_equipment(TEMP_EQUIP_T3, 3);
                 }
 
                 /* Trigger event display */
@@ -218,7 +240,7 @@ void handle_playing_state(void) {
     has_hardware = (game_state.hardware_tier < 255);
 
     ui_show_hub();
-    choice = input_read_menu(6);
+    choice = input_read_menu(7);
 
     if (choice == 0) {
         /* Scan for FTPs - requires hardware */
@@ -256,6 +278,9 @@ void handle_playing_state(void) {
     } else if (choice == 5) {
         /* Hardware shop */
         game_state.state = STATE_HARDWARE_SHOP;
+    } else if (choice == 6) {
+        /* Reputation shop */
+        game_state.state = STATE_REP_SHOP;
     } else if (choice == 255) {
         /* Quit */
         game_state.state = STATE_GAME_OVER;
@@ -611,7 +636,9 @@ void action_post_to_forum(void) {
 void action_hardware_shop(void) {
     uint8_t choice;
     const HardwareTier* tier;
-    extern const HardwareTier hardware_tiers[6];
+    extern const HardwareTier hardware_tiers[8];
+    uint16_t old_bw;
+    uint8_t old_actions;
 
     /* Show hardware shop */
     choice = ui_show_hardware_shop();
@@ -622,24 +649,20 @@ void action_hardware_shop(void) {
         return;
     }
 
-    /* Validate choice (should be 0-5) */
-    if (choice >= 6) {
+    /* Validate choice (should be 0-7) */
+    if (choice >= 8) {
         game_state.state = STATE_PLAYING;
         return;
     }
 
     tier = &hardware_tiers[choice];
 
-    /* Check if trying to buy same or lower tier (skip check if no hardware yet) */
-    if (game_state.hardware_tier < 255 && choice <= game_state.hardware_tier) {
+    /* Check if already owned */
+    if (gamestate_has_hardware(1 << choice)) {
         screen_clear();
         ui_render_hud();
         ui_print_centered(10, "INVALID PURCHASE!", COLOR_RED);
-        if (choice == game_state.hardware_tier) {
-            ui_print_centered(12, "ALREADY OWNED", COLOR_WHITE);
-        } else {
-            ui_print_centered(12, "CANNOT DOWNGRADE", COLOR_WHITE);
-        }
+        ui_print_centered(12, "ALREADY OWNED", COLOR_WHITE);
         ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
         input_wait_key();
         game_state.state = STATE_HARDWARE_SHOP;
@@ -661,21 +684,176 @@ void action_hardware_shop(void) {
         return;
     }
 
+    /* Store old values for display */
+    old_bw = game_state.bandwidth;
+    old_actions = game_state.actions_remaining;
+
     /* Purchase successful */
     game_state.reputation -= tier->rep_cost;
-    game_state.hardware_tier = choice;
-    game_state.bandwidth = tier->bandwidth;  /* Update bandwidth */
+    gamestate_purchase_hardware(choice);
+    gamestate_update_bandwidth();
 
+    /* Update hardware_tier for backward compatibility (use highest tier) */
+    if (choice < 6 && (game_state.hardware_tier == 255 || choice > game_state.hardware_tier)) {
+        game_state.hardware_tier = choice;
+    }
+
+    /* Show success message */
     screen_clear();
     ui_render_hud();
     ui_print_centered(10, "PURCHASE SUCCESSFUL!", COLOR_GREEN);
     ui_print_string(8, 12, "NEW HARDWARE:", COLOR_WHITE);
     ui_print_string(22, 12, tier->name, COLOR_CYAN);
-    ui_print_string(8, 13, "BANDWIDTH:", COLOR_WHITE);
-    screen_print_number(19, 13, tier->bandwidth, 3, COLOR_CYAN);
-    ui_print_string(22, 13, "KB/S", COLOR_WHITE);
+
+    /* Show effect based on tier type */
+    if (choice == 6) {
+        /* Second Phone Line */
+        ui_print_string(8, 14, "ACTIONS:", COLOR_WHITE);
+        screen_print_number(17, 14, old_actions, 1, COLOR_GRAY2);
+        ui_print_string(19, 14, "->", COLOR_WHITE);
+        screen_print_number(22, 14, gamestate_calculate_actions(), 1, COLOR_GREEN);
+    } else {
+        /* Bandwidth upgrade */
+        ui_print_string(8, 14, "BANDWIDTH:", COLOR_WHITE);
+        screen_print_number(19, 14, old_bw, 3, COLOR_GRAY2);
+        ui_print_string(23, 14, "->", COLOR_WHITE);
+        screen_print_number(26, 14, game_state.bandwidth, 3, COLOR_GREEN);
+        ui_print_string(30, 14, "KB/S", COLOR_WHITE);
+    }
+
     ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
     input_wait_key();
+
+    game_state.state = STATE_PLAYING;
+}
+
+void action_move_releases(void) {
+    /* Check if player has actions remaining */
+    if (!gamestate_can_use_action()) {
+        screen_clear();
+        ui_render_hud();
+        ui_print_centered(10, "OUT OF ACTIONS!", COLOR_RED);
+        ui_print_centered(12, "WAIT FOR NEW SESSION", COLOR_WHITE);
+        ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+        input_wait_key();
+        game_state.state = STATE_PLAYING;
+        return;
+    }
+
+    /* Show move releases UI */
+    if (ui_show_move_releases()) {
+        /* Success - cost 1 action, 1 turn */
+        gamestate_use_action();
+        gamestate_advance_turn(1);
+    }
+
+    game_state.state = STATE_PLAYING;
+}
+
+
+void action_rep_shop(void) {
+    uint8_t choice;
+
+    /* Show reputation shop */
+    choice = ui_show_rep_shop();
+
+    /* Check for cancel */
+    if (choice == 255) {
+        game_state.state = STATE_PLAYING;
+        return;
+    }
+
+    /* Handle purchases */
+    if (choice == 0) {
+        /* Bribe Sysop - remove nuke */
+        if (!gamestate_can_afford_rep(REP_COST_BRIBE_SYSOP)) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "INSUFFICIENT REP!", COLOR_RED);
+            ui_print_centered(12, "NEED 50 REP", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_REP_SHOP;
+            return;
+        }
+
+        if (forum_unnuke_post()) {
+            gamestate_spend_rep(REP_COST_BRIBE_SYSOP);
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "SYSOP BRIBED!", COLOR_GREEN);
+            ui_print_centered(12, "NUKE TAG REMOVED", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+        } else {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "NO NUKED POSTS FOUND!", COLOR_RED);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_REP_SHOP;
+            return;
+        }
+    } else if (choice == 1) {
+        /* Inside Info - simplified version */
+        if (!gamestate_can_afford_rep(REP_COST_INSIDE_INFO)) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "INSUFFICIENT REP!", COLOR_RED);
+            ui_print_centered(12, "NEED 30 REP", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_REP_SHOP;
+            return;
+        }
+
+        gamestate_spend_rep(REP_COST_INSIDE_INFO);
+        ui_show_inside_info();
+    } else if (choice == 2) {
+        /* VIP Access */
+        if (!gamestate_can_afford_rep(REP_COST_VIP_ACCESS)) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "INSUFFICIENT REP!", COLOR_RED);
+            ui_print_centered(12, "NEED 100 REP", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_REP_SHOP;
+            return;
+        }
+
+        gamestate_spend_rep(REP_COST_VIP_ACCESS);
+        game_state.vip_access_turns_left = VIP_DURATION;
+
+        screen_clear();
+        ui_render_hud();
+        ui_print_centered(10, "VIP ACCESS GRANTED!", COLOR_GREEN);
+        ui_print_centered(12, "20 TURNS, 5X REPUTATION", COLOR_WHITE);
+        ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+        input_wait_key();
+    } else if (choice == 3) {
+        /* Security Audit */
+        if (!gamestate_can_afford_rep(REP_COST_SECURITY_AUDIT)) {
+            screen_clear();
+            ui_render_hud();
+            ui_print_centered(10, "INSUFFICIENT REP!", COLOR_RED);
+            ui_print_centered(12, "NEED 75 REP", COLOR_WHITE);
+            ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+            input_wait_key();
+            game_state.state = STATE_REP_SHOP;
+            return;
+        }
+
+        gamestate_spend_rep(REP_COST_SECURITY_AUDIT);
+        game_state.security_audit_turns_left = AUDIT_DURATION;
+
+        screen_clear();
+        ui_render_hud();
+        ui_print_centered(10, "SECURITY AUDIT ACTIVE!", COLOR_GREEN);
+        ui_print_centered(12, "10 TURNS, -25% FTP RISK", COLOR_WHITE);
+        ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+        input_wait_key();
+    }
 
     game_state.state = STATE_PLAYING;
 }

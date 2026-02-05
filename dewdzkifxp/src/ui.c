@@ -171,6 +171,11 @@ void ui_render_hud(void) {
     screen_print_number(29, 0, game_state.bandwidth, 3, COLOR_CYAN);
     ui_print_string(32, 0, "KB/S", COLOR_CYAN);
 
+    /* Show temp equipment indicator (NEW) */
+    if (game_state.temp_equipment_type != TEMP_EQUIP_NONE) {
+        ui_print_string(36, 0, "[T]", COLOR_YELLOW);
+    }
+
     /* Row 1: ACT:3  SITES:2  POSTS:5   TURN:012 */
     ui_print_string(0, 1, "ACT:", COLOR_WHITE);
     screen_print_number(4, 1, game_state.actions_remaining, 1, COLOR_GREEN);
@@ -247,7 +252,8 @@ void ui_show_hub(void) {
     ui_print_centered(17, "[4] VIEW STATS", COLOR_WHITE);
     ui_print_centered(18, "[5] VIEW FTPS", COLOR_WHITE);
     ui_print_centered(19, "[6] HARDWARE SHOP", COLOR_WHITE);
-    ui_print_centered(21, "[Q] QUIT", COLOR_WHITE);
+    ui_print_centered(20, "[7] REPUTATION SHOP", COLOR_YELLOW);
+    ui_print_centered(22, "[Q] QUIT", COLOR_WHITE);
 }
 
 void ui_show_scan_anim(void) {
@@ -411,6 +417,13 @@ show_menu:
             screen_set_char(4, row, ']', color);
 
             ui_print_string(6, row, ftps[i].name, color);
+
+            /* Show trait tag (NEW) */
+            if (ftps[i].trait != TRAIT_NONE) {
+                const char* trait_tag = ftp_get_trait_tag(ftps[i].trait);
+                uint8_t trait_color = ftp_get_trait_color(ftps[i].trait);
+                ui_print_string(27, row, trait_tag, trait_color);
+            }
 
             /* Show raid risk if FTP has been used for posts */
             if (ftps[i].used_for_posts) {
@@ -840,40 +853,45 @@ void ui_show_ftps(void) {
             /* FTP name and info */
             ui_print_string(1, row, ftp->name, COLOR_CYAN);
 
-            /* Bandwidth */
-            ui_print_string(22, row, "BW:", COLOR_GRAY2);
-            screen_print_number(25, row, ftp->bandwidth, 3, COLOR_YELLOW);
-
-            /* Slots used */
-            ui_print_string(29, row, "(", COLOR_GRAY2);
-            screen_print_number(30, row, ftp->release_count, 1, COLOR_WHITE);
-            ui_print_string(31, row, "/", COLOR_GRAY2);
-            screen_print_number(32, row, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
-            ui_print_string(33, row, ")", COLOR_GRAY2);
+            /* Trait tag (NEW) - show if FTP has a trait */
+            if (ftp->trait != TRAIT_NONE) {
+                const char* trait_tag = ftp_get_trait_tag(ftp->trait);
+                uint8_t trait_color = ftp_get_trait_color(ftp->trait);
+                ui_print_string(21, row, trait_tag, trait_color);
+            }
 
             row++;
 
-            /* Show raid risk if FTP has been used for posts */
+            /* Heat meter (NEW) - show if FTP has been used for posts */
             if (ftp->used_for_posts) {
-                uint8_t risk = ftp->raid_risk;
-                const char* risk_label;
-                uint8_t risk_color;
-
-                if (risk < 34) {
-                    risk_label = "LOW";
-                    risk_color = COLOR_GREEN;
-                } else if (risk < 67) {
-                    risk_label = "MED";
-                    risk_color = COLOR_YELLOW;
-                } else {
-                    risk_label = "HGH";
-                    risk_color = COLOR_RED;
-                }
-
-                ui_print_string(22, row, "RISK:", COLOR_GRAY2);
-                ui_print_string(28, row, risk_label, risk_color);
-                row++;
+                const char* heat_text = ftp_get_heat_text(i);
+                uint8_t heat_color = ftp_get_heat_color(i);
+                ui_print_string(3, row, "HEAT:[", COLOR_GRAY2);
+                ui_print_string(9, row, heat_text, heat_color);
+                ui_print_string(13, row, "]", COLOR_GRAY2);
             }
+
+            row++;
+
+            /* Bandwidth and slots on second line */
+            ui_print_string(3, row, "BW:", COLOR_GRAY2);
+            screen_print_number(6, row, ftp->bandwidth, 3, COLOR_YELLOW);
+            ui_print_string(9, row, "KB/S", COLOR_GRAY2);
+
+            /* Slots used */
+            ui_print_string(17, row, "SLOTS:", COLOR_GRAY2);
+            screen_print_number(24, row, ftp->release_count, 1, COLOR_WHITE);
+            ui_print_string(25, row, "/", COLOR_GRAY2);
+            screen_print_number(26, row, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
+
+            /* Show detailed risk percentage if FTP has been used */
+            if (ftp->used_for_posts) {
+                ui_print_string(29, row, "RISK:", COLOR_GRAY2);
+                screen_print_number(34, row, ftp->raid_risk, 2, ftp_get_heat_color(i));
+                ui_print_string(36, row, "%", COLOR_GRAY2);
+            }
+
+            row++;
 
             /* Show releases on this FTP */
             if (ftp->release_count > 0) {
@@ -911,48 +929,56 @@ void ui_show_ftps(void) {
         ui_print_centered(12, "SCAN FOR FTPS FIRST!", COLOR_WHITE);
     }
 
+    ui_print_centered(22, "[M] MOVE RELEASES", COLOR_YELLOW);
     ui_print_centered(23, "[SPACE] CONTINUE", COLOR_WHITE);
-    input_wait_key();
+
+    /* Wait for key and check for M */
+    {
+        char key = cgetc();
+        if (key == 'm' || key == 'M') {
+            game_state.state = STATE_MOVE_RELEASES;
+        }
+    }
 }
 
 uint8_t ui_show_hardware_shop(void) {
     uint8_t i;
     uint8_t row;
     uint8_t color;
-    char stat_buf[32];
-    extern const HardwareTier hardware_tiers[6];
+    uint8_t owned;
+    uint8_t can_afford;
+    extern const HardwareTier hardware_tiers[8];
 
     screen_clear();
     ui_render_hud();
 
     ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
-    ui_print_centered(3, "HARDWARE SHOP", COLOR_CYAN);
+    ui_print_centered(3, "HARDWARE SHOP - CUMULATIVE", COLOR_CYAN);
     ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
 
-    /* Show current hardware */
-    ui_print_string(2, 5, "CURRENT:", COLOR_WHITE);
-    if (game_state.hardware_tier < 255) {
-        ui_print_string(11, 5, hardware_tiers[game_state.hardware_tier].name, COLOR_GREEN);
-    } else {
-        ui_print_string(11, 5, "NONE", COLOR_RED);
-    }
+    /* Show current totals */
+    ui_print_string(2, 5, "CURRENT BW:", COLOR_WHITE);
+    screen_print_number(14, 5, game_state.bandwidth, 3, COLOR_GREEN);
+    ui_print_string(18, 5, "KB/S", COLOR_GRAY2);
+
+    ui_print_string(25, 5, "ACT:", COLOR_WHITE);
+    screen_print_number(30, 5, gamestate_calculate_actions(), 1, COLOR_GREEN);
 
     row = 7;
 
-    /* List all 6 tiers */
-    for (i = 0; i < 6; i++) {
+    /* List all 8 hardware items */
+    for (i = 0; i < 8 && row < 20; i++) {
         const HardwareTier* tier = &hardware_tiers[i];
-        uint8_t is_current = (game_state.hardware_tier < 255 && i == game_state.hardware_tier);
-        uint8_t can_afford = (game_state.reputation >= tier->rep_cost);
-        uint8_t is_upgrade = (game_state.hardware_tier == 255 || i > game_state.hardware_tier);
+        owned = gamestate_has_hardware(1 << i);
+        can_afford = (game_state.reputation >= tier->rep_cost);
 
-        /* Determine color: green=current, white=affordable upgrade, gray=can't afford/owned */
-        if (is_current) {
-            color = COLOR_GREEN;
-        } else if (is_upgrade && can_afford) {
+        /* Color: gray=owned, white=can afford, red=too expensive */
+        if (owned) {
+            color = COLOR_GRAY2;
+        } else if (can_afford) {
             color = COLOR_WHITE;
         } else {
-            color = COLOR_GRAY2;
+            color = COLOR_GRAY3;
         }
 
         /* Menu number */
@@ -963,29 +989,34 @@ uint8_t ui_show_hardware_shop(void) {
         /* Hardware name */
         ui_print_string(6, row, tier->name, color);
 
-        /* Current indicator */
-        if (is_current) {
-            ui_print_string(26, row, "<CURRENT>", COLOR_GREEN);
+        /* Owned indicator */
+        if (owned) {
+            ui_print_string(24, row, "[OWNED]", COLOR_GRAY2);
+        } else {
+            /* REP cost for unowned */
+            ui_print_string(24, row, "REP:", COLOR_GRAY2);
+            screen_print_number(29, row, tier->rep_cost, 3, color);
         }
 
         row++;
 
-        /* REP cost */
-        ui_print_string(8, row, "REP:", COLOR_GRAY2);
-        screen_print_number(13, row, tier->rep_cost, 3, color);
-
-        /* Stats */
-        sprintf(stat_buf, "BW:%dMB/S FAIL:%d%%",
-                tier->bandwidth, tier->fail_rate);
-        ui_print_string(18, row, stat_buf, color);
+        /* Show effect */
+        if (i == 6) {
+            /* Second Phone Line */
+            ui_print_string(8, row, "+1 ACTION", color);
+        } else if (tier->bandwidth > 0) {
+            /* Bandwidth items */
+            ui_print_string(8, row, "+", color);
+            screen_print_number(9, row, tier->bandwidth, 3, color);
+            ui_print_string(13, row, "KB/S", color);
+        }
 
         row++;
-        if (row >= 20) break;  /* Prevent overflow */
     }
 
-    ui_print_centered(21, "[1-6] PURCHASE [Q] BACK", COLOR_WHITE);
+    ui_print_centered(21, "[1-8] PURCHASE [Q] BACK", COLOR_WHITE);
 
-    return input_read_menu(6);
+    return input_read_menu(8);
 }
 
 void ui_show_raid_alert(void) {
@@ -1046,7 +1077,7 @@ void ui_show_raid_alert(void) {
 }
 
 void ui_show_event(void) {
-    const char* event_titles[10] = {
+    const char* event_titles[13] = {
         "ELITE NOTICED YOUR WORK!",
         "RELEASE WENT VIRAL!",
         "FORUM FEATURED POST!",
@@ -1056,10 +1087,13 @@ void ui_show_event(void) {
         "BANDWIDTH UPGRADE!",
         "ISP THROTTLING!",
         "HOT TIP: NEW FTP!",
-        "COURIER HINT!"
+        "COURIER HINT!",
+        "FRIEND LENDS T1 LINE!",
+        "CABLE MODEM ACCESS!",
+        "CORPORATE T3 HOOKUP!"
     };
 
-    const char* event_descriptions[10] = {
+    const char* event_descriptions[13] = {
         "AN ELITE MEMBER SAW YOUR POST",
         "YOUR RELEASE IS TRENDING",
         "MODERATORS LIKED YOUR CONTENT",
@@ -1069,7 +1103,10 @@ void ui_show_event(void) {
         "YOUR ISP UPGRADED SERVICE",
         "CONNECTION ISSUES DETECTED",
         "A COURIER SHARED FTP INFO",
-        "INSIDER TIP ON TOPSITE"
+        "INSIDER TIP ON TOPSITE",
+        "TEMPORARY BANDWIDTH BOOST",
+        "NEIGHBOR SHARING INTERNET",
+        "OFFICE LETS YOU USE THEIR NET"
     };
 
     uint8_t event_type;
@@ -1077,9 +1114,9 @@ void ui_show_event(void) {
     screen_clear();
     ui_render_hud();
 
-    event_type = game_state.current_event - 1;  /* 1-10 -> 0-9 */
+    event_type = game_state.current_event - 1;  /* 1-13 -> 0-12 */
 
-    if (event_type >= 10) {
+    if (event_type >= 13) {
         return;  /* Invalid event */
     }
 
@@ -1122,6 +1159,15 @@ void ui_show_event(void) {
     } else if (event_type == 9) {
         /* Topsite preview */
         ui_print_centered(16, "TOPSITE UNLOCKED!", COLOR_GREEN);
+    } else if (event_type == 10) {
+        /* T1 line rental (NEW) */
+        ui_print_string(8, 16, "+193 KB/S FOR 10 TURNS", COLOR_GREEN);
+    } else if (event_type == 11) {
+        /* Cable modem rental (NEW) */
+        ui_print_string(8, 16, "+256 KB/S FOR 5 TURNS", COLOR_GREEN);
+    } else if (event_type == 12) {
+        /* T3 line rental (NEW) */
+        ui_print_string(8, 16, "+512 KB/S FOR 3 TURNS", COLOR_GREEN);
     }
 
     ui_print_centered(20, "[SPACE] CONTINUE", COLOR_WHITE);
@@ -1130,4 +1176,268 @@ void ui_show_event(void) {
     /* Reset event */
     game_state.current_event = 0;
     game_state.event_value = 0;
+}
+
+uint8_t ui_show_move_releases(void) {
+    uint8_t i, j;
+    uint8_t row;
+    uint8_t src_ftp_idx, dst_ftp_idx;
+    uint8_t release_idx;
+    uint8_t choice;
+    FTPServer* src_ftp;
+    FTPServer* dst_ftp;
+    Release* rel;
+    uint8_t ftps_with_releases[MAX_FTP_SERVERS];
+    uint8_t ftp_count;
+    uint8_t valid_dsts[MAX_FTP_SERVERS];
+    uint8_t valid_dst_count;
+    char input_buf[2];
+
+    /* Step 1: Find FTPs with releases */
+    ftp_count = 0;
+    for (i = 0; i < MAX_FTP_SERVERS; i++) {
+        if (ftps[i].active && ftps[i].release_count > 0) {
+            ftps_with_releases[ftp_count++] = i;
+        }
+    }
+
+    if (ftp_count == 0) {
+        screen_clear();
+        ui_render_hud();
+        ui_print_centered(10, "NO RELEASES TO MOVE!", COLOR_RED);
+        ui_print_centered(12, "FXP SOME RELEASES FIRST", COLOR_WHITE);
+        ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+        input_wait_key();
+        return 0;
+    }
+
+    /* Step 2: Select source FTP */
+    screen_clear();
+    ui_render_hud();
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "MOVE RELEASES - SELECT SOURCE", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, '-', COLOR_BLUE);
+
+    row = 6;
+    for (i = 0; i < ftp_count && row < 20; i++) {
+        src_ftp = &ftps[ftps_with_releases[i]];
+        screen_set_char(2, row, '[', COLOR_WHITE);
+        screen_print_number(3, row, i + 1, 1, COLOR_YELLOW);
+        screen_set_char(4, row, ']', COLOR_WHITE);
+        ui_print_string(6, row, src_ftp->name, COLOR_CYAN);
+
+        /* Show trait tag (NEW) */
+        if (src_ftp->trait != TRAIT_NONE) {
+            const char* trait_tag = ftp_get_trait_tag(src_ftp->trait);
+            uint8_t trait_color = ftp_get_trait_color(src_ftp->trait);
+            ui_print_string(27, row, trait_tag, trait_color);
+        }
+
+        ui_print_string(37, row, "(", COLOR_GRAY2);
+        screen_print_number(38, row, src_ftp->release_count, 1, COLOR_WHITE);
+        ui_print_string(39, row, ")", COLOR_GRAY2);
+        row++;
+    }
+
+    ui_print_centered(22, "[1-8] SELECT  [Q] CANCEL", COLOR_WHITE);
+
+    /* Read source FTP choice */
+    input_buf[0] = cgetc();
+    if (input_buf[0] == 'q' || input_buf[0] == 'Q') {
+        return 0;
+    }
+
+    choice = input_buf[0] - '1';
+    if (choice >= ftp_count) {
+        return 0;
+    }
+
+    src_ftp_idx = ftps_with_releases[choice];
+    src_ftp = &ftps[src_ftp_idx];
+
+    /* Step 3: Select release to move */
+    screen_clear();
+    ui_render_hud();
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "SELECT RELEASE TO MOVE", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, '-', COLOR_BLUE);
+
+    ui_print_string(2, 6, "FROM: ", COLOR_WHITE);
+    ui_print_string(8, 6, src_ftp->name, COLOR_CYAN);
+
+    row = 8;
+    for (i = 0; i < src_ftp->release_count; i++) {
+        rel = release_get(src_ftp->releases[i]);
+        if (rel && rel->active) {
+            screen_set_char(2, row, '[', COLOR_WHITE);
+            screen_print_number(3, row, i + 1, 1, COLOR_YELLOW);
+            screen_set_char(4, row, ']', COLOR_WHITE);
+            ui_print_string(6, row, rel->name, COLOR_WHITE);
+            row++;
+        }
+    }
+
+    ui_print_centered(22, "[1-5] SELECT  [Q] CANCEL", COLOR_WHITE);
+
+    /* Read release choice */
+    input_buf[0] = cgetc();
+    if (input_buf[0] == 'q' || input_buf[0] == 'Q') {
+        return 0;
+    }
+
+    release_idx = input_buf[0] - '1';
+    if (release_idx >= src_ftp->release_count) {
+        return 0;
+    }
+
+    rel = release_get(src_ftp->releases[release_idx]);
+    if (!rel || !rel->active) {
+        return 0;
+    }
+
+    /* Step 4: Find valid destination FTPs (not source, has space) */
+    valid_dst_count = 0;
+    for (i = 0; i < MAX_FTP_SERVERS; i++) {
+        if (ftps[i].active && i != src_ftp_idx && ftp_has_space(i)) {
+            valid_dsts[valid_dst_count++] = i;
+        }
+    }
+
+    if (valid_dst_count == 0) {
+        screen_clear();
+        ui_render_hud();
+        ui_print_centered(10, "NO VALID DESTINATIONS!", COLOR_RED);
+        ui_print_centered(12, "ALL OTHER FTPS ARE FULL", COLOR_WHITE);
+        ui_print_centered(18, "[SPACE] CONTINUE", COLOR_WHITE);
+        input_wait_key();
+        return 0;
+    }
+
+    /* Step 5: Select destination FTP */
+    screen_clear();
+    ui_render_hud();
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "SELECT DESTINATION FTP", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, '-', COLOR_BLUE);
+
+    ui_print_string(2, 6, "MOVING: ", COLOR_WHITE);
+    ui_print_string(10, 6, rel->name, COLOR_YELLOW);
+
+    row = 8;
+    for (i = 0; i < valid_dst_count && row < 20; i++) {
+        dst_ftp = &ftps[valid_dsts[i]];
+        screen_set_char(2, row, '[', COLOR_WHITE);
+        screen_print_number(3, row, i + 1, 1, COLOR_YELLOW);
+        screen_set_char(4, row, ']', COLOR_WHITE);
+        ui_print_string(6, row, dst_ftp->name, COLOR_CYAN);
+
+        /* Show trait tag (NEW) */
+        if (dst_ftp->trait != TRAIT_NONE) {
+            const char* trait_tag = ftp_get_trait_tag(dst_ftp->trait);
+            uint8_t trait_color = ftp_get_trait_color(dst_ftp->trait);
+            ui_print_string(27, row, trait_tag, trait_color);
+        }
+
+        ui_print_string(36, row, "(", COLOR_GRAY2);
+        screen_print_number(37, row, dst_ftp->release_count, 1, COLOR_WHITE);
+        ui_print_string(38, row, "/", COLOR_GRAY2);
+        screen_print_number(39, row, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
+        ui_print_string(40, row, ")", COLOR_GRAY2);
+        row++;
+    }
+
+    ui_print_centered(22, "[1-8] SELECT  [Q] CANCEL", COLOR_WHITE);
+
+    /* Read destination FTP choice */
+    input_buf[0] = cgetc();
+    if (input_buf[0] == 'q' || input_buf[0] == 'Q') {
+        return 0;
+    }
+
+    choice = input_buf[0] - '1';
+    if (choice >= valid_dst_count) {
+        return 0;
+    }
+
+    dst_ftp_idx = valid_dsts[choice];
+    dst_ftp = &ftps[dst_ftp_idx];
+
+    /* Execute move */
+    if (ftp_move_release(src_ftp_idx, dst_ftp_idx, src_ftp->releases[release_idx])) {
+        uint8_t moved_release_id = src_ftp->releases[release_idx];
+
+        /* Update any forum posts to point to new FTP */
+        for (i = 0; i < MAX_POSTS; i++) {
+            if (posts[i].active && posts[i].release_id == moved_release_id && posts[i].ftp_id == src_ftp_idx) {
+                posts[i].ftp_id = dst_ftp_idx;
+            }
+        }
+
+        /* Success message */
+        screen_clear();
+        ui_render_hud();
+        ui_print_centered(10, "RELEASE MOVED!", COLOR_GREEN);
+        ui_print_string(5, 12, rel->name, COLOR_YELLOW);
+        ui_print_centered(14, "FROM", COLOR_WHITE);
+        ui_print_string(5, 15, src_ftp->name, COLOR_CYAN);
+        ui_print_centered(17, "TO", COLOR_WHITE);
+        ui_print_string(5, 18, dst_ftp->name, COLOR_CYAN);
+        ui_print_centered(22, "[SPACE] CONTINUE", COLOR_WHITE);
+        input_wait_key();
+
+        return 1;  /* Success */
+    }
+
+    return 0;  /* Failed */
+}
+
+uint8_t ui_show_rep_shop(void) {
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "REPUTATION SHOP", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
+
+    ui_print_string(2, 5, "CURRENT REP:", COLOR_WHITE);
+    screen_print_number(15, 5, game_state.reputation, 4, COLOR_YELLOW);
+
+    /* Option 1: Bribe Sysop */
+    ui_print_string(2, 7, "[1] BRIBE SYSOP", COLOR_WHITE);
+    ui_print_string(28, 7, "50 REP", COLOR_GRAY2);
+    ui_print_string(4, 8, "REMOVE NUKE FROM 1 POST", COLOR_GRAY2);
+
+    /* Option 2: Inside Info (simplified - just show message) */
+    ui_print_string(2, 10, "[2] INSIDE INFO", COLOR_WHITE);
+    ui_print_string(28, 10, "30 REP", COLOR_GRAY2);
+    ui_print_string(4, 11, "PREVIEW NEXT 3 RELEASES", COLOR_GRAY2);
+
+    /* Option 3: VIP Access */
+    ui_print_string(2, 13, "[3] VIP ACCESS", COLOR_WHITE);
+    ui_print_string(27, 13, "100 REP", COLOR_GRAY2);
+    ui_print_string(4, 14, "PREMIUM FORUM (20 TURNS, 5X REP)", COLOR_GRAY2);
+
+    /* Option 4: Security Audit */
+    ui_print_string(2, 16, "[4] SECURITY AUDIT", COLOR_WHITE);
+    ui_print_string(28, 16, "75 REP", COLOR_GRAY2);
+    ui_print_string(4, 17, "-25% FTP RISK (10 TURNS)", COLOR_GRAY2);
+
+    ui_print_centered(22, "[1-4] PURCHASE [Q] BACK", COLOR_WHITE);
+
+    return input_read_menu(4);
+}
+
+void ui_show_inside_info(void) {
+    screen_clear();
+    ui_render_hud();
+
+    ui_draw_hline(0, 2, 40, 160, COLOR_BLUE);
+    ui_print_centered(3, "INSIDE INFO - COMING SOON", COLOR_CYAN);
+    ui_draw_hline(0, 4, 40, 160, COLOR_BLUE);
+
+    ui_print_centered(10, "PREVIEW NEXT 3 RELEASES", COLOR_WHITE);
+    ui_print_centered(12, "FEATURE NOT IMPLEMENTED", COLOR_GRAY2);
+
+    ui_print_centered(20, "[SPACE] CONTINUE", COLOR_WHITE);
+    input_wait_key();
 }

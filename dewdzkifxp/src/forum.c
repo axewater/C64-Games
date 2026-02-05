@@ -28,6 +28,11 @@ void forum_init(void) {
 uint8_t forum_create_post(uint8_t release_id, uint8_t ftp_id, uint8_t forum_id) {
     uint8_t i;
 
+    /* Override forum if VIP access active (NEW) */
+    if (gamestate_has_vip_access()) {
+        forum_id = FORUM_VIP;
+    }
+
     /* Find empty slot */
     for (i = 0; i < MAX_POSTS; i++) {
         if (!posts[i].active) {
@@ -94,6 +99,16 @@ void forum_update_all_posts(void) {
         downloads = traffic * (freshness + 1);
         downloads += random_range(0, 5);  /* Variance */
 
+        /* Apply FTP trait modifiers (NEW) */
+        if (posts[i].ftp_id < MAX_FTP_SERVERS && ftps[posts[i].ftp_id].active) {
+            uint8_t trait = ftps[posts[i].ftp_id].trait;
+            if (trait == TRAIT_POPULAR) {
+                downloads = (downloads * 150) / 100;  /* +50% */
+            } else if (trait == TRAIT_SECURE) {
+                downloads = (downloads * 75) / 100;   /* -25% */
+            }
+        }
+
         posts[i].downloads += downloads;
 
         /* Generate replies (less frequent) */
@@ -110,6 +125,12 @@ void forum_update_all_posts(void) {
 
             forum_mult = forums[posts[i].forum_id].rep_multiplier;
             group_mult = groups[rel->group].rep_multiplier;
+
+            /* Apply VIP multiplier (NEW) */
+            if (posts[i].forum_id == FORUM_VIP) {
+                forum_mult *= VIP_REP_MULTIPLIER;
+            }
+
             /* Use uint32_t for intermediate calculation to prevent overflow */
             rep_calc = ((uint32_t)downloads * (rel->quality + 1) * forum_mult * group_mult) / 20;
             /* Cap at uint16_t max for rep variable */
@@ -150,4 +171,18 @@ uint8_t forum_has_post(uint8_t release_id, uint8_t ftp_id) {
     }
 
     return 0;  /* Not posted yet (or nuked) */
+}
+
+uint8_t forum_unnuke_post(void) {
+    uint8_t i;
+
+    /* Find first nuked post */
+    for (i = 0; i < MAX_POSTS; i++) {
+        if (posts[i].active && posts[i].nuked) {
+            posts[i].nuked = 0;
+            return 1;
+        }
+    }
+
+    return 0;  /* No nuked posts found */
 }

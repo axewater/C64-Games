@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #define MAX_POSTS 12  /* Increased from 8 (NEW) */
+#define FORUM_VIP 3   /* Premium forum (temporary access) (NEW) */
 
 /* Forum data structure */
 typedef struct {
@@ -48,5 +49,8 @@ const char* forum_get_name(uint8_t forum_id);
 
 /* Check if a post already exists for release+FTP combo */
 uint8_t forum_has_post(uint8_t release_id, uint8_t ftp_id);
+
+/* Remove nuke tag from one post (returns 1 on success) (NEW) */
+uint8_t forum_unnuke_post(void);
 
 #endif /* FORUM_H */

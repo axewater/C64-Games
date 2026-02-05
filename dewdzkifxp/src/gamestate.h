@@ -21,6 +21,25 @@
 #define STATE_HARDWARE_SHOP 14 /* Hardware shop */
 #define STATE_RAID_ALERT    15 /* Raid notification screen */
 #define STATE_EVENT         16 /* Random event screen */
+#define STATE_MOVE_RELEASES 17 /* Move releases between FTPs */
+#define STATE_REP_SHOP      18 /* Reputation shop */
+#define STATE_INSIDE_INFO   19 /* Inside info preview */
+
+/* Base actions per session (NEW) */
+#define BASE_ACTIONS 3
+#define BONUS_ACTIONS_PHONE2 1
+
+/* Reputation purchase costs (NEW) */
+#define REP_COST_BRIBE_SYSOP    50   /* Remove 1 nuke tag */
+#define REP_COST_INSIDE_INFO    30   /* Preview next 3 releases */
+#define REP_COST_VIP_ACCESS     100  /* Premium forum 20 turns */
+#define REP_COST_SECURITY_AUDIT 75   /* -25% FTP risk 10 turns */
+
+/* Effects (NEW) */
+#define VIP_REP_MULTIPLIER      5    /* 5x rep in VIP forum */
+#define VIP_DURATION           20
+#define AUDIT_DURATION         10
+#define AUDIT_RISK_REDUCTION   25    /* 25% risk reduction */
 
 /* Game state structure */
 typedef struct {
@@ -50,6 +69,16 @@ typedef struct {
     /* Event tracking (NEW) */
     uint8_t current_event;         /* 0 = none, 1-10 = event type */
     uint8_t event_value;           /* Event-specific parameter */
+
+    /* Cumulative hardware system (NEW) */
+    uint8_t hardware_owned;             /* Bitmask of owned hardware */
+    uint8_t temp_equipment_type;        /* 0=none, 1-3=type */
+    uint8_t temp_equipment_turns_left;  /* Duration remaining */
+
+    /* Reputation economy (NEW) */
+    uint8_t vip_access_turns_left;      /* 0=inactive, 1-20=active */
+    uint8_t security_audit_turns_left;  /* 0=inactive, 1-10=active */
+    uint8_t inside_info_available;      /* 0=no, 1=yes */
 } GameState;
 
 /* Global game state */
@@ -75,5 +104,44 @@ uint8_t gamestate_can_use_action(void);
 
 /* Use one action (decrements and resets at 0) */
 void gamestate_use_action(void);
+
+/* Cumulative hardware functions (NEW) */
+/* Calculate total bandwidth from all owned hardware */
+uint16_t gamestate_calculate_bandwidth(void);
+
+/* Calculate total actions per session */
+uint8_t gamestate_calculate_actions(void);
+
+/* Check if hardware owned */
+uint8_t gamestate_has_hardware(uint8_t hw_bit);
+
+/* Purchase hardware (set bit in bitmask) */
+void gamestate_purchase_hardware(uint8_t tier_idx);
+
+/* Update bandwidth from hardware */
+void gamestate_update_bandwidth(void);
+
+/* Apply temporary equipment */
+void gamestate_apply_temp_equipment(uint8_t equip_type, uint8_t turns);
+
+/* Tick down temp equipment (called each turn) */
+void gamestate_update_temp_equipment(void);
+
+/* Get temp equipment bandwidth bonus */
+uint16_t gamestate_get_temp_bandwidth(void);
+
+/* Reputation economy functions (NEW) */
+/* Check if can afford rep cost */
+uint8_t gamestate_can_afford_rep(uint16_t cost);
+
+/* Spend reputation (returns 1 on success) */
+uint8_t gamestate_spend_rep(uint16_t cost);
+
+/* Update rep purchases (called each turn) */
+void gamestate_update_rep_purchases(void);
+
+/* Check active purchases */
+uint8_t gamestate_has_vip_access(void);
+uint8_t gamestate_has_security_audit(void);
 
 #endif /* GAMESTATE_H */

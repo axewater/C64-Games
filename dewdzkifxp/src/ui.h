@@ -77,4 +77,13 @@ void ui_show_raid_alert(void);
 /* Screen: Random event (NEW) */
 void ui_show_event(void);
 
+/* Screen: Move releases between FTPs, returns 1 on success, 0 on cancel (NEW) */
+uint8_t ui_show_move_releases(void);
+
+/* Screen: Reputation shop menu, returns selected option or 255 for cancel (NEW) */
+uint8_t ui_show_rep_shop(void);
+
+/* Screen: Inside info preview (NEW) */
+void ui_show_inside_info(void);
+
 #endif /* UI_H */
