@@ -2,6 +2,7 @@
 #include "sprite.h"
 #include "gamestate.h"
 #include "random.h"
+#include "room.h"
 #include <string.h>
 
 Enemy enemies[MAX_ENEMIES];
@@ -195,6 +196,8 @@ void enemy_update_all(uint16_t player_x, uint16_t player_y) {
     uint8_t i;
     int16_t dx, dy;
     uint8_t speed;
+    uint16_t new_x, new_y;
+    uint8_t moved;
 
     for (i = 0; i < MAX_ENEMIES; i++) {
         if (enemies[i].active) {
@@ -205,17 +208,53 @@ void enemy_update_all(uint16_t player_x, uint16_t player_y) {
             /* Set speed based on type */
             speed = (enemies[i].type == ENEMY_TYPE_FAST) ? 2 : 1;
 
-            /* Simple chase AI */
-            if (dx > 0) {
-                enemies[i].x += speed;
-            } else if (dx < 0) {
-                enemies[i].x -= speed;
+            moved = 0;
+
+            /* Try to move toward player, checking for walls */
+            /* First, try diagonal movement (both x and y) */
+            if (dx != 0 && dy != 0) {
+                new_x = enemies[i].x;
+                new_y = enemies[i].y;
+
+                if (dx > 0) new_x += speed;
+                else if (dx < 0) new_x -= speed;
+
+                if (dy > 0) new_y += speed;
+                else if (dy < 0) new_y -= speed;
+
+                /* Check if diagonal move is valid */
+                if (!room_check_collision(new_x, new_y)) {
+                    enemies[i].x = new_x;
+                    enemies[i].y = new_y;
+                    moved = 1;
+                }
             }
 
-            if (dy > 0) {
-                enemies[i].y += speed;
-            } else if (dy < 0) {
-                enemies[i].y -= speed;
+            /* If diagonal failed or not applicable, try moving in one direction */
+            if (!moved) {
+                /* Try X movement first */
+                if (dx != 0) {
+                    new_x = enemies[i].x;
+                    if (dx > 0) new_x += speed;
+                    else new_x -= speed;
+
+                    if (!room_check_collision(new_x, enemies[i].y)) {
+                        enemies[i].x = new_x;
+                        moved = 1;
+                    }
+                }
+
+                /* If X movement failed or not needed, try Y movement */
+                if (!moved && dy != 0) {
+                    new_y = enemies[i].y;
+                    if (dy > 0) new_y += speed;
+                    else new_y -= speed;
+
+                    if (!room_check_collision(enemies[i].x, new_y)) {
+                        enemies[i].y = new_y;
+                        moved = 1;
+                    }
+                }
             }
 
             /* Update sprite position */
@@ -265,6 +304,18 @@ uint8_t enemy_count_active(void) {
     }
 
     return count;
+}
+
+void enemy_clear_all(void) {
+    uint8_t i;
+
+    /* Clear all enemies */
+    for (i = 0; i < MAX_ENEMIES; i++) {
+        if (enemies[i].active) {
+            enemies[i].active = 0;
+            sprite_enable(enemies[i].sprite_num, 0);
+        }
+    }
 }
 
 void enemy_spawn_wave(void) {

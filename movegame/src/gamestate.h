@@ -16,6 +16,7 @@ typedef struct {
     uint8_t wave;
     uint8_t enemies_killed_this_wave;
     uint8_t enemies_to_spawn;
+    uint8_t current_room;
 } GameState;
 
 // Global game state

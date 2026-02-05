@@ -8,16 +8,20 @@
 #include "bullet.h"
 #include "enemy.h"
 #include "collision.h"
+#include "room.h"
 
 int main(void) {
     uint8_t running = 1;
     uint8_t joy_enabled;
     uint8_t shoot_cooldown = 0;
+    uint8_t exit_dir;
+    uint8_t next_room;
     Player *p;
     InputState input;
 
     /* Initialize subsystems */
     screen_init();
+    room_init();
     player_init();
     joy_enabled = input_init();
     gamestate_init();
@@ -25,64 +29,8 @@ int main(void) {
     bullet_init();
     enemy_init();
 
-    /* Draw title */
-    screen_set_char(12, 2, 'M', COLOR_CYAN);
-    screen_set_char(13, 2, 'O', COLOR_CYAN);
-    screen_set_char(14, 2, 'V', COLOR_CYAN);
-    screen_set_char(15, 2, 'E', COLOR_CYAN);
-    screen_set_char(16, 2, ' ', COLOR_WHITE);
-    screen_set_char(17, 2, 'G', COLOR_CYAN);
-    screen_set_char(18, 2, 'A', COLOR_CYAN);
-    screen_set_char(19, 2, 'M', COLOR_CYAN);
-    screen_set_char(20, 2, 'E', COLOR_CYAN);
-
-    /* Draw instructions at bottom */
-    if (joy_enabled) {
-        /* Show joystick + keyboard instructions */
-        screen_set_char(6, 22, 'J', COLOR_GREEN);
-        screen_set_char(7, 22, 'O', COLOR_GREEN);
-        screen_set_char(8, 22, 'Y', COLOR_GREEN);
-        screen_set_char(9, 22, '/', COLOR_WHITE);
-        screen_set_char(10, 22, 'W', COLOR_GREEN);
-        screen_set_char(11, 22, 'A', COLOR_GREEN);
-        screen_set_char(12, 22, 'S', COLOR_GREEN);
-        screen_set_char(13, 22, 'D', COLOR_GREEN);
-        screen_set_char(14, 22, ':', COLOR_WHITE);
-        screen_set_char(15, 22, 'M', COLOR_WHITE);
-        screen_set_char(16, 22, 'O', COLOR_WHITE);
-        screen_set_char(17, 22, 'V', COLOR_WHITE);
-        screen_set_char(18, 22, 'E', COLOR_WHITE);
-
-        screen_set_char(20, 22, 'F', COLOR_RED);
-        screen_set_char(21, 22, 'I', COLOR_RED);
-        screen_set_char(22, 22, 'R', COLOR_RED);
-        screen_set_char(23, 22, 'E', COLOR_RED);
-        screen_set_char(24, 22, '/', COLOR_WHITE);
-        screen_set_char(25, 22, 'Q', COLOR_RED);
-        screen_set_char(26, 22, ':', COLOR_WHITE);
-        screen_set_char(27, 22, 'Q', COLOR_WHITE);
-        screen_set_char(28, 22, 'U', COLOR_WHITE);
-        screen_set_char(29, 22, 'I', COLOR_WHITE);
-        screen_set_char(30, 22, 'T', COLOR_WHITE);
-    } else {
-        /* Show keyboard-only instructions */
-        screen_set_char(8, 22, 'W', COLOR_GREEN);
-        screen_set_char(9, 22, 'A', COLOR_GREEN);
-        screen_set_char(10, 22, 'S', COLOR_GREEN);
-        screen_set_char(11, 22, 'D', COLOR_GREEN);
-        screen_set_char(12, 22, ':', COLOR_WHITE);
-        screen_set_char(13, 22, 'M', COLOR_WHITE);
-        screen_set_char(14, 22, 'O', COLOR_WHITE);
-        screen_set_char(15, 22, 'V', COLOR_WHITE);
-        screen_set_char(16, 22, 'E', COLOR_WHITE);
-
-        screen_set_char(20, 22, 'Q', COLOR_RED);
-        screen_set_char(21, 22, ':', COLOR_WHITE);
-        screen_set_char(22, 22, 'Q', COLOR_WHITE);
-        screen_set_char(23, 22, 'U', COLOR_WHITE);
-        screen_set_char(24, 22, 'I', COLOR_WHITE);
-        screen_set_char(25, 22, 'T', COLOR_WHITE);
-    }
+    /* Render initial room */
+    room_render();
 
     /* Initial draw */
     player_update();
@@ -130,10 +78,39 @@ int main(void) {
             /* Check collisions */
             collision_update();
 
-            /* Check for wave completion */
+            /* Check for wave completion and unlock exits */
             if (enemy_count_active() == 0) {
-                gamestate_next_wave();
-                enemy_spawn_wave();
+                room_set_exits_locked(0);  /* Unlock exits when all enemies dead */
+
+                /* Check if player is at an exit */
+                p = player_get();
+                exit_dir = room_check_exit(p->x, p->y);
+
+                if (exit_dir != EXIT_NONE) {
+                    /* Determine next room */
+                    next_room = game_state.current_room + 1;
+                    if (next_room >= MAX_ROOMS) {
+                        next_room = 0;  /* Loop back to start */
+                    }
+
+                    /* Clear enemies and bullets */
+                    enemy_clear_all();
+
+                    /* Load new room */
+                    game_state.current_room = next_room;
+                    room_load(next_room);
+                    room_render();
+
+                    /* Lock exits for new room */
+                    room_set_exits_locked(1);
+
+                    /* Spawn next wave */
+                    gamestate_next_wave();
+                    enemy_spawn_wave();
+                }
+            } else {
+                /* Enemies still alive, keep exits locked */
+                room_set_exits_locked(1);
             }
 
             /* Update UI */

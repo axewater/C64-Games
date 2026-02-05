@@ -1,6 +1,7 @@
 #include "player.h"
 #include "sprite.h"
 #include "bullet.h"
+#include "room.h"
 #include <conio.h>
 
 static Player g_player;
@@ -41,8 +42,11 @@ void player_move(int16_t dx, int16_t dy) {
     if (new_y < MIN_Y) new_y = MIN_Y;
     if (new_y > MAX_Y) new_y = MAX_Y;
 
-    g_player.x = new_x;
-    g_player.y = new_y;
+    /* Check for wall collision - only update position if no wall */
+    if (!room_check_collision(new_x, new_y)) {
+        g_player.x = new_x;
+        g_player.y = new_y;
+    }
 
     /* Update last direction based on movement - check diagonals first */
     if (dx < 0 && dy < 0) {

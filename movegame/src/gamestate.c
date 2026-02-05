@@ -11,6 +11,7 @@ void gamestate_init(void) {
     game_state.wave = 0;
     game_state.enemies_killed_this_wave = 0;
     game_state.enemies_to_spawn = 0;
+    game_state.current_room = 0;
 }
 
 void gamestate_start_game(void) {
