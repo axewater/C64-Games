@@ -5,6 +5,7 @@
 #include "gamestate.h"
 #include "rank.h"
 #include "ftp.h"
+#include "sound.h"
 #include <conio.h>
 #include <string.h>
 
@@ -85,6 +86,9 @@ void ui_animate_matrix(uint8_t frame) {
     /* Current angle (0-15 for 16 directions, wrapping for multiple sweeps) */
     angle = frame % 16;
     prev_angle = (frame > 0) ? ((frame - 1) % 16) : 15;
+
+    /* Play radar sweep sound that matches the animation */
+    sound_play_radar_sweep(angle);
 
     /* Clear previous sweep line */
     for (radius = 1; radius < 12; radius++) {

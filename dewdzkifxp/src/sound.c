@@ -34,6 +34,10 @@
 #define FREQ_BACK_HI    0x0A  /* ~200 Hz - low thump */
 #define FREQ_BACK_LO    0x00
 
+/* Radar sweep frequency range (sweeps from low to high and back) */
+#define FREQ_RADAR_MIN  0x10  /* Base frequency */
+#define FREQ_RADAR_STEP 0x03  /* Step per angle */
+
 void sound_init(void) {
     uint8_t i;
 
@@ -90,6 +94,29 @@ void sound_play_back(void) {
 
     /* Release note */
     SID_V1_CONTROL = SID_TRIANGLE;
+}
+
+void sound_play_radar_sweep(uint8_t angle) {
+    uint8_t freq_hi;
+
+    /* Calculate frequency based on angle (0-15)
+     * Creates a rising sweep for first half (0-7), falling for second half (8-15)
+     * This gives the classic radar "ping" sweep sound */
+    if (angle < 8) {
+        /* Rising sweep */
+        freq_hi = FREQ_RADAR_MIN + (angle * FREQ_RADAR_STEP);
+    } else {
+        /* Falling sweep */
+        freq_hi = FREQ_RADAR_MIN + ((15 - angle) * FREQ_RADAR_STEP);
+    }
+
+    /* Set frequency */
+    SID_V1_FREQ_LO = 0x00;
+    SID_V1_FREQ_HI = freq_hi;
+
+    /* Use sawtooth wave for classic radar tone */
+    /* Gate bit stays on to maintain continuous tone */
+    SID_V1_CONTROL = SID_SAWTOOTH | SID_GATE;
 }
 
 void sound_silence(void) {

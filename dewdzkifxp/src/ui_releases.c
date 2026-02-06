@@ -8,6 +8,7 @@
 #include "forum.h"
 #include "input.h"
 #include "random.h"
+#include "sound.h"
 #include <conio.h>
 
 void ui_show_scan_anim(void) {
@@ -32,6 +33,9 @@ void ui_show_scan_anim(void) {
             break;
         }
     }
+
+    /* Stop radar sweep sound */
+    sound_silence();
 }
 
 uint8_t ui_show_topsite_list(void) {

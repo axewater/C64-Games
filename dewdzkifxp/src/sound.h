@@ -14,6 +14,9 @@ void sound_play_click(void);
 /* Play back/cancel sound (lower, thumpy) */
 void sound_play_back(void);
 
+/* Update radar sweep sound (call each frame with angle 0-15) */
+void sound_play_radar_sweep(uint8_t angle);
+
 /* Silence all voices */
 void sound_silence(void);
 
