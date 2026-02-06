@@ -12,6 +12,8 @@
 #define VIC_SPRITE_EXPAND_Y ((uint8_t*)0xD017)
 #define VIC_SPRITE_PRI ((uint8_t*)0xD01B)
 #define VIC_SPRITE_MCOLOR ((uint8_t*)0xD01C)
+#define VIC_SPRITE_MC1 ((uint8_t*)0xD025)
+#define VIC_SPRITE_MC2 ((uint8_t*)0xD026)
 #define VIC_SPRITE_COLOR ((uint8_t*)0xD027)
 
 /* Sprite pointers in screen memory */
@@ -43,5 +45,11 @@ void sprite_set_color(uint8_t sprite_num, uint8_t color);
 
 /* Set sprite expand Y */
 void sprite_set_expand_y(uint8_t sprite_num, uint8_t enabled);
+
+/* Set sprite multicolor mode */
+void sprite_set_multicolor(uint8_t sprite_num, uint8_t enabled);
+
+/* Set shared multicolor registers */
+void sprite_set_multicolor_shared(uint8_t mc1, uint8_t mc2);
 
 #endif /* SPRITE_H */

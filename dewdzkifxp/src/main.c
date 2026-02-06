@@ -38,11 +38,21 @@ int main(void) {
 
             case STATE_MENU:
                 ui_show_menu();
-                if (input_read_menu(1) == 0) {
-                    gamestate_start_game();
-                } else {
-                    running = 0;
+                {
+                    uint8_t choice = input_read_menu(2);
+                    if (choice == 0) {
+                        game_state.state = STATE_HELP;
+                    } else if (choice == 1) {
+                        gamestate_start_game();
+                    } else {
+                        running = 0;
+                    }
                 }
+                break;
+
+            case STATE_HELP:
+                ui_show_help();
+                game_state.state = STATE_MENU;
                 break;
 
             case STATE_PLAYING:
@@ -144,6 +154,30 @@ void process_events(void) {
     /* Roll for random event (5% chance per turn) */
     if (game_state.current_event == 0 && random_range(0, 100) < 5) {
         event_type = random_range(1, 14);  /* 1-13 */
+
+        /* Check event requirements before triggering */
+        if (event_type == 1 || event_type == 3) {
+            /* Events 1,3: Elite noticed/Featured post - need posts */
+            if (game_state.posts_active_count == 0) {
+                return;  /* Skip event this turn */
+            }
+        } else if (event_type == 4 || event_type == 6) {
+            /* Events 4,6: Duping/Drama - need reputation */
+            if (game_state.reputation < 100) {
+                return;  /* Skip event this turn */
+            }
+        } else if (event_type == 9) {
+            /* Event 9: FTP tip - need hardware */
+            if (game_state.hardware_owned == 0) {
+                return;  /* Skip event this turn */
+            }
+        } else if (event_type == 10) {
+            /* Event 10: Topsite hint - need FTPs + rep */
+            if (game_state.ftps_known_count < 3 || game_state.reputation < 200) {
+                return;  /* Skip event this turn */
+            }
+        }
+
         game_state.current_event = event_type;
 
         /* Apply event effects */

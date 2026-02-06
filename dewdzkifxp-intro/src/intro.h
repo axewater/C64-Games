@@ -11,30 +11,6 @@
 #define SPINNER_SPEED 8       /* Frames per spinner rotation frame */
 #define SLIDE_SPEED 1         /* VSync frames per slide animation step */
 
-/* Sprite data for person (walking character) */
-extern const uint8_t sprite_person[63];
-
-/* Sprite data for card (rectangular card for insertion) */
-extern const uint8_t sprite_card[63];
-
-/* Sprite data for cursor (8x8 block) */
-extern const uint8_t sprite_cursor[63];
-
-/* Sprite data for spinner (4-frame animation) */
-extern const uint8_t sprite_spinner_frame1[63];
-extern const uint8_t sprite_spinner_frame2[63];
-extern const uint8_t sprite_spinner_frame3[63];
-extern const uint8_t sprite_spinner_frame4[63];
-
-/* Sprite data for arrow */
-extern const uint8_t sprite_arrow[63];
-
-/* Sprite data for Lewis avatar (24x21 face with sunglasses) */
-extern const uint8_t sprite_lewis[63];
-
-/* Sprite data for FTP server icon */
-extern const uint8_t sprite_ftp[63];
-
 /* Initialize intro sequence */
 void intro_init(void);
 

@@ -24,6 +24,7 @@
 #define STATE_MOVE_RELEASES 17 /* Move releases between FTPs */
 #define STATE_REP_SHOP      18 /* Reputation shop */
 #define STATE_INSIDE_INFO   19 /* Inside info preview */
+#define STATE_HELP          20 /* Help screen */
 
 /* Base actions per session (NEW) */
 #define BASE_ACTIONS 3

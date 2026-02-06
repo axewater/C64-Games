@@ -1,260 +1,9 @@
 #include "intro.h"
 #include "sprite.h"
+#include "sprite_data.h"
 #include "screen.h"
 #include <conio.h>
 #include <string.h>
-
-/* Sprite data definitions */
-
-/* Person sprite - walking character */
-const uint8_t sprite_person[63] = {
-    0x00, 0x18, 0x00,  /* Head */
-    0x00, 0x3C, 0x00,
-    0x00, 0x3C, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x7E, 0x00,  /* Body */
-    0x00, 0xFF, 0x00,
-    0x00, 0xFF, 0x00,
-    0x00, 0x7E, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x3C, 0x00,  /* Legs */
-    0x00, 0x7E, 0x00,
-    0x00, 0xDB, 0x00,
-    0x00, 0x99, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x24, 0x00,
-    0x00, 0x42, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Card sprite - rectangular card for insertion */
-const uint8_t sprite_card[63] = {
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x0F, 0xFF, 0xF0,  /* Card top edge */
-    0x0F, 0xFF, 0xF0,
-    0x0F, 0x00, 0xF0,  /* Card with stripe */
-    0x0F, 0xFF, 0xF0,
-    0x0F, 0xFF, 0xF0,
-    0x0F, 0x00, 0xF0,  /* Magnetic stripe */
-    0x0F, 0x00, 0xF0,
-    0x0F, 0xFF, 0xF0,
-    0x0F, 0xFF, 0xF0,
-    0x0F, 0xFF, 0xF0,  /* Card bottom edge */
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Cursor sprite - solid 8x8 block */
-const uint8_t sprite_cursor[63] = {
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Spinner frame 1 - vertical line */
-const uint8_t sprite_spinner_frame1[63] = {
-    0x00, 0x18, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x3C, 0x00,
-    0x00, 0x7E, 0x00,
-    0x00, 0x7E, 0x00,
-    0x00, 0x3C, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x18, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Spinner frame 2 - diagonal \ */
-const uint8_t sprite_spinner_frame2[63] = {
-    0x60, 0x00, 0x00,
-    0x30, 0x00, 0x00,
-    0x18, 0x00, 0x00,
-    0x0C, 0x00, 0x00,
-    0x06, 0x00, 0x00,
-    0x03, 0x00, 0x00,
-    0x01, 0x80, 0x00,
-    0x00, 0xC0, 0x00,
-    0x00, 0x60, 0x00,
-    0x00, 0x30, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Spinner frame 3 - horizontal line */
-const uint8_t sprite_spinner_frame3[63] = {
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Spinner frame 4 - diagonal / */
-const uint8_t sprite_spinner_frame4[63] = {
-    0x00, 0x00, 0x60,
-    0x00, 0x00, 0x30,
-    0x00, 0x00, 0x18,
-    0x00, 0x00, 0x0C,
-    0x00, 0x00, 0x06,
-    0x00, 0x00, 0x03,
-    0x00, 0x01, 0x80,
-    0x00, 0x0C, 0x00,
-    0x00, 0x60, 0x00,
-    0x00, 0x30, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Arrow sprite - improved pointing right with better visibility */
-const uint8_t sprite_arrow[63] = {
-    0x00, 0x00, 0x00,
-    0x00, 0x80, 0x00,
-    0x00, 0xC0, 0x00,
-    0x00, 0xE0, 0x00,
-    0x00, 0xF0, 0x00,
-    0xFF, 0xF8, 0x00,  /* Shaft with arrowhead */
-    0xFF, 0xFC, 0x00,
-    0xFF, 0xFE, 0x00,  /* Tip */
-    0xFF, 0xFC, 0x00,
-    0xFF, 0xF8, 0x00,  /* Shaft with arrowhead */
-    0x00, 0xF0, 0x00,
-    0x00, 0xE0, 0x00,
-    0x00, 0xC0, 0x00,
-    0x00, 0x80, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
-
-/* Lewis avatar - improved face with sunglasses and smile */
-const uint8_t sprite_lewis[63] = {
-    0x00, 0x3C, 0x00,  /* Top of head */
-    0x00, 0x7E, 0x00,
-    0x01, 0xFF, 0x80,
-    0x01, 0xFF, 0x80,
-    0x03, 0xFF, 0xC0,
-    0x03, 0xFF, 0xC0,
-    0x7F, 0x00, 0xFE,  /* Sunglasses - separated lenses */
-    0x7F, 0x00, 0xFE,  /* Sunglasses bar */
-    0x7F, 0x00, 0xFE,
-    0x03, 0xFF, 0xC0,  /* Sunglasses end */
-    0x03, 0xFF, 0xC0,  /* Face */
-    0x03, 0xFF, 0xC0,
-    0x03, 0xFF, 0xC0,
-    0x03, 0x81, 0xC0,  /* Smile start - wider smile */
-    0x03, 0x81, 0xC0,
-    0x01, 0xC3, 0x80,
-    0x01, 0xC3, 0x80,
-    0x00, 0xFF, 0x00,
-    0x00, 0x7E, 0x00,  /* Smile end */
-    0x00, 0x3C, 0x00,
-    0x00
-};
-
-/* FTP server icon - server box with lights */
-const uint8_t sprite_ftp[63] = {
-    0x00, 0x00, 0x00,
-    0x3F, 0xFF, 0xFC,  /* Top */
-    0x20, 0x00, 0x04,
-    0x27, 0x3C, 0xE4,  /* Status lights */
-    0x20, 0x00, 0x04,
-    0x3F, 0xFF, 0xFC,  /* Divider */
-    0x20, 0x00, 0x04,
-    0x27, 0x3C, 0xE4,  /* More lights */
-    0x20, 0x00, 0x04,
-    0x3F, 0xFF, 0xFC,  /* Divider */
-    0x20, 0x00, 0x04,
-    0x27, 0x3C, 0xE4,  /* More lights */
-    0x20, 0x00, 0x04,
-    0x3F, 0xFF, 0xFC,  /* Bottom */
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00,
-    0x00
-};
 
 /* ===== ANIMATION HELPER FUNCTIONS ===== */
 
@@ -334,6 +83,8 @@ static uint8_t intro_scene1_library(void) {
     uint8_t y;
     uint8_t base_y;
     uint8_t hop_offset;
+    const uint8_t* walk_frames[3];
+    uint8_t frame_index;
 
     screen_clear();
 
@@ -349,9 +100,18 @@ static uint8_t intro_scene1_library(void) {
     screen_print_centered(13, "|       |    |         |", COLOR_BLUE);
     screen_print_centered(14, "+-------+----+---------+", COLOR_CYAN);
 
-    /* Load person sprite */
-    sprite_load(SPRITE_CURSOR, sprite_person, SPRITE_DATA_BASE);
-    sprite_set_color(SPRITE_CURSOR, COLOR_CYAN);
+    /* Setup walking animation frames */
+    walk_frames[0] = sprite_person_frame1;
+    walk_frames[1] = sprite_person_frame2;
+    walk_frames[2] = sprite_person_frame3;
+
+    /* Setup multicolor mode for person sprite */
+    sprite_set_multicolor_shared(10, 0);  /* MC0=light red (skin), MC1=black (hair/shoes) */
+    sprite_set_multicolor(SPRITE_CURSOR, 1);  /* Enable multicolor for this sprite */
+
+    /* Load initial frame */
+    sprite_load(SPRITE_CURSOR, walk_frames[0], SPRITE_DATA_BASE);
+    sprite_set_color(SPRITE_CURSOR, 14);  /* Light blue for clothes */
 
     /* Phase 1: Walk left along top (above building) */
     /* From top-right (280, 60) to top-left (80, 60) with hopping animation */
@@ -362,6 +122,10 @@ static uint8_t intro_scene1_library(void) {
         /* Hopping motion: every 10 frames = one hop cycle */
         hop_offset = (i % 10) < 5 ? 0 : 8;
         y = base_y + hop_offset;
+
+        /* Cycle through walking animation frames (every 5 frames) */
+        frame_index = (i / 5) % 3;
+        sprite_load(SPRITE_CURSOR, walk_frames[frame_index], SPRITE_DATA_BASE);
 
         sprite_set_position(SPRITE_CURSOR, x, y);
         sprite_enable(SPRITE_CURSOR, 1);
@@ -377,6 +141,10 @@ static uint8_t intro_scene1_library(void) {
         hop_offset = (i % 10) < 5 ? 0 : 8;
         y = base_y + hop_offset;
 
+        /* Cycle through walking animation frames */
+        frame_index = (i / 5) % 3;
+        sprite_load(SPRITE_CURSOR, walk_frames[frame_index], SPRITE_DATA_BASE);
+
         sprite_set_position(SPRITE_CURSOR, x, y);
         wait_frames(WALK_SPEED);
     }
@@ -389,6 +157,10 @@ static uint8_t intro_scene1_library(void) {
 
         hop_offset = (i % 10) < 5 ? 0 : 8;
         y = base_y + hop_offset;
+
+        /* Cycle through walking animation frames */
+        frame_index = (i / 5) % 3;
+        sprite_load(SPRITE_CURSOR, walk_frames[frame_index], SPRITE_DATA_BASE);
 
         sprite_set_position(SPRITE_CURSOR, x, y);
         wait_frames(WALK_SPEED);
@@ -404,6 +176,10 @@ static uint8_t intro_scene1_library(void) {
         } else {
             y = 166 + ((i - 7) * 2);  /* Land down (disappear into door) */
         }
+
+        /* Cycle through walking animation frames */
+        frame_index = (i / 5) % 3;
+        sprite_load(SPRITE_CURSOR, walk_frames[frame_index], SPRITE_DATA_BASE);
 
         sprite_set_position(SPRITE_CURSOR, x, y);
         wait_frames(WALK_SPEED);
@@ -441,8 +217,9 @@ static uint8_t intro_scene2_terminal(void) {
     screen_print_centered(18, "INTERNET TERMINAL...", COLOR_WHITE);
 
     /* Animate card insertion using helper function */
+    sprite_set_multicolor(SPRITE_CURSOR, 1);  /* Enable multicolor */
     sprite_load(SPRITE_CURSOR, sprite_card, SPRITE_DATA_BASE);
-    sprite_set_color(SPRITE_CURSOR, COLOR_YELLOW);
+    sprite_set_color(SPRITE_CURSOR, 7);  /* Yellow border */
     sprite_slide_to(SPRITE_CURSOR, 185, 200, 185, 136, 50);
 
     /* Hold card in slot briefly */
@@ -460,6 +237,7 @@ static uint8_t intro_scene2_terminal(void) {
     screen_print_centered(21, "PRESS ANY KEY", COLOR_YELLOW);
 
     /* Load cursor sprite and animate blinking using BLINK_CYCLE constant */
+    sprite_set_multicolor(SPRITE_CURSOR, 0);  /* Disable multicolor for cursor */
     sprite_load(SPRITE_CURSOR, sprite_cursor, SPRITE_DATA_BASE);
     sprite_set_color(SPRITE_CURSOR, COLOR_WHITE);
     sprite_set_position(SPRITE_CURSOR, 230, 140);
@@ -503,6 +281,7 @@ static uint8_t intro_scene3_login(void) {
     spinner_frames[2] = sprite_spinner_frame3;
     spinner_frames[3] = sprite_spinner_frame4;
 
+    sprite_set_multicolor(SPRITE_CURSOR, 0);  /* Disable multicolor for spinner */
     sprite_set_color(SPRITE_CURSOR, COLOR_YELLOW);
     sprite_set_position(SPRITE_CURSOR, 180, 140);
     sprite_enable(SPRITE_CURSOR, 1);
@@ -538,6 +317,7 @@ static uint8_t intro_scene4_channels(void) {
     screen_print_centered(22, "PRESS ANY KEY", COLOR_YELLOW);
 
     /* Load arrow sprite and slide it to point at #hacking */
+    sprite_set_multicolor(SPRITE_CURSOR, 1);  /* Enable multicolor */
     sprite_load(SPRITE_CURSOR, sprite_arrow, SPRITE_DATA_BASE);
     sprite_set_color(SPRITE_CURSOR, COLOR_YELLOW);
     sprite_slide_to(SPRITE_CURSOR, 280, 105, 200, 105, 20);
@@ -576,8 +356,9 @@ static uint8_t intro_scene5_join(void) {
 /* Scene 6: Lewis Appears - Mentor character introduction */
 static uint8_t intro_scene6_lewis(void) {
     /* Load Lewis sprite and slide in from right */
+    sprite_set_multicolor(SPRITE_LEWIS, 1);  /* Enable multicolor */
     sprite_load(SPRITE_LEWIS, sprite_lewis, SPRITE_DATA_BASE + SPRITE_DATA_SIZE);
-    sprite_set_color(SPRITE_LEWIS, COLOR_CYAN);
+    sprite_set_color(SPRITE_LEWIS, 6);  /* Blue for sunglasses */
     sprite_slide_to(SPRITE_LEWIS, 320, 150, 280, 150, 20);
 
     /* Lewis talks to the player */
@@ -606,8 +387,9 @@ static uint8_t intro_scene7_lesson(void) {
     sprite_enable(SPRITE_LEWIS, 1);
 
     /* Load FTP icon sprite */
+    sprite_set_multicolor(SPRITE_FTP, 1);  /* Enable multicolor */
     sprite_load(SPRITE_FTP, sprite_ftp, SPRITE_DATA_BASE + SPRITE_DATA_SIZE * 2);
-    sprite_set_color(SPRITE_FTP, COLOR_GRAY2);
+    sprite_set_color(SPRITE_FTP, 11);  /* Dark gray for box frame */
     sprite_set_position(SPRITE_FTP, 250, 120);
     sprite_enable(SPRITE_FTP, 1);
 

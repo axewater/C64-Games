@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define MAX_RELEASES 48  /* Support 8 FTPs × 5 releases + buffer */
+#define MAX_RELEASES 32  /* Optimized: 8 FTPs × 5 releases = 40 max, cleanup handles overflow */
 
 /* Release categories */
 #define CATEGORY_GAME  0

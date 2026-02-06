@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define MAX_POSTS 12  /* Increased from 8 (NEW) */
+#define MAX_POSTS 8  /* Posts decay after 20 turns, 8 is sufficient */
 #define FORUM_VIP 3   /* Premium forum (temporary access) (NEW) */
 
 /* Forum data structure */

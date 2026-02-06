@@ -32,6 +32,9 @@ void ui_show_splash(void);
 /* Screen: Main Menu */
 void ui_show_menu(void);
 
+/* Screen: Help */
+void ui_show_help(void);
+
 /* Screen: Playing (hub) */
 void ui_show_hub(void);
 

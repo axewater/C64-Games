@@ -8,132 +8,142 @@ collision.o:
     CODE              Offs=0003F9  Size=0001D9  Align=00001  Fill=0000
     BSS               Offs=00000E  Size=00000E  Align=00001  Fill=0000
 enemy.o:
-    CODE              Offs=0005D2  Size=0006D9  Align=00001  Fill=0000
+    CODE              Offs=0005D2  Size=00099E  Align=00001  Fill=0000
     RODATA            Offs=00003F  Size=0000BD  Align=00001  Fill=0000
-    BSS               Offs=00001C  Size=000058  Align=00001  Fill=0000
+    BSS               Offs=00001C  Size=00005B  Align=00001  Fill=0000
 gamestate.o:
-    CODE              Offs=000CAB  Size=000660  Align=00001  Fill=0000
-    BSS               Offs=000074  Size=000008  Align=00001  Fill=0000
+    CODE              Offs=000F70  Size=000663  Align=00001  Fill=0000
+    BSS               Offs=000077  Size=000009  Align=00001  Fill=0000
 input.o:
-    CODE              Offs=00130B  Size=000119  Align=00001  Fill=0000
-    BSS               Offs=00007C  Size=000002  Align=00001  Fill=0000
+    CODE              Offs=0015D3  Size=000119  Align=00001  Fill=0000
+    BSS               Offs=000080  Size=000002  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000001  Align=00001  Fill=0000
 main.o:
-    CODE              Offs=001424  Size=00054A  Align=00001  Fill=0000
-    BSS               Offs=00007E  Size=000009  Align=00001  Fill=0000
+    CODE              Offs=0016EC  Size=00022B  Align=00001  Fill=0000
+    BSS               Offs=000082  Size=00000B  Align=00001  Fill=0000
 player.o:
-    CODE              Offs=00196E  Size=0001BA  Align=00001  Fill=0000
-    BSS               Offs=000087  Size=00000A  Align=00001  Fill=0000
+    CODE              Offs=001917  Size=0001CF  Align=00001  Fill=0000
+    BSS               Offs=00008D  Size=00000A  Align=00001  Fill=0000
 random.o:
-    CODE              Offs=001B28  Size=0000EE  Align=00001  Fill=0000
-    BSS               Offs=000091  Size=000003  Align=00001  Fill=0000
+    CODE              Offs=001AE6  Size=0000EE  Align=00001  Fill=0000
+    BSS               Offs=000097  Size=000003  Align=00001  Fill=0000
     DATA              Offs=000001  Size=000002  Align=00001  Fill=0000
+room.o:
+    CODE              Offs=001BD4  Size=00045E  Align=00001  Fill=0000
+    RODATA            Offs=0000FC  Size=0012C0  Align=00001  Fill=0000
+    BSS               Offs=00009A  Size=00000E  Align=00001  Fill=0000
 screen.o:
-    CODE              Offs=001C16  Size=00015D  Align=00001  Fill=0000
-    BSS               Offs=000094  Size=000008  Align=00001  Fill=0000
+    CODE              Offs=002032  Size=00015D  Align=00001  Fill=0000
+    BSS               Offs=0000A8  Size=000008  Align=00001  Fill=0000
 sprite.o:
-    CODE              Offs=001D73  Size=000167  Align=00001  Fill=0000
-    RODATA            Offs=0000FC  Size=00003F  Align=00001  Fill=0000
-    BSS               Offs=00009C  Size=000007  Align=00001  Fill=0000
+    CODE              Offs=00218F  Size=000167  Align=00001  Fill=0000
+    RODATA            Offs=0013BC  Size=00003F  Align=00001  Fill=0000
+    BSS               Offs=0000B0  Size=000007  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(_cursor.o):
-    BSS               Offs=0000A3  Size=000001  Align=00001  Fill=0000
+    BSS               Offs=0000B7  Size=000001  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(add.o):
-    CODE              Offs=001EDA  Size=00001C  Align=00001  Fill=0000
+    CODE              Offs=0022F6  Size=00001C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(addysp.o):
-    CODE              Offs=001EF6  Size=00000E  Align=00001  Fill=0000
+    CODE              Offs=002312  Size=00000E  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(bordercolor.o):
-    CODE              Offs=001F04  Size=000008  Align=00001  Fill=0000
+    CODE              Offs=002320  Size=000008  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(callmain.o):
-    CODE              Offs=001F0C  Size=000017  Align=00001  Fill=0000
+    CODE              Offs=002328  Size=000017  Align=00001  Fill=0000
     DATA              Offs=000003  Size=000004  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(cgetc.o):
-    CODE              Offs=001F23  Size=000047  Align=00001  Fill=0000
+    CODE              Offs=00233F  Size=000047  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(clrscr.o):
 C:\bin\cc65\lib/c64.lib(color.o):
-    CODE              Offs=001F6A  Size=000010  Align=00001  Fill=0000
+    CODE              Offs=002386  Size=000010  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(condes.o):
-    CODE              Offs=001F7A  Size=00000C  Align=00001  Fill=0000
+    CODE              Offs=002396  Size=00000C  Align=00001  Fill=0000
     DATA              Offs=000007  Size=000025  Align=00001  Fill=0000
     ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(crt0.o):
     STARTUP           Offs=000000  Size=000033  Align=00001  Fill=0000
     ONCE              Offs=00000C  Size=00001A  Align=00001  Fill=0000
     INIT              Offs=000000  Size=00001C  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(decaxy.o):
+    CODE              Offs=0023A2  Size=000009  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(exehdr.o):
     EXEHDR            Offs=000000  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incaxy.o):
-    CODE              Offs=001F86  Size=00000B  Align=00001  Fill=0000
+    CODE              Offs=0023AB  Size=00000B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp1.o):
-    CODE              Offs=001F91  Size=000007  Align=00001  Fill=0000
+    CODE              Offs=0023B6  Size=000007  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp2.o):
-    CODE              Offs=001F98  Size=000016  Align=00001  Fill=0000
+    CODE              Offs=0023BD  Size=000016  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp3.o):
-    CODE              Offs=001FAE  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=0023D3  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp4.o):
-    CODE              Offs=001FB3  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=0023D8  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp5.o):
-    CODE              Offs=001FB8  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=0023DD  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(incsp6.o):
-    CODE              Offs=001FBD  Size=000005  Align=00001  Fill=0000
+    CODE              Offs=0023E2  Size=000005  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(joy-kernel.o):
-    CODE              Offs=001FC2  Size=00004D  Align=00001  Fill=0000
-    RODATA            Offs=00013B  Size=000004  Align=00001  Fill=0000
-    BSS               Offs=0000A4  Size=000002  Align=00001  Fill=0000
+    CODE              Offs=0023E7  Size=00004D  Align=00001  Fill=0000
+    RODATA            Offs=0013FB  Size=000004  Align=00001  Fill=0000
+    BSS               Offs=0000B8  Size=000002  Align=00001  Fill=0000
     DATA              Offs=00002C  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(joy_read.o):
 C:\bin\cc65\lib/c64.lib(joy_stat_stddrv.o):
 C:\bin\cc65\lib/c64.lib(kbhit.o):
-    CODE              Offs=00200F  Size=000009  Align=00001  Fill=0000
+    CODE              Offs=002434  Size=000009  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(kernal.o):
 C:\bin\cc65\lib/c64.lib(ldai.o):
-    CODE              Offs=002018  Size=00000C  Align=00001  Fill=0000
+    CODE              Offs=00243D  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ldaxi.o):
-    CODE              Offs=002024  Size=00000D  Align=00001  Fill=0000
+    CODE              Offs=002449  Size=00000D  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ldaxsp.o):
-    CODE              Offs=002031  Size=000009  Align=00001  Fill=0000
+    CODE              Offs=002456  Size=000009  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(ldptr1sp.o):
-    CODE              Offs=00203A  Size=00000C  Align=00001  Fill=0000
+    CODE              Offs=00245F  Size=00000C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(libref.o):
 C:\bin\cc65\lib/c64.lib(loadaddr.o):
     LOADADDR          Offs=000000  Size=000002  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mod.o):
-    CODE              Offs=002046  Size=000011  Align=00001  Fill=0000
+    CODE              Offs=00246B  Size=000011  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(mul.o):
+    CODE              Offs=00247C  Size=000045  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mul8.o):
-    CODE              Offs=002057  Size=00003A  Align=00001  Fill=0000
+    CODE              Offs=0024C1  Size=00003A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mulax10.o):
-    CODE              Offs=002091  Size=000019  Align=00001  Fill=0000
+    CODE              Offs=0024FB  Size=000019  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(mulax7.o):
-    CODE              Offs=0020AA  Size=000019  Align=00001  Fill=0000
+    CODE              Offs=002514  Size=000019  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(negabs.o):
-    CODE              Offs=0020C3  Size=000012  Align=00001  Fill=0000
+    CODE              Offs=00252D  Size=000012  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(popptr1.o):
-    CODE              Offs=0020D5  Size=00000E  Align=00001  Fill=0000
+    CODE              Offs=00253F  Size=00000E  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pusha.o):
-    CODE              Offs=0020E3  Size=000016  Align=00001  Fill=0000
+    CODE              Offs=00254D  Size=000016  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pushax.o):
-    CODE              Offs=0020F9  Size=00001A  Align=00001  Fill=0000
+    CODE              Offs=002563  Size=00001A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pushw.o):
-    CODE              Offs=002113  Size=00000F  Align=00001  Fill=0000
+    CODE              Offs=00257D  Size=00000F  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(pushwsp.o):
-    CODE              Offs=002122  Size=00001C  Align=00001  Fill=0000
+    CODE              Offs=00258C  Size=00001C  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(shelp.o):
-    CODE              Offs=00213E  Size=000020  Align=00001  Fill=0000
+    CODE              Offs=0025A8  Size=000020  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(shl.o):
-    CODE              Offs=00215E  Size=000033  Align=00001  Fill=0000
+    CODE              Offs=0025C8  Size=000033  Align=00001  Fill=0000
+C:\bin\cc65\lib/c64.lib(shrax3.o):
+    CODE              Offs=0025FB  Size=00000E  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(staxspi.o):
-    CODE              Offs=002191  Size=00001B  Align=00001  Fill=0000
+    CODE              Offs=002609  Size=00001B  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(sub.o):
-    CODE              Offs=0021AC  Size=000015  Align=00001  Fill=0000
+    CODE              Offs=002624  Size=000015  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(udiv.o):
-    CODE              Offs=0021C1  Size=00004F  Align=00001  Fill=0000
+    CODE              Offs=002639  Size=00004F  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(umod.o):
-    CODE              Offs=002210  Size=000011  Align=00001  Fill=0000
+    CODE              Offs=002688  Size=000011  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(zerobss.o):
-    CODE              Offs=002221  Size=000023  Align=00001  Fill=0000
+    CODE              Offs=002699  Size=000023  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(zeropage.o):
     ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
 C:\bin\cc65\lib/c64.lib(c64-stdjoy-joy.o):
-    CODE              Offs=002244  Size=00002F  Align=00001  Fill=0000
+    CODE              Offs=0026BC  Size=00002F  Align=00001  Fill=0000
     DATA              Offs=000038  Size=00000E  Align=00001  Fill=0000
 
 
@@ -145,140 +155,152 @@ ZEROPAGE              000002  00001B  00001A  00001
 LOADADDR              0007FF  000800  000002  00001
 EXEHDR                000801  00080C  00000C  00001
 STARTUP               00080D  00083F  000033  00001
-CODE                  000840  002AB2  002273  00001
-RODATA                002AB3  002BF1  00013F  00001
-DATA                  002BF2  002C37  000046  00001
-INIT                  002C38  002C53  00001C  00001
-BSS                   002C54  002CF9  0000A6  00001
-ONCE                  002C54  002C79  000026  00001
+CODE                  000840  002F2A  0026EB  00001
+RODATA                002F2B  004329  0013FF  00001
+DATA                  00432A  00436F  000046  00001
+INIT                  004370  00438B  00001C  00001
+BSS                   00438C  004445  0000BA  00001
+ONCE                  00438C  0043B1  000026  00001
 
 
 Exports list by name:
 ---------------------
-BSOUT                     00FFD2 RLA    __BSS_RUN__               002C54 RLA    
-__BSS_SIZE__              0000A6 REA    __CONSTRUCTOR_COUNT__     000000 REA    
-__CONSTRUCTOR_TABLE__     002C7A RLA    __DESTRUCTOR_COUNT__      000000 REA    
-__DESTRUCTOR_TABLE__      002BF2 RLA    __EXEHDR__                000001 REA    
+BSOUT                     00FFD2 RLA    __BSS_RUN__               00438C RLA    
+__BSS_SIZE__              0000BA REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__CONSTRUCTOR_TABLE__     0043B2 RLA    __DESTRUCTOR_COUNT__      000000 REA    
+__DESTRUCTOR_TABLE__      00432A RLA    __EXEHDR__                000001 REA    
 __HEADER_LAST__           00080D RLA    __HIMEM__                 00D000 REA    
 __LOADADDR__              000001 REA    __MAIN_SIZE__             00C7F3 REA    
-__MAIN_START__            00080D RLA    __ONCE_RUN__              002C54 RLA    
+__MAIN_START__            00080D RLA    __ONCE_RUN__              00438C RLA    
 __STACKSIZE__             000800 REA    __STARTUP__               000001 REA    
-_abs                      002903 RLA    _bgcolor                  0027B2 RLA    
-_bordercolor              002744 RLA    _bullet_init              000840 RLA    
+_abs                      002D6D RLA    _bgcolor                  002BCE RLA    
+_bordercolor              002B60 RLA    _bullet_init              000840 RLA    
 _bullet_render_all        000BA9 RLA    _bullet_spawn             000881 RLA    
-_bullet_update_all        000A62 RLA    _bullets                  002C54 RLA    
-_c64_stdjoy_joy           002C2A RLA    _cgetc                    002763 RLA    
+_bullet_update_all        000A62 RLA    _bullets                  00438C RLA    
+_c64_stdjoy_joy           004362 RLA    _cgetc                    002B7F RLA    
 _clrscr                   00E544 REA    _collision_update         000C39 RLA    
-_enemies                  002C70 RLA    _enemy_count_active       0013CB RLA    
-_enemy_hit                001301 RLA    _enemy_init               000E12 RLA    
-_enemy_spawn_wave         0013FD RLA    _enemy_update_all         001153 RLA    
-_exit                     000825 RLA    _game_state               002CC8 RLA    
-_gamestate_add_score      00154A RLA    _gamestate_init           0014EB RLA    
-_gamestate_lose_life      001561 RLA    _gamestate_next_wave      00152F RLA    
-_gamestate_render_game_over 001746 RLA    _gamestate_render_ui      00156F RLA    
-_gamestate_start_game     001507 RLA    _input_cleanup            001C5B RLA    
-_input_init               001B4B RLA    _input_read               001B65 RLA    
-_joy_install              002802 RLA    _joy_read                 002C27 REA    
-_joy_static_stddrv        002C2A RLA    _joy_uninstall            002842 RLA    
-_kbhit                    00284F RLA    _main                     001C64 RLA    
-_player_get               002363 RLA    _player_init              0021AE RLA    
-_player_move              0021F9 RLA    _player_update            00234E RLA    
-_random_get               002392 RLA    _random_init              002368 RLA    
-_screen_clear             002468 RLA    _screen_init              002456 RLA    
-_screen_print_number      00251B RLA    _screen_set_char          0024AE RLA    
-_sprite_enable            002604 RLA    _sprite_init              0025B3 RLA    
-_sprite_set_color         0026CE RLA    _sprite_set_position      00263B RLA    
-_textcolor                0027AA RLA    addysp                    002737 RLA    
-addysp1                   002736 RLA    aslaxy                    0029A5 RLA    
-c_sp                      000002 RLZ    callmain                  00274C RLA    
-cursor                    002CF7 RLA    donelib                   0027BA RLA    
-incaxy                    0027C8 RLA    incsp1                    0027D1 RLA    
-incsp2                    0027E0 RLA    incsp3                    0027EE RLA    
-incsp4                    0027F3 RLA    incsp5                    0027F8 RLA    
-incsp6                    0027FD RLA    initlib                   002C54 RLA    
-joy_libref                000825 RLA    joy_read                  002C27 RLA    
-ldaidx                    002858 RLA    ldax0sp                   002871 RLA    
-ldaxi                     002864 RLA    ldaxidx                   002866 RLA    
-ldaxysp                   002873 RLA    ldptr10sp                 00287A RLA    
-ldptr1ysp                 00287C RLA    mulax10                   0028D1 RLA    
-mulax7                    0028EA RLA    negax                     002907 RLA    
-popax                     0027D8 RLA    popptr1                   002915 RLA    
-popsargsudiv16            00297E RLA    ptr1                      00000A RLZ    
+_enemies                  0043A8 RLA    _enemy_clear_all          001653 RLA    
+_enemy_count_active       001621 RLA    _enemy_hit                001557 RLA    
+_enemy_init               000E12 RLA    _enemy_spawn_wave         0016B0 RLA    
+_enemy_update_all         001210 RLA    _exit                     000825 RLA    
+_game_state               004403 RLA    _gamestate_add_score      001812 RLA    
+_gamestate_init           0017B0 RLA    _gamestate_lose_life      001829 RLA    
+_gamestate_next_wave      0017F7 RLA    _gamestate_render_game_over 001A0E RLA    
+_gamestate_render_ui      001837 RLA    _gamestate_start_game     0017CF RLA    
+_input_cleanup            001F23 RLA    _input_init               001E13 RLA    
+_input_read               001E2D RLA    _joy_install              002C27 RLA    
+_joy_read                 00435F REA    _joy_static_stddrv        004362 RLA    
+_joy_uninstall            002C67 RLA    _kbhit                    002C74 RLA    
+_main                     001F2C RLA    _player_get               002321 RLA    
+_player_init              002157 RLA    _player_move              0021A2 RLA    
+_player_update            00230C RLA    _random_get               002350 RLA    
+_random_init              002326 RLA    _room_check_collision     0026CB RLA    
+_room_check_exit          002773 RLA    _room_init                002414 RLA    
+_room_load                00241E RLA    _room_render              00248D RLA    
+_room_set_exits_locked    00285F RLA    _screen_clear             002884 RLA    
+_screen_init              002872 RLA    _screen_print_number      002937 RLA    
+_screen_set_char          0028CA RLA    _sprite_enable            002A20 RLA    
+_sprite_init              0029CF RLA    _sprite_set_color         002AEA RLA    
+_sprite_set_position      002A57 RLA    _textcolor                002BC6 RLA    
+addysp                    002B53 RLA    addysp1                   002B52 RLA    
+aslaxy                    002E0F RLA    c_sp                      000002 RLZ    
+callmain                  002B68 RLA    cursor                    004443 RLA    
+decaxy                    002BE2 RLA    donelib                   002BD6 RLA    
+incaxy                    002BED RLA    incsp1                    002BF6 RLA    
+incsp2                    002C05 RLA    incsp3                    002C13 RLA    
+incsp4                    002C18 RLA    incsp5                    002C1D RLA    
+incsp6                    002C22 RLA    initlib                   00438C RLA    
+joy_libref                000825 RLA    joy_read                  00435F RLA    
+ldaidx                    002C7D RLA    ldax0sp                   002C96 RLA    
+ldaxi                     002C89 RLA    ldaxidx                   002C8B RLA    
+ldaxysp                   002C98 RLA    ldptr10sp                 002C9F RLA    
+ldptr1ysp                 002CA1 RLA    mul8x16                   002D03 RLA    
+mul8x16a                  002D0D RLA    mulax10                   002D3B RLA    
+mulax7                    002D54 RLA    negax                     002D71 RLA    
+popax                     002BFD RLA    popptr1                   002D7F RLA    
+popsargsudiv16            002DE8 RLA    ptr1                      00000A RLZ    
 ptr2                      00000C RLZ    ptr4                      000010 RLZ    
-pusha                     002927 RLA    pusha0                    00293B RLA    
-pushax                    00293D RLA    pushw                     002953 RLA    
-pushw0sp                  002962 RLA    pushwidx                  002955 RLA    
-pushwysp                  002964 RLA    sreg                      000004 RLZ    
-staxspidx                 0029D1 RLA    tmp1                      000012 RLZ    
-tmp2                      000013 RLZ    tosaddax                  00271C RLA    
-tosmodax                  002888 RLA    tossuba0                  0029EC RLA    
-tossubax                  0029EE RLA    tosudiva0                 002A01 RLA    
-tosudivax                 002A03 RLA    tosumoda0                 002A50 RLA    
-tosumula0                 002897 RLA    udiv16                    002A12 RLA    
-zerobss                   002A61 RLA    
+pusha                     002D91 RLA    pusha0                    002DA5 RLA    
+pushax                    002DA7 RLA    pushw                     002DBD RLA    
+pushw0sp                  002DCC RLA    pushwidx                  002DBF RLA    
+pushwysp                  002DCE RLA    shrax3                    002E3B RLA    
+sreg                      000004 RLZ    staxspidx                 002E49 RLA    
+tmp1                      000012 RLZ    tmp2                      000013 RLZ    
+tosaddax                  002B38 RLA    tosmodax                  002CAD RLA    
+tossuba0                  002E64 RLA    tossubax                  002E66 RLA    
+tosudiva0                 002E79 RLA    tosudivax                 002E7B RLA    
+tosumoda0                 002EC8 RLA    tosumula0                 002D01 RLA    
+tosumulax                 002CBC RLA    udiv16                    002E8A RLA    
+zerobss                   002ED9 RLA    
 
 
 Exports list by value:
 ----------------------
-__CONSTRUCTOR_COUNT__     000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
-__LOADADDR__              000001 REA    __EXEHDR__                000001 REA    
-__STARTUP__               000001 REA    c_sp                      000002 RLZ    
+__DESTRUCTOR_COUNT__      000000 REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__EXEHDR__                000001 REA    __STARTUP__               000001 REA    
+__LOADADDR__              000001 REA    c_sp                      000002 RLZ    
 sreg                      000004 RLZ    ptr1                      00000A RLZ    
 ptr2                      00000C RLZ    ptr4                      000010 RLZ    
 tmp1                      000012 RLZ    tmp2                      000013 RLZ    
-__BSS_SIZE__              0000A6 REA    __STACKSIZE__             000800 REA    
+__BSS_SIZE__              0000BA REA    __STACKSIZE__             000800 REA    
 __MAIN_START__            00080D RLA    __HEADER_LAST__           00080D RLA    
-joy_libref                000825 RLA    _exit                     000825 RLA    
+_exit                     000825 RLA    joy_libref                000825 RLA    
 _bullet_init              000840 RLA    _bullet_spawn             000881 RLA    
 _bullet_update_all        000A62 RLA    _bullet_render_all        000BA9 RLA    
 _collision_update         000C39 RLA    _enemy_init               000E12 RLA    
-_enemy_update_all         001153 RLA    _enemy_hit                001301 RLA    
-_enemy_count_active       0013CB RLA    _enemy_spawn_wave         0013FD RLA    
-_gamestate_init           0014EB RLA    _gamestate_start_game     001507 RLA    
-_gamestate_next_wave      00152F RLA    _gamestate_add_score      00154A RLA    
-_gamestate_lose_life      001561 RLA    _gamestate_render_ui      00156F RLA    
-_gamestate_render_game_over 001746 RLA    _input_init               001B4B RLA    
-_input_read               001B65 RLA    _input_cleanup            001C5B RLA    
-_main                     001C64 RLA    _player_init              0021AE RLA    
-_player_move              0021F9 RLA    _player_update            00234E RLA    
-_player_get               002363 RLA    _random_init              002368 RLA    
-_random_get               002392 RLA    _screen_init              002456 RLA    
-_screen_clear             002468 RLA    _screen_set_char          0024AE RLA    
-_screen_print_number      00251B RLA    _sprite_init              0025B3 RLA    
-_sprite_enable            002604 RLA    _sprite_set_position      00263B RLA    
-_sprite_set_color         0026CE RLA    tosaddax                  00271C RLA    
-addysp1                   002736 RLA    addysp                    002737 RLA    
-_bordercolor              002744 RLA    callmain                  00274C RLA    
-_cgetc                    002763 RLA    _textcolor                0027AA RLA    
-_bgcolor                  0027B2 RLA    donelib                   0027BA RLA    
-incaxy                    0027C8 RLA    incsp1                    0027D1 RLA    
-popax                     0027D8 RLA    incsp2                    0027E0 RLA    
-incsp3                    0027EE RLA    incsp4                    0027F3 RLA    
-incsp5                    0027F8 RLA    incsp6                    0027FD RLA    
-_joy_install              002802 RLA    _joy_uninstall            002842 RLA    
-_kbhit                    00284F RLA    ldaidx                    002858 RLA    
-ldaxi                     002864 RLA    ldaxidx                   002866 RLA    
-ldax0sp                   002871 RLA    ldaxysp                   002873 RLA    
-ldptr10sp                 00287A RLA    ldptr1ysp                 00287C RLA    
-tosmodax                  002888 RLA    tosumula0                 002897 RLA    
-mulax10                   0028D1 RLA    mulax7                    0028EA RLA    
-_abs                      002903 RLA    negax                     002907 RLA    
-popptr1                   002915 RLA    pusha                     002927 RLA    
-pusha0                    00293B RLA    pushax                    00293D RLA    
-pushw                     002953 RLA    pushwidx                  002955 RLA    
-pushw0sp                  002962 RLA    pushwysp                  002964 RLA    
-popsargsudiv16            00297E RLA    aslaxy                    0029A5 RLA    
-staxspidx                 0029D1 RLA    tossuba0                  0029EC RLA    
-tossubax                  0029EE RLA    tosudiva0                 002A01 RLA    
-tosudivax                 002A03 RLA    udiv16                    002A12 RLA    
-tosumoda0                 002A50 RLA    zerobss                   002A61 RLA    
-__DESTRUCTOR_TABLE__      002BF2 RLA    joy_read                  002C27 RLA    
-_joy_read                 002C27 REA    _c64_stdjoy_joy           002C2A RLA    
-_joy_static_stddrv        002C2A RLA    _bullets                  002C54 RLA    
-__ONCE_RUN__              002C54 RLA    initlib                   002C54 RLA    
-__BSS_RUN__               002C54 RLA    _enemies                  002C70 RLA    
-__CONSTRUCTOR_TABLE__     002C7A RLA    _game_state               002CC8 RLA    
-cursor                    002CF7 RLA    __MAIN_SIZE__             00C7F3 REA    
+_enemy_update_all         001210 RLA    _enemy_hit                001557 RLA    
+_enemy_count_active       001621 RLA    _enemy_clear_all          001653 RLA    
+_enemy_spawn_wave         0016B0 RLA    _gamestate_init           0017B0 RLA    
+_gamestate_start_game     0017CF RLA    _gamestate_next_wave      0017F7 RLA    
+_gamestate_add_score      001812 RLA    _gamestate_lose_life      001829 RLA    
+_gamestate_render_ui      001837 RLA    _gamestate_render_game_over 001A0E RLA    
+_input_init               001E13 RLA    _input_read               001E2D RLA    
+_input_cleanup            001F23 RLA    _main                     001F2C RLA    
+_player_init              002157 RLA    _player_move              0021A2 RLA    
+_player_update            00230C RLA    _player_get               002321 RLA    
+_random_init              002326 RLA    _random_get               002350 RLA    
+_room_init                002414 RLA    _room_load                00241E RLA    
+_room_render              00248D RLA    _room_check_collision     0026CB RLA    
+_room_check_exit          002773 RLA    _room_set_exits_locked    00285F RLA    
+_screen_init              002872 RLA    _screen_clear             002884 RLA    
+_screen_set_char          0028CA RLA    _screen_print_number      002937 RLA    
+_sprite_init              0029CF RLA    _sprite_enable            002A20 RLA    
+_sprite_set_position      002A57 RLA    _sprite_set_color         002AEA RLA    
+tosaddax                  002B38 RLA    addysp1                   002B52 RLA    
+addysp                    002B53 RLA    _bordercolor              002B60 RLA    
+callmain                  002B68 RLA    _cgetc                    002B7F RLA    
+_textcolor                002BC6 RLA    _bgcolor                  002BCE RLA    
+donelib                   002BD6 RLA    decaxy                    002BE2 RLA    
+incaxy                    002BED RLA    incsp1                    002BF6 RLA    
+popax                     002BFD RLA    incsp2                    002C05 RLA    
+incsp3                    002C13 RLA    incsp4                    002C18 RLA    
+incsp5                    002C1D RLA    incsp6                    002C22 RLA    
+_joy_install              002C27 RLA    _joy_uninstall            002C67 RLA    
+_kbhit                    002C74 RLA    ldaidx                    002C7D RLA    
+ldaxi                     002C89 RLA    ldaxidx                   002C8B RLA    
+ldax0sp                   002C96 RLA    ldaxysp                   002C98 RLA    
+ldptr10sp                 002C9F RLA    ldptr1ysp                 002CA1 RLA    
+tosmodax                  002CAD RLA    tosumulax                 002CBC RLA    
+tosumula0                 002D01 RLA    mul8x16                   002D03 RLA    
+mul8x16a                  002D0D RLA    mulax10                   002D3B RLA    
+mulax7                    002D54 RLA    _abs                      002D6D RLA    
+negax                     002D71 RLA    popptr1                   002D7F RLA    
+pusha                     002D91 RLA    pusha0                    002DA5 RLA    
+pushax                    002DA7 RLA    pushw                     002DBD RLA    
+pushwidx                  002DBF RLA    pushw0sp                  002DCC RLA    
+pushwysp                  002DCE RLA    popsargsudiv16            002DE8 RLA    
+aslaxy                    002E0F RLA    shrax3                    002E3B RLA    
+staxspidx                 002E49 RLA    tossuba0                  002E64 RLA    
+tossubax                  002E66 RLA    tosudiva0                 002E79 RLA    
+tosudivax                 002E7B RLA    udiv16                    002E8A RLA    
+tosumoda0                 002EC8 RLA    zerobss                   002ED9 RLA    
+__DESTRUCTOR_TABLE__      00432A RLA    joy_read                  00435F RLA    
+_joy_read                 00435F REA    _joy_static_stddrv        004362 RLA    
+_c64_stdjoy_joy           004362 RLA    initlib                   00438C RLA    
+__BSS_RUN__               00438C RLA    __ONCE_RUN__              00438C RLA    
+_bullets                  00438C RLA    _enemies                  0043A8 RLA    
+__CONSTRUCTOR_TABLE__     0043B2 RLA    _game_state               004403 RLA    
+cursor                    004443 RLA    __MAIN_SIZE__             00C7F3 REA    
 __HIMEM__                 00D000 REA    _clrscr                   00E544 REA    
 BSOUT                     00FFD2 RLA    
 
@@ -319,7 +341,7 @@ __ONCE_RUN__ ([linker generated]):
 __STACKSIZE__ ([linker generated]):
     [linker generated]        C:\bin\cc65\cfg/c64.cfg:15
 __STARTUP__ (crt0.o):
-    main.o                    build/main.c.23100.0.s:13
+    main.o                    build/main.c.21024.0.s:13
 _abs (negabs.o):
     collision.o               build/collision.c.57244.0.s:20
 _bgcolor (color.o):
@@ -327,13 +349,13 @@ _bgcolor (color.o):
 _bordercolor (bordercolor.o):
     screen.o                  build/screen.c.55048.0.s:16
 _bullet_init (bullet.o):
-    main.o                    build/main.c.23100.0.s:31
+    main.o                    build/main.c.21024.0.s:31
 _bullet_render_all (bullet.o):
-    main.o                    build/main.c.23100.0.s:34
+    main.o                    build/main.c.21024.0.s:34
 _bullet_spawn (bullet.o):
-    main.o                    build/main.c.23100.0.s:32
+    main.o                    build/main.c.21024.0.s:32
 _bullet_update_all (bullet.o):
-    main.o                    build/main.c.23100.0.s:33
+    main.o                    build/main.c.21024.0.s:33
 _bullets (bullet.o):
     collision.o               build/collision.c.57244.0.s:14
 _c64_stdjoy_joy (c64-stdjoy-joy.o):
@@ -343,44 +365,46 @@ _cgetc (cgetc.o):
 _clrscr (clrscr.o):
     screen.o                  build/screen.c.55048.0.s:13
 _collision_update (collision.o):
-    main.o                    build/main.c.23100.0.s:39
+    main.o                    build/main.c.21024.0.s:40
 _enemies (enemy.o):
     collision.o               build/collision.c.57244.0.s:15
+_enemy_clear_all (enemy.o):
+    main.o                    build/main.c.21024.0.s:38
 _enemy_count_active (enemy.o):
-    main.o                    build/main.c.23100.0.s:37
+    main.o                    build/main.c.21024.0.s:37
 _enemy_hit (enemy.o):
     collision.o               build/collision.c.57244.0.s:16
 _enemy_init (enemy.o):
-    main.o                    build/main.c.23100.0.s:35
+    main.o                    build/main.c.21024.0.s:35
 _enemy_spawn_wave (enemy.o):
-    main.o                    build/main.c.23100.0.s:38
+    main.o                    build/main.c.21024.0.s:39
 _enemy_update_all (enemy.o):
-    main.o                    build/main.c.23100.0.s:36
+    main.o                    build/main.c.21024.0.s:36
 _exit (crt0.o):
     libref.o                  c64/libref.s:11
 _game_state (gamestate.o):
-    main.o                    build/main.c.23100.0.s:24
-    enemy.o                   build/enemy.c.33736.0.s:23
+    main.o                    build/main.c.21024.0.s:24
+    enemy.o                   build/enemy.c.57020.0.s:24
 _gamestate_add_score (gamestate.o):
-    enemy.o                   build/enemy.c.33736.0.s:24
+    enemy.o                   build/enemy.c.57020.0.s:25
 _gamestate_init (gamestate.o):
-    main.o                    build/main.c.23100.0.s:25
+    main.o                    build/main.c.21024.0.s:25
 _gamestate_lose_life (gamestate.o):
     collision.o               build/collision.c.57244.0.s:17
 _gamestate_next_wave (gamestate.o):
-    main.o                    build/main.c.23100.0.s:27
+    main.o                    build/main.c.21024.0.s:27
 _gamestate_render_game_over (gamestate.o):
-    main.o                    build/main.c.23100.0.s:29
+    main.o                    build/main.c.21024.0.s:29
 _gamestate_render_ui (gamestate.o):
-    main.o                    build/main.c.23100.0.s:28
+    main.o                    build/main.c.21024.0.s:28
 _gamestate_start_game (gamestate.o):
-    main.o                    build/main.c.23100.0.s:26
+    main.o                    build/main.c.21024.0.s:26
 _input_cleanup (input.o):
-    main.o                    build/main.c.23100.0.s:23
+    main.o                    build/main.c.21024.0.s:23
 _input_init (input.o):
-    main.o                    build/main.c.23100.0.s:21
+    main.o                    build/main.c.21024.0.s:21
 _input_read (input.o):
-    main.o                    build/main.c.23100.0.s:22
+    main.o                    build/main.c.21024.0.s:22
 _joy_install (joy-kernel.o):
     input.o                   build/input.c.2884.0.s:17
 _joy_read (joy_read.o):
@@ -394,41 +418,55 @@ _kbhit (kbhit.o):
 _main (main.o):
     callmain.o                runtime/callmain.s:11
 _player_get (player.o):
-    main.o                    build/main.c.23100.0.s:20
+    main.o                    build/main.c.21024.0.s:20
     collision.o               build/collision.c.57244.0.s:19
 _player_init (player.o):
-    main.o                    build/main.c.23100.0.s:17
+    main.o                    build/main.c.21024.0.s:17
 _player_move (player.o):
-    main.o                    build/main.c.23100.0.s:18
+    main.o                    build/main.c.21024.0.s:18
 _player_update (player.o):
-    main.o                    build/main.c.23100.0.s:19
+    main.o                    build/main.c.21024.0.s:19
 _random_get (random.o):
-    enemy.o                   build/enemy.c.33736.0.s:25
+    enemy.o                   build/enemy.c.57020.0.s:26
 _random_init (random.o):
-    main.o                    build/main.c.23100.0.s:30
+    main.o                    build/main.c.21024.0.s:30
+_room_check_collision (room.o):
+    player.o                  build/player.c.55460.0.s:21
+    enemy.o                   build/enemy.c.57020.0.s:27
+_room_check_exit (room.o):
+    main.o                    build/main.c.21024.0.s:44
+_room_init (room.o):
+    main.o                    build/main.c.21024.0.s:41
+_room_load (room.o):
+    main.o                    build/main.c.21024.0.s:42
+_room_render (room.o):
+    main.o                    build/main.c.21024.0.s:43
+_room_set_exits_locked (room.o):
+    main.o                    build/main.c.21024.0.s:45
 _screen_clear (screen.o):
-    main.o                    build/main.c.23100.0.s:15
+    main.o                    build/main.c.21024.0.s:15
 _screen_init (screen.o):
-    main.o                    build/main.c.23100.0.s:14
+    main.o                    build/main.c.21024.0.s:14
 _screen_print_number (screen.o):
-    gamestate.o               build/gamestate.c.32392.0.s:23
+    gamestate.o               build/gamestate.c.60120.0.s:23
 _screen_set_char (screen.o):
-    main.o                    build/main.c.23100.0.s:16
-    gamestate.o               build/gamestate.c.32392.0.s:22
+    room.o                    build/room.c.31536.0.s:20
+    main.o                    build/main.c.21024.0.s:16
+    gamestate.o               build/gamestate.c.60120.0.s:22
 _sprite_enable (sprite.o):
-    player.o                  build/player.c.43400.0.s:18
-    enemy.o                   build/enemy.c.33736.0.s:20
+    player.o                  build/player.c.55460.0.s:18
+    enemy.o                   build/enemy.c.57020.0.s:21
     collision.o               build/collision.c.57244.0.s:18
     bullet.o                  build/bullet.c.9972.0.s:18
 _sprite_init (sprite.o):
-    player.o                  build/player.c.43400.0.s:17
+    player.o                  build/player.c.55460.0.s:17
 _sprite_set_color (sprite.o):
-    player.o                  build/player.c.43400.0.s:20
-    enemy.o                   build/enemy.c.33736.0.s:22
+    player.o                  build/player.c.55460.0.s:20
+    enemy.o                   build/enemy.c.57020.0.s:23
     bullet.o                  build/bullet.c.9972.0.s:20
 _sprite_set_position (sprite.o):
-    player.o                  build/player.c.43400.0.s:19
-    enemy.o                   build/enemy.c.33736.0.s:21
+    player.o                  build/player.c.55460.0.s:19
+    enemy.o                   build/enemy.c.57020.0.s:22
     bullet.o                  build/bullet.c.9972.0.s:19
 _textcolor (color.o):
     screen.o                  build/screen.c.55048.0.s:14
@@ -459,23 +497,28 @@ c_sp (zeropage.o):
     add.o                     runtime/add.s:12
     sprite.o                  build/sprite.c.60468.0.s:10
     screen.o                  build/screen.c.55048.0.s:10
+    room.o                    build/room.c.31536.0.s:10
     random.o                  build/random.c.54732.0.s:10
-    enemy.o                   build/enemy.c.33736.0.s:10
+    enemy.o                   build/enemy.c.57020.0.s:10
     bullet.o                  build/bullet.c.9972.0.s:10
 callmain (callmain.o):
     crt0.o                    c64/crt0.s:9
 cursor (_cursor.o):
     cgetc.o                   c64/cgetc.s:8
+decaxy (decaxy.o):
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
 donelib (condes.o):
     crt0.o                    c64/crt0.s:8
 incaxy (incaxy.o):
     screen.o                  build/screen.c.55048.0.s:254
     random.o                  build/random.c.54732.0.s:183
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    enemy.o                   build/enemy.c.57020.0.s:1523
 incsp1 (incsp1.o):
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
+    enemy.o                   build/enemy.c.57020.0.s:1523
 incsp2 (incsp2.o):
     staxspi.o                 runtime/staxspi.s:9
     popptr1.o                 runtime/popptr1.s:8
@@ -485,16 +528,20 @@ incsp2 (incsp2.o):
     screen.o                  build/screen.c.55048.0.s:254
     random.o                  build/random.c.54732.0.s:183
     input.o                   build/input.c.2884.0.s:198
-    gamestate.o               build/gamestate.c.32392.0.s:790
+    gamestate.o               build/gamestate.c.60120.0.s:791
 incsp3 (incsp3.o):
     random.o                  build/random.c.54732.0.s:183
 incsp4 (incsp4.o):
     sprite.o                  build/sprite.c.60468.0.s:328
     screen.o                  build/screen.c.55048.0.s:254
-    player.o                  build/player.c.43400.0.s:271
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
+    player.o                  build/player.c.55460.0.s:280
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
 incsp5 (incsp5.o):
+    enemy.o                   build/enemy.c.57020.0.s:1523
     bullet.o                  build/bullet.c.9972.0.s:688
 incsp6 (incsp6.o):
     screen.o                  build/screen.c.55048.0.s:254
@@ -507,35 +554,47 @@ joy_read (joy-kernel.o):
 ldaidx (ldai.o):
     bullet.o                  build/bullet.c.9972.0.s:688
 ldax0sp (ldaxsp.o):
-    player.o                  build/player.c.43400.0.s:271
-    gamestate.o               build/gamestate.c.32392.0.s:790
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
+    player.o                  build/player.c.55460.0.s:280
+    gamestate.o               build/gamestate.c.60120.0.s:791
 ldaxi (ldaxi.o):
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     collision.o               build/collision.c.57244.0.s:298
     bullet.o                  build/bullet.c.9972.0.s:688
 ldaxidx (ldaxi.o):
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     collision.o               build/collision.c.57244.0.s:298
     bullet.o                  build/bullet.c.9972.0.s:688
 ldaxysp (ldaxsp.o):
     sprite.o                  build/sprite.c.60468.0.s:328
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
     random.o                  build/random.c.54732.0.s:183
-    player.o                  build/player.c.43400.0.s:271
+    player.o                  build/player.c.55460.0.s:280
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     bullet.o                  build/bullet.c.9972.0.s:688
 ldptr10sp (ldptr1sp.o):
     input.o                   build/input.c.2884.0.s:198
 ldptr1ysp (ldptr1sp.o):
     random.o                  build/random.c.54732.0.s:183
+mul8x16 (mul8.o):
+    mul.o                     runtime/mul.s:8
+mul8x16a (mul8.o):
+    mul.o                     runtime/mul.s:8
 mulax10 (mulax10.o):
     screen.o                  build/screen.c.55048.0.s:254
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     collision.o               build/collision.c.57244.0.s:298
 mulax7 (mulax7.o):
@@ -547,6 +606,7 @@ mulax7 (mulax7.o):
 negax (negabs.o):
     shelp.o                   runtime/shelp.s:11
     mod.o                     runtime/mod.s:11
+    enemy.o                   build/enemy.c.57020.0.s:1523
 popax (incsp2.o):
     shl.o                     runtime/shl.s:15
     shelp.o                   runtime/shelp.s:11
@@ -554,6 +614,7 @@ popptr1 (popptr1.o):
     umod.o                    runtime/umod.s:8
     udiv.o                    runtime/udiv.s:9
     mul8.o                    runtime/mul8.s:9
+    mul.o                     runtime/mul.s:9
 popsargsudiv16 (shelp.o):
     mod.o                     runtime/mod.s:11
 ptr1 (zeropage.o):
@@ -566,16 +627,18 @@ ptr1 (zeropage.o):
     mulax7.o                  runtime/mulax7.s:10
     mulax10.o                 runtime/mulax10.s:9
     mul8.o                    runtime/mul8.s:10
+    mul.o                     runtime/mul.s:10
     ldptr1sp.o                runtime/ldptr1sp.s:8
     ldaxi.o                   runtime/ldaxi.s:8
     ldai.o                    runtime/ldai.s:8
     joy-kernel.o              joystick/joy-kernel.s:8
     sprite.o                  build/sprite.c.60468.0.s:11
     screen.o                  build/screen.c.55048.0.s:11
+    room.o                    build/room.c.31536.0.s:11
     random.o                  build/random.c.54732.0.s:11
-    main.o                    build/main.c.23100.0.s:11
+    main.o                    build/main.c.21024.0.s:11
     input.o                   build/input.c.2884.0.s:11
-    enemy.o                   build/enemy.c.33736.0.s:11
+    enemy.o                   build/enemy.c.57020.0.s:11
     collision.o               build/collision.c.57244.0.s:11
     bullet.o                  build/bullet.c.9972.0.s:11
 ptr2 (zeropage.o):
@@ -585,6 +648,7 @@ ptr4 (zeropage.o):
     udiv.o                    runtime/udiv.s:10
     shelp.o                   runtime/shelp.s:12
     mul8.o                    runtime/mul8.s:10
+    mul.o                     runtime/mul.s:10
 pusha (pusha.o):
     sprite.o                  build/sprite.c.60468.0.s:328
     sprite.o                  build/sprite.c.60468.0.s:328
@@ -593,16 +657,21 @@ pusha (pusha.o):
     screen.o                  build/screen.c.55048.0.s:254
     screen.o                  build/screen.c.55048.0.s:254
     screen.o                  build/screen.c.55048.0.s:254
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
     random.o                  build/random.c.54732.0.s:183
     random.o                  build/random.c.54732.0.s:183
-    player.o                  build/player.c.43400.0.s:271
-    player.o                  build/player.c.43400.0.s:271
-    main.o                    build/main.c.23100.0.s:602
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    player.o                  build/player.c.55460.0.s:280
+    player.o                  build/player.c.55460.0.s:280
+    main.o                    build/main.c.21024.0.s:292
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     bullet.o                  build/bullet.c.9972.0.s:688
     bullet.o                  build/bullet.c.9972.0.s:688
@@ -610,71 +679,87 @@ pusha (pusha.o):
     bullet.o                  build/bullet.c.9972.0.s:688
 pusha0 (pushax.o):
     screen.o                  build/screen.c.55048.0.s:254
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
     random.o                  build/random.c.54732.0.s:183
-    main.o                    build/main.c.23100.0.s:602
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    main.o                    build/main.c.21024.0.s:292
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
 pushax (pushax.o):
     callmain.o                runtime/callmain.s:11
     pushw.o                   runtime/pushw.s:8
     screen.o                  build/screen.c.55048.0.s:254
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
     random.o                  build/random.c.54732.0.s:183
     random.o                  build/random.c.54732.0.s:183
-    player.o                  build/player.c.43400.0.s:271
-    player.o                  build/player.c.43400.0.s:271
-    player.o                  build/player.c.43400.0.s:271
-    main.o                    build/main.c.23100.0.s:602
+    player.o                  build/player.c.55460.0.s:280
+    player.o                  build/player.c.55460.0.s:280
+    player.o                  build/player.c.55460.0.s:280
+    main.o                    build/main.c.21024.0.s:292
     input.o                   build/input.c.2884.0.s:198
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    gamestate.o               build/gamestate.c.32392.0.s:790
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    gamestate.o               build/gamestate.c.60120.0.s:791
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     collision.o               build/collision.c.57244.0.s:298
 pushw (pushw.o):
-    main.o                    build/main.c.23100.0.s:602
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    main.o                    build/main.c.21024.0.s:292
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     collision.o               build/collision.c.57244.0.s:298
     bullet.o                  build/bullet.c.9972.0.s:688
 pushw0sp (pushwsp.o):
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
 pushwidx (pushw.o):
     collision.o               build/collision.c.57244.0.s:298
 pushwysp (pushwsp.o):
     screen.o                  build/screen.c.55048.0.s:254
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
+shrax3 (shrax3.o):
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
 sreg (zeropage.o):
     umod.o                    runtime/umod.s:9
     udiv.o                    runtime/udiv.s:10
     mod.o                     runtime/mod.s:12
     random.o                  build/random.c.54732.0.s:10
-    enemy.o                   build/enemy.c.33736.0.s:10
+    enemy.o                   build/enemy.c.57020.0.s:10
     bullet.o                  build/bullet.c.9972.0.s:10
 staxspidx (staxspi.o):
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
 tmp1 (zeropage.o):
     staxspi.o                 runtime/staxspi.s:10
+    shrax3.o                  runtime/shrax3.s:8
     shl.o                     runtime/shl.s:16
     shelp.o                   runtime/shelp.s:12
+    mul.o                     runtime/mul.s:10
     mod.o                     runtime/mod.s:12
     incaxy.o                  runtime/incaxy.s:8
+    decaxy.o                  runtime/decaxy.s:8
     add.o                     runtime/add.s:12
 tmp2 (zeropage.o):
     shelp.o                   runtime/shelp.s:12
 tosaddax (add.o):
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
     random.o                  build/random.c.54732.0.s:183
+    enemy.o                   build/enemy.c.57020.0.s:1523
 tosmodax (mod.o):
     random.o                  build/random.c.54732.0.s:183
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
 tossuba0 (sub.o):
     random.o                  build/random.c.54732.0.s:183
 tossubax (sub.o):
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
     collision.o               build/collision.c.57244.0.s:298
     collision.o               build/collision.c.57244.0.s:298
 tosudiva0 (udiv.o):
@@ -683,11 +768,15 @@ tosudivax (udiv.o):
     screen.o                  build/screen.c.55048.0.s:254
 tosumoda0 (umod.o):
     screen.o                  build/screen.c.55048.0.s:254
-    enemy.o                   build/enemy.c.33736.0.s:1200
-    enemy.o                   build/enemy.c.33736.0.s:1200
+    enemy.o                   build/enemy.c.57020.0.s:1523
+    enemy.o                   build/enemy.c.57020.0.s:1523
 tosumula0 (mul8.o):
     screen.o                  build/screen.c.55048.0.s:254
+    room.o                    build/room.c.31536.0.s:5413
+    room.o                    build/room.c.31536.0.s:5413
     random.o                  build/random.c.54732.0.s:183
+tosumulax (mul.o):
+    enemy.o                   build/enemy.c.57020.0.s:1523
 udiv16 (udiv.o):
     umod.o                    runtime/umod.s:8
     shelp.o                   runtime/shelp.s:11

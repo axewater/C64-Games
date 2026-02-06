@@ -79,3 +79,18 @@ void sprite_set_expand_y(uint8_t sprite_num, uint8_t enabled) {
         *VIC_SPRITE_EXPAND_Y &= ~(1 << sprite_num);
     }
 }
+
+void sprite_set_multicolor(uint8_t sprite_num, uint8_t enabled) {
+    if (sprite_num > 7) return;
+
+    if (enabled) {
+        *VIC_SPRITE_MCOLOR |= (1 << sprite_num);
+    } else {
+        *VIC_SPRITE_MCOLOR &= ~(1 << sprite_num);
+    }
+}
+
+void sprite_set_multicolor_shared(uint8_t mc1, uint8_t mc2) {
+    *VIC_SPRITE_MC1 = mc1;
+    *VIC_SPRITE_MC2 = mc2;
+}
