@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "screen.h"
 #include "input.h"
+#include "sound.h"
 #include "random.h"
 #include "gamestate.h"
 #include "rank.h"
@@ -20,6 +21,7 @@ int main(void) {
     /* Initialize all systems */
     ui_init();
     input_init();
+    sound_init();
     random_init();
     gamestate_init();
     ftp_init();

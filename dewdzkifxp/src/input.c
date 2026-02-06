@@ -1,4 +1,5 @@
 #include "input.h"
+#include "sound.h"
 #include <conio.h>
 
 void input_init(void) {
@@ -16,6 +17,7 @@ uint8_t input_read_menu(uint8_t num_options) {
             if (kbhit()) {
                 key = cgetc();
                 if (key == 'q' || key == 'Q') {
+                    sound_play_back();  /* Play back/cancel sound */
                     return 255;
                 }
             }
@@ -35,11 +37,13 @@ uint8_t input_read_menu(uint8_t num_options) {
 
             /* Check for number keys 1-N */
             if (key >= '1' && key <= max_key) {
+                sound_play_click();  /* Play menu selection sound */
                 return key - '1';  /* Return 0-based index */
             }
 
             /* Check for quit */
             if (key == 'q' || key == 'Q') {
+                sound_play_back();  /* Play back/cancel sound */
                 return 255;  /* Special value for quit */
             }
         }
