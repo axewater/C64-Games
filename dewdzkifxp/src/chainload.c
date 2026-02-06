@@ -28,5 +28,5 @@ void chainload(const char* filename) {
     __asm__("ldy #$08");      /* Load address high */
     __asm__("jsr $FFD5");     /* LOAD */
 
-    __asm__("jmp $0801");     /* Jump to loaded program */
+    __asm__("jmp $080D");     /* Jump to cc65 program start (after BASIC stub) */
 }
