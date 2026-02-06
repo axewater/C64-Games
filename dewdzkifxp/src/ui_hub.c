@@ -22,9 +22,10 @@ void ui_show_menu(void) {
     screen_clear();
 
     ui_print_centered(8, "MAIN MENU", COLOR_CYAN);
-    ui_print_centered(11, "[1] HELP", COLOR_WHITE);
-    ui_print_centered(12, "[2] NEW GAME", COLOR_WHITE);
-    ui_print_centered(14, "[Q] QUIT", COLOR_WHITE);
+    ui_print_centered(11, "[1] NEW GAME", COLOR_WHITE);
+    ui_print_centered(12, "[2] HELP", COLOR_WHITE);
+    ui_print_centered(13, "[3] PLAY CHAPTER 2", COLOR_YELLOW);
+    ui_print_centered(15, "[Q] QUIT", COLOR_WHITE);
 }
 
 void ui_show_help(void) {

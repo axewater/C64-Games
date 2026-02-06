@@ -11,6 +11,7 @@
 #include "forum.h"
 #include "ui.h"
 #include "actions.h"
+#include "chainload.h"
 
 /* Forward declarations */
 void process_events(void);
@@ -41,11 +42,15 @@ int main(void) {
             case STATE_MENU:
                 ui_show_menu();
                 {
-                    uint8_t choice = input_read_menu(2);
+                    uint8_t choice = input_read_menu(3);
                     if (choice == 0) {
-                        game_state.state = STATE_HELP;
-                    } else if (choice == 1) {
                         gamestate_start_game();
+                    } else if (choice == 1) {
+                        game_state.state = STATE_HELP;
+                    } else if (choice == 2) {
+                        /* Chain load Chapter 2 intro */
+                        chainload("ch02-intro");
+                        running = 0;  /* Exit if chainload fails */
                     } else {
                         running = 0;
                     }
