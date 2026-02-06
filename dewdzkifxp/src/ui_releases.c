@@ -157,26 +157,42 @@ show_menu:
     row = 9;
     menu_idx = 0;
 
-    /* Show all discovered FTPs */
+    /* Show all discovered FTPs (2-line format) */
     for (i = 0; i < MAX_FTP_SERVERS; i++) {
         if (ftps[i].active) {
+            uint8_t col;
+            uint8_t trait_color;
+            const char* trait_tag;
+
             has_space = ftp_has_space(i);
             color = has_space ? COLOR_WHITE : COLOR_GRAY2;
 
             /* Store mapping for later (NEW) */
             ftp_index_map[menu_idx] = i;
 
+            /* Line 1: [N] FTP-NAME */
             screen_set_char(2, row, '[', color);
-            screen_print_number(3, row, menu_idx + 1, 1, color);
+            screen_print_number(3, row, menu_idx + 1, 1, COLOR_YELLOW);
             screen_set_char(4, row, ']', color);
-
             ui_print_string(6, row, ftps[i].name, color);
 
-            /* Show trait tag (NEW) */
+            /* Line 2: <indent> (X/5) [TRAIT] [XX%] */
+            col = 6;
+
+            /* Show slots first */
+            screen_set_char(col, row + 1, '(', color);
+            screen_print_number(col + 1, row + 1, ftps[i].release_count, 1, color);
+            screen_set_char(col + 2, row + 1, '/', color);
+            screen_print_number(col + 3, row + 1, MAX_RELEASES_PER_FTP, 1, color);
+            screen_set_char(col + 4, row + 1, ')', color);
+            col = 12;  /* Fixed position after slots */
+
+            /* Show trait tag if present */
             if (ftps[i].trait != TRAIT_NONE) {
-                const char* trait_tag = ftp_get_trait_tag(ftps[i].trait);
-                uint8_t trait_color = ftp_get_trait_color(ftps[i].trait);
-                ui_print_string(27, row, trait_tag, trait_color);
+                trait_tag = ftp_get_trait_tag(ftps[i].trait);
+                trait_color = ftp_get_trait_color(ftps[i].trait);
+                ui_print_string(col, row + 1, trait_tag, trait_color);
+                col = 20;  /* Advance past trait tag */
             }
 
             /* Show raid risk if FTP has been used for posts */
@@ -192,26 +208,21 @@ show_menu:
                     risk_color = COLOR_RED;
                 }
 
-                /* Show risk percentage (NEW) */
-                screen_set_char(29, row, '[', color);
-                screen_print_number(30, row, risk, 2, risk_color);
-                screen_set_char(32, row, '%', color);
-                screen_set_char(33, row, ']', color);
+                /* Show risk percentage */
+                screen_set_char(col, row + 1, '[', color);
+                screen_print_number(col + 1, row + 1, risk, 2, risk_color);
+                screen_set_char(col + 3, row + 1, '%', color);
+                screen_set_char(col + 4, row + 1, ']', color);
             }
 
-            /* Show slots */
-            ui_print_string(24, row, "(", color);
-            screen_print_number(25, row, ftps[i].release_count, 1, color);
-            screen_set_char(26, row, '/', color);
-            screen_print_number(27, row, MAX_RELEASES_PER_FTP, 1, color);
-            ui_print_string(28, row, ")", color);
-
-            row++;
+            row += 2;  /* 2-line increment */
             menu_idx++;
+
+            if (row >= 19) break;  /* Adjusted limit for 2-line entries */
         }
     }
 
-    ui_print_centered(18, "[Q] CANCEL", COLOR_WHITE);
+    ui_print_centered(21, "[Q] CANCEL", COLOR_WHITE);
 
     choice = input_read_menu(menu_idx);
 

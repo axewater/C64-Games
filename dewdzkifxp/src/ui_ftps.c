@@ -164,24 +164,35 @@ uint8_t ui_show_move_releases(void) {
     ui_draw_hline(0, 4, 40, '-', COLOR_BLUE);
 
     row = 6;
-    for (i = 0; i < ftp_count && row < 20; i++) {
+    for (i = 0; i < ftp_count && row < 19; i++) {
+        uint8_t col;
         src_ftp = &ftps[ftps_with_releases[i]];
+
+        /* Line 1: [N] FTP-NAME */
         screen_set_char(2, row, '[', COLOR_WHITE);
         screen_print_number(3, row, i + 1, 1, COLOR_YELLOW);
         screen_set_char(4, row, ']', COLOR_WHITE);
         ui_print_string(6, row, src_ftp->name, COLOR_CYAN);
 
-        /* Show trait tag (NEW) */
+        /* Line 2: <indent> (X/5) [TRAIT] */
+        col = 6;
+
+        /* Show release count first */
+        screen_set_char(col, row + 1, '(', COLOR_GRAY2);
+        screen_print_number(col + 1, row + 1, src_ftp->release_count, 1, COLOR_WHITE);
+        screen_set_char(col + 2, row + 1, '/', COLOR_GRAY2);
+        screen_print_number(col + 3, row + 1, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
+        screen_set_char(col + 4, row + 1, ')', COLOR_GRAY2);
+        col = 12;  /* Fixed position after slots */
+
+        /* Show trait tag if present */
         if (src_ftp->trait != TRAIT_NONE) {
             const char* trait_tag = ftp_get_trait_tag(src_ftp->trait);
             uint8_t trait_color = ftp_get_trait_color(src_ftp->trait);
-            ui_print_string(27, row, trait_tag, trait_color);
+            ui_print_string(col, row + 1, trait_tag, trait_color);
         }
 
-        ui_print_string(37, row, "(", COLOR_GRAY2);
-        screen_print_number(38, row, src_ftp->release_count, 1, COLOR_WHITE);
-        ui_print_string(39, row, ")", COLOR_GRAY2);
-        row++;
+        row += 2;  /* 2-line increment */
     }
 
     ui_print_centered(22, "[1-8] SELECT  [Q] CANCEL", COLOR_WHITE);
@@ -269,26 +280,35 @@ uint8_t ui_show_move_releases(void) {
     ui_print_string(10, 6, rel->name, COLOR_YELLOW);
 
     row = 8;
-    for (i = 0; i < valid_dst_count && row < 20; i++) {
+    for (i = 0; i < valid_dst_count && row < 19; i++) {
+        uint8_t col;
         dst_ftp = &ftps[valid_dsts[i]];
+
+        /* Line 1: [N] FTP-NAME */
         screen_set_char(2, row, '[', COLOR_WHITE);
         screen_print_number(3, row, i + 1, 1, COLOR_YELLOW);
         screen_set_char(4, row, ']', COLOR_WHITE);
         ui_print_string(6, row, dst_ftp->name, COLOR_CYAN);
 
-        /* Show trait tag (NEW) */
+        /* Line 2: <indent> (X/5) [TRAIT] */
+        col = 6;
+
+        /* Show slots first */
+        screen_set_char(col, row + 1, '(', COLOR_GRAY2);
+        screen_print_number(col + 1, row + 1, dst_ftp->release_count, 1, COLOR_WHITE);
+        screen_set_char(col + 2, row + 1, '/', COLOR_GRAY2);
+        screen_print_number(col + 3, row + 1, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
+        screen_set_char(col + 4, row + 1, ')', COLOR_GRAY2);
+        col = 12;  /* Fixed position after slots */
+
+        /* Show trait tag if present */
         if (dst_ftp->trait != TRAIT_NONE) {
             const char* trait_tag = ftp_get_trait_tag(dst_ftp->trait);
             uint8_t trait_color = ftp_get_trait_color(dst_ftp->trait);
-            ui_print_string(27, row, trait_tag, trait_color);
+            ui_print_string(col, row + 1, trait_tag, trait_color);
         }
 
-        ui_print_string(36, row, "(", COLOR_GRAY2);
-        screen_print_number(37, row, dst_ftp->release_count, 1, COLOR_WHITE);
-        ui_print_string(38, row, "/", COLOR_GRAY2);
-        screen_print_number(39, row, MAX_RELEASES_PER_FTP, 1, COLOR_WHITE);
-        ui_print_string(40, row, ")", COLOR_GRAY2);
-        row++;
+        row += 2;  /* 2-line increment */
     }
 
     ui_print_centered(22, "[1-8] SELECT  [Q] CANCEL", COLOR_WHITE);
