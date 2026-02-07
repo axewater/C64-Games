@@ -36,4 +36,10 @@ void screen_draw_vline(uint8_t x, uint8_t y, uint8_t height, uint8_t ch, uint8_t
 /* Draw box */
 void screen_draw_box(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color);
 
+/* Print wrapped text (word-wrap at width boundary) */
+void screen_print_wrapped(uint8_t x, uint8_t y, uint8_t width, const char* text, uint8_t color);
+
+/* Fade to black transition */
+void screen_fade_to_black(void);
+
 #endif /* SCREEN_H */

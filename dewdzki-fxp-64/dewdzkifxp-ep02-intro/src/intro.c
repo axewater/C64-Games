@@ -22,6 +22,29 @@ void wait_frames(uint8_t count) {
     }
 }
 
+/* Sprite fade-in effect */
+static void sprite_fade_in(uint8_t sprite_num, uint16_t x, uint8_t y) {
+    uint8_t i;
+    for (i = 0; i < 20; i++) {
+        sprite_set_position(sprite_num, x, y);
+        sprite_enable(sprite_num, (i % 4) < 2);  /* Blink pattern */
+        wait_frames(2);
+    }
+    sprite_enable(sprite_num, 1);  /* Final: on */
+}
+
+/* Sprite bounce animation */
+static void sprite_bounce(uint8_t sprite_num, uint16_t x, uint8_t start_y) {
+    uint8_t i;
+    uint8_t y_offset;
+    for (i = 0; i < 40; i++) {
+        /* Simple parabolic bounce */
+        y_offset = (i < 20) ? (20 - i) : (i - 20);
+        sprite_set_position(sprite_num, x, start_y - y_offset);
+        wait_frames(2);
+    }
+}
+
 void sprite_slide_to(uint8_t sprite_num, uint16_t start_x, uint8_t start_y,
                      uint16_t end_x, uint8_t end_y, uint8_t frames) {
     uint8_t i;
@@ -99,45 +122,52 @@ static void type_irc_line(uint8_t y, const char* nick, const char* msg,
     type_text(1 + nick_len, y, msg, msg_color);
 }
 
+/* ===== PETSCII ART DRAWING FUNCTIONS ===== */
+
+/* Draw server rack (empty FTP servers) */
+static void draw_server_rack(void) {
+    screen_print_string(12, 5, "+------------+", COLOR_GRAY2);
+    screen_print_string(12, 6, "|  /\\/\\/\\/\\  |", COLOR_GRAY2);
+    screen_print_string(12, 7, "|   EMPTY    |", COLOR_RED);
+    screen_print_string(12, 8, "|  /\\/\\/\\/\\  |", COLOR_GRAY2);
+    screen_print_string(12, 9, "+------------+", COLOR_GRAY2);
+}
+
+/* Draw computer diagram (Windows PC with port) */
+static void draw_computer_diagram(void) {
+    screen_print_string(4, 10, "+--------------+", COLOR_BLUE);
+    screen_print_string(4, 11, "| WINDOWS PC   |", COLOR_CYAN);
+    screen_print_string(4, 12, "|  PORT 139   |", COLOR_YELLOW);
+    screen_print_string(4, 13, "| SMB ENABLED  |", COLOR_GREEN);
+    screen_print_string(4, 14, "+--------------+", COLOR_BLUE);
+    screen_print_string(4, 15, "    |_____|     ", COLOR_GRAY2);
+}
+
 /* ===== SCENE FUNCTIONS ===== */
 
-/* Scene 1: #DEWDZKI-FXP - Crew chatting, pub FTPs getting stale (auto-advance) */
+/* Scene 1: #DEWDZKI-FXP - Chat + Server Rack PETSCII Art (auto-advance) */
 static uint8_t intro_scene1_chat(void) {
     screen_clear();
 
     screen_print_string(1, 0, "#DEWDZKI-FXP", COLOR_YELLOW);
     screen_draw_hline(1, 1, 38, '-', COLOR_GRAY2);
 
-    type_irc_line(3, "LEWIS", "ANOTHER DAY ANOTHER SCAN...",
-                  COLOR_YELLOW, COLOR_WHITE);
-    wait_frames(20);
+    /* Draw server rack art */
+    draw_server_rack();
 
-    type_irc_line(4, "SICK0", "PUB FTPS ARE DRY AF LATELY",
+    type_irc_line(3, "SICK0", "PUB FTPS ARE DYING",
                   COLOR_RED, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(5, "FERRE070", "MAYBE WE SHOULD TRY FISHING",
-                  COLOR_GREEN, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(6, "ZZZ", "ARROWS",
-                  COLOR_GRAY2, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(7, "LEWIS", "EVERYONE SCANNING THE SAME",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(8, "LEWIS", "RANGES... WE NEED SOMETHING NEW",
-                  COLOR_YELLOW, COLOR_WHITE);
     wait_frames(30);
 
-    type_irc_line(10, "AXE", "I MIGHT HAVE AN IDEA...",
+    type_irc_line(15, "AXE", "I GOT AN IDEA...",
                   COLOR_CYAN, COLOR_WHITE);
-    wait_frames(40);
+    wait_frames(60);
 
+    screen_fade_to_black();
     return 0;  /* Auto-advance */
 }
 
-/* Scene 2: The Diss - DARKPH4NT from ROSEVALLEY-FXP mocks them (wait for key) */
+/* Scene 2: The Diss - DARKPH4NT mocks them (wait for key) */
 static uint8_t intro_scene2_diss(void) {
     screen_clear();
 
@@ -147,38 +177,14 @@ static uint8_t intro_scene2_diss(void) {
     screen_print_string(1, 3, "*** DARKPH4NT HAS JOINED", COLOR_GREEN);
     wait_frames(30);
 
-    type_irc_line(5, "DARKPH4NT", "LMAO STILL SCANNING PUBS?",
+    type_irc_line(5, "DARKPH4NT", "NOOBS IN KIDDIE POOL!",
                   COLOR_LIGHTRED, COLOR_WHITE);
-    wait_frames(20);
+    wait_frames(30);
 
-    type_irc_line(6, "DARKPH4NT", "ROSEVALLEY-FXP MOVED TO SMB",
-                  COLOR_LIGHTRED, COLOR_WHITE);
-    type_irc_line(7, "DARKPH4NT", "MONTHS AGO. YOU GUYS ARE DONE",
-                  COLOR_LIGHTRED, COLOR_WHITE);
-    wait_frames(20);
+    screen_print_string(1, 7, "*** DARKPH4NT HAS LEFT", COLOR_RED);
+    wait_frames(30);
 
-    type_irc_line(9, "SICK0", "WTF IS SMB?",
-                  COLOR_RED, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(10, "DARKPH4NT", "LOL EXACTLY. STAY IN THE",
-                  COLOR_LIGHTRED, COLOR_WHITE);
-    type_irc_line(11, "DARKPH4NT", "KIDDIE POOL NOOBS",
-                  COLOR_LIGHTRED, COLOR_WHITE);
-    wait_frames(15);
-
-    screen_print_string(1, 13, "*** DARKPH4NT HAS LEFT", COLOR_RED);
-    wait_frames(20);
-
-    type_irc_line(15, "LEWIS", "...",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(16, "FERRE070", "THAT GUY IS SUCH A TOOL",
-                  COLOR_GREEN, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(18, "AXE", "HE'S NOT WRONG THOUGH",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(19, "AXE", "WE NEED TO LEVEL UP",
+    type_irc_line(9, "AXE", "TIME TO LEVEL UP",
                   COLOR_CYAN, COLOR_WHITE);
 
     screen_print_centered(23, "PRESS ANY KEY", COLOR_YELLOW);
@@ -186,77 +192,53 @@ static uint8_t intro_scene2_diss(void) {
     return wait_for_key_or_quit();
 }
 
-/* Scene 3: SMB Lesson - Axe explains SMB hacking with sprites (wait for key) */
+/* Scene 3: SMB Lesson - Windows sprite + computer diagram + condensed text (wait for key) */
 static uint8_t intro_scene3_smb(void) {
     screen_clear();
 
-    /* Position Lewis sprite on left */
-    sprite_set_multicolor_shared(10, 0);
-    sprite_set_multicolor(SPRITE_LEWIS, 1);
-    sprite_load(SPRITE_LEWIS, sprite_lewis, SPRITE_DATA_BASE + SPRITE_DATA_SIZE);
-    sprite_set_color(SPRITE_LEWIS, 6);
-    sprite_set_position(SPRITE_LEWIS, 40, 60);
-    sprite_enable(SPRITE_LEWIS, 1);
+    /* Load and show Windows logo sprite */
+    sprite_set_multicolor(SPRITE_FTP, 0);  /* Hires mode */
+    sprite_load(SPRITE_FTP, sprite_windows, SPRITE_DATA_BASE);
+    sprite_set_color(SPRITE_FTP, COLOR_CYAN);
+    sprite_fade_in(SPRITE_FTP, 280, 60);
 
-    /* Slide Axe sprite in from right */
-    sprite_set_multicolor(SPRITE_FTP, 1);
-    sprite_load(SPRITE_FTP, sprite_axe, SPRITE_DATA_BASE + SPRITE_DATA_SIZE * 2);
-    sprite_set_color(SPRITE_FTP, 3);  /* Cyan hood */
-    sprite_slide_to(SPRITE_FTP, 320, 60, 280, 60, 20);
+    screen_print_string(8, 1, "SMB HACKING 101", COLOR_CYAN);
+    screen_draw_hline(8, 2, 15, '-', COLOR_GRAY2);
 
-    screen_print_string(8, 1, "PRIVATE LESSON", COLOR_CYAN);
-    screen_draw_hline(8, 2, 14, '-', COLOR_GRAY2);
+    /* Draw computer diagram */
+    draw_computer_diagram();
 
-    type_irc_line(4, "AXE", "SMB = SERVER MESSAGE BLOCK",
+    /* Condensed explanation */
+    type_irc_line(4, "AXE", "SMB = WINDOWS FILE SHARES",
                   COLOR_CYAN, COLOR_WHITE);
-    wait_frames(20);
+    wait_frames(30);
 
-    type_irc_line(5, "AXE", "WINDOWS FILE SHARING ON",
+    type_irc_line(6, "AXE", "PORT 139, WEAK SECURITY",
                   COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(6, "AXE", "PORT 139. MOST BOXES HAVE",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(7, "AXE", "NO PASSWORD OR ADMIN/ADMIN",
-                  COLOR_CYAN, COLOR_WHITE);
-    wait_frames(20);
+    wait_frames(30);
 
-    type_irc_line(9, "LEWIS", "SO WE CAN ACCESS THEIR",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(10, "LEWIS", "HARD DRIVES REMOTELY?",
-                  COLOR_YELLOW, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(12, "AXE", "EXACTLY. SCAN FOR PORT 139",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(13, "AXE", "FIND OPEN SHARES, USE THEM",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(14, "AXE", "AS DUMP SITES FOR RELEASES",
-                  COLOR_CYAN, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(16, "LEWIS", "LETS DO IT",
+    type_irc_line(17, "LEWIS", "LETS DO IT",
                   COLOR_YELLOW, COLOR_WHITE);
 
     screen_print_centered(23, "PRESS ANY KEY", COLOR_YELLOW);
 
     if (wait_for_key_or_quit()) {
-        sprite_enable(SPRITE_LEWIS, 0);
         sprite_enable(SPRITE_FTP, 0);
         return 1;
     }
 
-    sprite_enable(SPRITE_LEWIS, 0);
     sprite_enable(SPRITE_FTP, 0);
+    screen_fade_to_black();
     return 0;
 }
 
-/* Scene 4: SMB Scan - Sine wave scanning animation (wait for key) */
+/* Scene 4: SMB Scan - Sine wave scanning animation with treasure (auto-advance) */
 static uint8_t intro_scene4_scan(void) {
     uint8_t frame;
     uint8_t x, sy;
     uint8_t prev_y[28];
     uint8_t phase;
     const uint8_t* spinner_frames[4];
-    char ch;
 
     screen_clear();
 
@@ -340,171 +322,66 @@ static uint8_t intro_scene4_scan(void) {
     screen_print_string(1, 22, "*** OPEN SHARE FOUND! ***", COLOR_GREEN);
     screen_print_string(1, 23, "192.168.14.201:139 C$ WRITABLE", COLOR_YELLOW);
 
-    /* Wait for key with blinking text */
-    frame = 0;
-    while (!kbhit()) {
-        if ((frame % BLINK_CYCLE) < (BLINK_CYCLE / 2)) {
-            screen_print_centered(24, "PRESS ANY KEY", COLOR_YELLOW);
-        } else {
-            screen_print_centered(24, "             ", COLOR_BLACK);
-        }
-        waitvsync();
-        frame++;
-    }
+    /* Load and animate treasure sprite */
+    sprite_set_multicolor_shared(10, 0);  /* MC0 = brown */
+    sprite_set_multicolor(SPRITE_LEWIS, 1);  /* Enable multicolor */
+    sprite_load(SPRITE_LEWIS, sprite_treasure, SPRITE_DATA_BASE);
+    sprite_set_color(SPRITE_LEWIS, COLOR_YELLOW);  /* Gold accents */
+    sprite_fade_in(SPRITE_LEWIS, 300, 180);
+    sprite_bounce(SPRITE_LEWIS, 300, 180);
 
-    ch = cgetc();
-    if (ch == 'q' || ch == 'Q') return 1;
-    return 0;
-}
-
-/* Scene 5: The Forum - Axe explains underground forum (wait for key) */
-static uint8_t intro_scene5_forum(void) {
-    screen_clear();
-
-    screen_print_string(1, 0, "#DEWDZKI-FXP", COLOR_YELLOW);
-    screen_draw_hline(1, 1, 38, '-', COLOR_GRAY2);
-
-    type_irc_line(3, "AXE", "THERE'S MORE. YOU KNOW THE",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(4, "AXE", "UNDERGROUND FORUM?",
-                  COLOR_CYAN, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(6, "LEWIS", "HEARD OF IT. NEVER BEEN",
-                  COLOR_YELLOW, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(8, "AXE", "THE GOOD TOOLS ARE THERE.",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(9, "AXE", "SCANNERS, EXPLOITS, CONFIGS",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(10, "AXE", "BUT EVERYTHING IS GATED BY",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(11, "AXE", "REPUTATION POINTS",
-                  COLOR_CYAN, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(13, "SICK0", "HOW DO WE GET REP?",
-                  COLOR_RED, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(15, "AXE", "CONTRIBUTE. SHARE CONFIGS,",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(16, "AXE", "POST WORKING SCANS, HELP",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(17, "AXE", "OTHERS. THE MORE YOU GIVE",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(18, "AXE", "THE MORE ACCESS YOU GET",
-                  COLOR_CYAN, COLOR_WHITE);
-
-    screen_print_centered(23, "PRESS ANY KEY", COLOR_YELLOW);
-
-    return wait_for_key_or_quit();
-}
-
-/* Scene 6: The Warning - Lewis warns about admins (wait for key) */
-static uint8_t intro_scene6_warning(void) {
-    screen_clear();
-
-    /* Show Lewis sprite */
-    sprite_set_multicolor_shared(10, 0);
-    sprite_set_multicolor(SPRITE_LEWIS, 1);
-    sprite_load(SPRITE_LEWIS, sprite_lewis, SPRITE_DATA_BASE + SPRITE_DATA_SIZE);
-    sprite_set_color(SPRITE_LEWIS, 6);
-    sprite_set_position(SPRITE_LEWIS, 40, 50);
-    sprite_enable(SPRITE_LEWIS, 1);
-
-    screen_print_string(1, 0, "#DEWDZKI-FXP", COLOR_YELLOW);
-    screen_draw_hline(1, 1, 38, '-', COLOR_GRAY2);
-
-    type_irc_line(3, "LEWIS", "ONE THING THOUGH...",
-                  COLOR_YELLOW, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(5, "LEWIS", "SMB BOXES HAVE ADMINS.",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(6, "LEWIS", "THEY CHECK LOGS. IF THEY",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(7, "LEWIS", "FIND OUR STUFF WE LOSE",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(8, "LEWIS", "THE BOX",
-                  COLOR_YELLOW, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(10, "AXE", "THATS WHY WE HIDE FILES IN",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(11, "AXE", "DEEP FOLDERS. NAMES LIKE",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(12, "AXE", "SYSTEM32\\DRIVERS\\ETC",
-                  COLOR_CYAN, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(14, "LEWIS", "AND IF THEY PATCH IT?",
-                  COLOR_YELLOW, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(16, "AXE", "THEN WE FIND NEW BOXES.",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(17, "AXE", "THERE ARE MILLIONS OUT THERE",
-                  COLOR_CYAN, COLOR_WHITE);
-
-    screen_print_centered(23, "PRESS ANY KEY", COLOR_YELLOW);
-
-    if (wait_for_key_or_quit()) {
-        sprite_enable(SPRITE_LEWIS, 0);
-        return 1;
-    }
+    wait_frames(60);  /* Auto-advance after animation */
 
     sprite_enable(SPRITE_LEWIS, 0);
+    screen_fade_to_black();
     return 0;
 }
 
-/* Scene 7: Crew Rallies - Everyone's on board (auto-advance) */
-static uint8_t intro_scene7_rally(void) {
+/* Scene 5: Crew Rallies - Merged forum + warning + rally with all crew sprites (auto-advance) */
+static uint8_t intro_scene5_crew_rallies(void) {
     screen_clear();
 
-    screen_print_string(1, 0, "#DEWDZKI-FXP", COLOR_YELLOW);
-    screen_draw_hline(1, 1, 38, '-', COLOR_GRAY2);
+    /* Show all crew sprites across screen */
+    sprite_set_multicolor_shared(10, 0);
 
-    type_irc_line(3, "LEWIS", "ALRIGHT CREW. NEW ERA.",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(4, "LEWIS", "WE'RE GOING SMB",
-                  COLOR_YELLOW, COLOR_WHITE);
+    /* Lewis on left */
+    sprite_set_multicolor(SPRITE_LEWIS, 1);
+    sprite_load(SPRITE_LEWIS, sprite_lewis, SPRITE_DATA_BASE);
+    sprite_set_color(SPRITE_LEWIS, 6);
+    sprite_fade_in(SPRITE_LEWIS, 80, 150);
+
+    /* Axe in center */
+    sprite_set_multicolor(SPRITE_FTP, 1);
+    sprite_load(SPRITE_FTP, sprite_axe, SPRITE_DATA_BASE + 64);
+    sprite_set_color(SPRITE_FTP, 3);  /* Cyan hood */
+    sprite_fade_in(SPRITE_FTP, 160, 150);
+
+    /* SICK0 on right */
+    sprite_set_multicolor(SPRITE_CURSOR, 1);
+    sprite_load(SPRITE_CURSOR, sprite_sick0, SPRITE_DATA_BASE + 128);
+    sprite_set_color(SPRITE_CURSOR, 2);  /* Red cyber visor */
+    sprite_fade_in(SPRITE_CURSOR, 240, 150);
+
     wait_frames(20);
 
-    type_irc_line(6, "SICK0", "HELL YEAH LETS WRECK IT",
-                  COLOR_RED, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(7, "FERRE070", "DARKPH4NT CAN KISS MY ASS",
-                  COLOR_GREEN, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(8, "ZZZ", "ARROWS",
-                  COLOR_GRAY2, COLOR_WHITE);
-    wait_frames(15);
-
-    type_irc_line(10, "AXE", "ILL SET EVERYONE UP WITH",
-                  COLOR_CYAN, COLOR_WHITE);
-    type_irc_line(11, "AXE", "THE TOOLS. LETS DO THIS",
-                  COLOR_CYAN, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(13, "YOU", "WHAT DO I DO?",
-                  COLOR_WHITE, COLOR_LIGHTBLUE);
-    wait_frames(15);
-
-    type_irc_line(15, "LEWIS", "YOU? YOU'RE GONNA RUN",
-                  COLOR_YELLOW, COLOR_WHITE);
-    type_irc_line(16, "LEWIS", "THE WHOLE OPERATION.",
-                  COLOR_YELLOW, COLOR_WHITE);
+    /* Condensed dialogue */
+    screen_print_centered(18, "HIDE DEEP IN SYSTEM32", COLOR_CYAN);
     wait_frames(40);
 
+    screen_print_centered(20, "YOU'RE RUNNING THIS SHOW NOW", COLOR_YELLOW);
+    wait_frames(80);
+
+    /* Disable sprites */
+    sprite_enable(SPRITE_LEWIS, 0);
+    sprite_enable(SPRITE_FTP, 0);
+    sprite_enable(SPRITE_CURSOR, 0);
+
+    screen_fade_to_black();
     return 0;  /* Auto-advance */
 }
 
-/* Scene 8: Title Card - "CHAPTER 2 / THE RISE" with blinking prompt (wait for key) */
-static uint8_t intro_scene8_title(void) {
+/* Scene 6: Title Card - "CHAPTER 2 / THE RISE" with blinking prompt (wait for key) */
+static uint8_t intro_scene6_title(void) {
     uint8_t frame;
     char ch;
 
@@ -552,14 +429,12 @@ void intro_init(void) {
 uint8_t intro_run(void) {
     intro_init();
 
-    if (intro_scene1_chat()) return 1;
-    if (intro_scene2_diss()) return 1;
-    if (intro_scene3_smb()) return 1;
-    if (intro_scene4_scan()) return 1;
-    if (intro_scene5_forum()) return 1;
-    if (intro_scene6_warning()) return 1;
-    if (intro_scene7_rally()) return 1;
-    if (intro_scene8_title()) return 1;
+    if (intro_scene1_chat()) return 1;             /* Chat + server rack art (auto) */
+    if (intro_scene2_diss()) return 1;             /* Darkph4nt diss (wait key) */
+    if (intro_scene3_smb()) return 1;              /* SMB lesson + visuals (wait key) */
+    if (intro_scene4_scan()) return 1;             /* Scanner + treasure (auto) */
+    if (intro_scene5_crew_rallies()) return 1;     /* Crew sprites + rally (auto) */
+    if (intro_scene6_title()) return 1;            /* Title card (wait key) */
 
     return 0;
 }

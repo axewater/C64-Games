@@ -18,4 +18,13 @@ extern const uint8_t sprite_spinner_frame2[63];
 extern const uint8_t sprite_spinner_frame3[63];
 extern const uint8_t sprite_spinner_frame4[63];
 
+/* Sprite data for treasure chest (multicolor) */
+extern const uint8_t sprite_treasure[63];
+
+/* Sprite data for Windows logo */
+extern const uint8_t sprite_windows[63];
+
+/* Sprite data for SICK0 avatar (crew member) */
+extern const uint8_t sprite_sick0[63];
+
 #endif /* SPRITE_DATA_H */
