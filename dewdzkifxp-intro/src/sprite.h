@@ -8,7 +8,7 @@
 #define VIC_SPRITE0_Y ((uint8_t*)0xD001)
 #define VIC_SPRITE_MSB_X ((uint8_t*)0xD010)
 #define VIC_SPRITE_ENABLE ((uint8_t*)0xD015)
-#define VIC_SPRITE_EXPAND_X ((uint8_t*)0xD016)
+#define VIC_SPRITE_EXPAND_X ((uint8_t*)0xD01D)
 #define VIC_SPRITE_EXPAND_Y ((uint8_t*)0xD017)
 #define VIC_SPRITE_PRI ((uint8_t*)0xD01B)
 #define VIC_SPRITE_MCOLOR ((uint8_t*)0xD01C)
@@ -20,7 +20,7 @@
 #define SPRITE_PTRS ((uint8_t*)0x07F8)
 
 /* Sprite data memory locations */
-#define SPRITE_DATA_BASE 0x2000
+#define SPRITE_DATA_BASE 0x3000
 #define SPRITE_DATA_SIZE 64
 
 /* Sprite IDs */
