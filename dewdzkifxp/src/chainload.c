@@ -34,6 +34,8 @@ void chainload(const char* filename) {
      *   LDY #$08      ; Load address high
      *   JSR $FFD5     ; LOAD
      *   JSR $FF81     ; CINT - Initialize screen
+     *   LDA #$00      ; Clear keyboard buffer to prevent stale
+     *   STA $C6       ; keypresses from leaking into loaded program
      *   LDX #$FB      ; Reset stack pointer
      *   TXS
      *   JMP $080D     ; Jump to cc65 program start
@@ -48,6 +50,8 @@ void chainload(const char* filename) {
         0xA0, 0x08,             /* LDY #$08 */
         0x20, 0xD5, 0xFF,       /* JSR $FFD5 */
         0x20, 0x81, 0xFF,       /* JSR $FF81 */
+        0xA9, 0x00,             /* LDA #$00 */
+        0x85, 0xC6,             /* STA $C6 (clear keyboard buffer count) */
         0xA2, 0xFB,             /* LDX #$FB */
         0x9A,                   /* TXS */
         0x4C, 0x0D, 0x08        /* JMP $080D */
