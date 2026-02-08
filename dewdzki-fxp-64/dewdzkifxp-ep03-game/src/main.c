@@ -82,8 +82,7 @@ static void show_victory(void) {
     screen_init();
     screen_print_centered(12, "LOADING...", COLOR_GRAY2);
 
-    /* TODO: chainload("outro") when outro exists */
-    /* For now, just return to BASIC */
+    chainload("outro");
 }
 
 int main(void) {

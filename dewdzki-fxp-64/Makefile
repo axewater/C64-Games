@@ -13,6 +13,7 @@ EP02_INTRO_DIR := dewdzkifxp-ep02-intro
 EP02_GAME_DIR := dewdzkifxp-ep02-game
 EP03_INTRO_DIR := dewdzkifxp-ep03-intro
 EP03_GAME_DIR := dewdzkifxp-ep03-game
+OUTRO_DIR := dewdzkifxp-outro
 
 # Output files
 D64_IMAGE := $(DIST_DIR)/dewdzkifxp.d64
@@ -22,9 +23,10 @@ EP02_INTRO_PRG := $(EP02_INTRO_DIR)/build/ch02-intro.prg
 EP02_GAME_PRG := $(EP02_GAME_DIR)/build/ep02-game.prg
 EP03_INTRO_PRG := $(EP03_INTRO_DIR)/build/ch03-intro.prg
 EP03_GAME_PRG := $(EP03_GAME_DIR)/build/ch03-game.prg
+OUTRO_PRG := $(OUTRO_DIR)/build/outro.prg
 
 # All PRG files
-PRGS := $(EP01_INTRO_PRG) $(EP01_GAME_PRG) $(EP02_INTRO_PRG) $(EP02_GAME_PRG) $(EP03_INTRO_PRG) $(EP03_GAME_PRG)
+PRGS := $(EP01_INTRO_PRG) $(EP01_GAME_PRG) $(EP02_INTRO_PRG) $(EP02_GAME_PRG) $(EP03_INTRO_PRG) $(EP03_GAME_PRG) $(OUTRO_PRG)
 
 # Default target: build everything and create D64
 all: build d64
@@ -67,6 +69,11 @@ $(EP03_GAME_PRG):
 	@echo Building episode 3 game...
 	@cd $(EP03_GAME_DIR) && $(MAKE)
 
+# Build outro / credits
+$(OUTRO_PRG):
+	@echo Building outro...
+	@cd $(OUTRO_DIR) && $(MAKE)
+
 # Create D64 disk image from PRG files
 d64: $(PRGS) | $(DIST_DIR)
 	@echo Creating D64 disk image...
@@ -78,6 +85,7 @@ d64: $(PRGS) | $(DIST_DIR)
 	$(C1541) -attach $(D64_IMAGE) -write $(EP02_GAME_PRG) ch02-game
 	$(C1541) -attach $(D64_IMAGE) -write $(EP03_INTRO_PRG) ch03-intro
 	$(C1541) -attach $(D64_IMAGE) -write $(EP03_GAME_PRG) ch03-game
+	$(C1541) -attach $(D64_IMAGE) -write $(OUTRO_PRG) outro
 	@echo D64 created: $(D64_IMAGE)
 
 # List contents of D64
@@ -102,6 +110,8 @@ clean:
 	@cd $(EP03_INTRO_DIR) && $(MAKE) clean
 	@echo Cleaning episode 3 game...
 	@cd $(EP03_GAME_DIR) && $(MAKE) clean
+	@echo Cleaning outro...
+	@cd $(OUTRO_DIR) && $(MAKE) clean
 	@echo Cleaning dist...
 	@rm -rf $(DIST_DIR)
 	@echo Clean complete
