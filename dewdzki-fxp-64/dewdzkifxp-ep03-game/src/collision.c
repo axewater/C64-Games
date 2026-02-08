@@ -8,9 +8,9 @@
 #define SERVER_Y 140
 
 /* Collision radius (in pixels) for proximity check.
- * Shield is 24px wide and 6px tall; packet diamond is ~8px */
+ * Shield is 24px wide dome; packet is ~16px radar ring */
 #define PLAYER_COLL_X 14
-#define PLAYER_COLL_Y 8
+#define PLAYER_COLL_Y 12
 #define SERVER_COLL_DIST 12
 
 /* Simple absolute value */
@@ -24,14 +24,14 @@ uint8_t collision_check(void) {
     int16_t dx, dy;
 
     for (i = 0; i < MAX_PACKETS; i++) {
-        if (!packets[i].active) continue;
+        if (!packets[i].active || packets[i].exploding) continue;
 
         /* Check collision with player shield (sprite 0) */
         dx = (int16_t)packets[i].x - (int16_t)player_x;
         dy = (int16_t)packets[i].y - (int16_t)player_y;
 
         if (abs16(dx) < PLAYER_COLL_X && abs16(dy) < PLAYER_COLL_Y) {
-            packet_deflect(i);
+            packet_explode(i);
             continue;
         }
 

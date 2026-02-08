@@ -23,7 +23,7 @@ uint8_t player_y;
 void player_init(void) {
     /* Load shield sprite */
     sprite_load(PLAYER_SPRITE_NUM, sprite_shield, PLAYER_SPRITE_LOC);
-    sprite_set_color(PLAYER_SPRITE_NUM, COLOR_YELLOW);
+    sprite_set_color(PLAYER_SPRITE_NUM, COLOR_BLUE);
     sprite_set_multicolor(PLAYER_SPRITE_NUM, 0);
 
     /* Start position: center, above server to intercept packets */

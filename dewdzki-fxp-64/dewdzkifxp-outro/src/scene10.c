@@ -36,7 +36,10 @@ uint8_t scene10_fin(void) {
     screen_print_centered(17, "CREATED FOR THE COMMODORE 64", COLOR_GRAY1);
     wait_frames(20);
 
-    screen_print_centered(18, "2024 / 2025", COLOR_GRAY1);
+    screen_print_centered(18, "2026", COLOR_GRAY1);
+    wait_frames(20);
+
+    screen_print_centered(19, "ALL RIGHTS FUCKED UP", COLOR_GRAY2);
     wait_frames(30);
 
     /* Type "THE END" with typewriter effect */

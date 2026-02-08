@@ -30,7 +30,7 @@ uint8_t scene8_dossier_moon(void) {
     /* Dossier fields */
     type_dossier_line(5, "HANDLE:  ", "MOON", COLOR_GRAY2, COLOR_BROWN);
     wait_frames(15);
-    type_dossier_line(7, "ROLE:    ", "SOCIAL ENGINEER", COLOR_GRAY2, COLOR_WHITE);
+    type_dossier_line(7, "ROLE:    ", "ASM CODER / BINDER", COLOR_GRAY2, COLOR_WHITE);
     wait_frames(15);
 
     /* STATUS: UNKNOWN in red + border flash */
@@ -40,29 +40,29 @@ uint8_t scene8_dossier_moon(void) {
     wait_frames(30);
 
     /* Flashback section */
-    screen_print_string(16, 12, "----- FLASHBACK -----", COLOR_GRAY1);
+    screen_print_string(10, 12, "----- FLASHBACK -----", COLOR_GRAY1);
     wait_frames(20);
 
-    screen_print_string(16, 14, "*** HOUSE PARTY -", COLOR_GRAY1);
-    screen_print_string(16, 15, "    AMSTERDAM", COLOR_GRAY1);
+    screen_print_string(10, 14, "*** HOUSE PARTY -", COLOR_GRAY1);
+    screen_print_string(10, 15, "    AMSTERDAM", COLOR_GRAY1);
     wait_frames(30);
-    type_text(16, 16, "\"I CAN DO IT\"", COLOR_GRAY1);
+    type_text(10, 16, "\"I CAN DO IT\"", COLOR_GRAY1);
     wait_frames(25);
-    type_text(16, 17, "\"DEWDZKI EXCLUSIVE\"", COLOR_GRAY1);
+    type_text(10, 17, "\"DEWDZKI EXCLUSIVE\"", COLOR_GRAY1);
 
     wait_frames(40);
 
     /* Current fate */
-    screen_print_string(16, 19, "----- CURRENT -----", COLOR_GRAY1);
+    screen_print_string(10, 19, "----- CURRENT -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 21, "WENT DARK.", COLOR_LIGHTGREEN);
+    type_text(10, 21, "WENT DARK.", COLOR_LIGHTGREEN);
     wait_frames(60);
 
-    type_text(16, 22, "NO CONTACT SINCE 2004.", COLOR_LIGHTGREEN);
+    type_text(10, 22, "NO CONTACT SINCE 2003.", COLOR_LIGHTGREEN);
     wait_frames(60);
 
-    type_text(16, 23, "NOBODY KNOWS WHAT HAPPENED.", COLOR_LIGHTGREEN);
+    type_text(10, 23, "NOBODY KNOWS WHAT HAPPENED.", COLOR_LIGHTGREEN);
 
     /* Longest pause in the outro */
     wait_frames(80);

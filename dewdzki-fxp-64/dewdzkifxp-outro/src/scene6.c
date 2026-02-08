@@ -35,28 +35,28 @@ uint8_t scene6_dossier_lewis(void) {
     wait_frames(30);
 
     /* Flashback section */
-    screen_print_string(16, 12, "----- FLASHBACK -----", COLOR_GRAY1);
+    screen_print_string(10, 12, "----- FLASHBACK -----", COLOR_GRAY1);
     wait_frames(20);
 
-    screen_print_string(16, 14, "#HACKING - 1995", COLOR_YELLOW);
+    screen_print_string(10, 14, "#HACKING - 1995", COLOR_YELLOW);
     wait_frames(30);
-    type_text(16, 15, "\"HEY NEWBIE, FIRST TIME?\"", COLOR_GRAY1);
+    type_text(10, 15, "\"HEY NEWBIE, FIRST TIME?\"", COLOR_GRAY1);
     wait_frames(25);
-    type_text(16, 16, "\"LET ME SHOW YOU...\"", COLOR_GRAY1);
+    type_text(10, 16, "\"LET ME SHOW YOU...\"", COLOR_GRAY1);
 
     wait_frames(40);
 
     /* Current fate */
-    screen_print_string(16, 18, "----- CURRENT -----", COLOR_GRAY1);
+    screen_print_string(10, 18, "----- CURRENT -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 20, "STILL IN HIS KIBBUTZ", COLOR_LIGHTGREEN);
+    type_text(10, 20, "STILL IN HIS KIBBUTZ", COLOR_LIGHTGREEN);
     wait_frames(20);
-    type_text(16, 21, "IN ISRAEL", COLOR_LIGHTGREEN);
+    type_text(10, 21, "IN ISRAEL", COLOR_LIGHTGREEN);
 
     /* Warm pause */
     wait_frames(50);
-    type_text(16, 23, "SOME THINGS NEVER CHANGE.", COLOR_YELLOW);
+    type_text(10, 23, "SOME THINGS NEVER CHANGE.", COLOR_YELLOW);
 
     wait_frames(50);
 

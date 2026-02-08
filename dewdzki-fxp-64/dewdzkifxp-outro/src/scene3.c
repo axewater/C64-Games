@@ -35,28 +35,28 @@ uint8_t scene3_dossier_sick0(void) {
     wait_frames(30);
 
     /* Flashback section */
-    screen_print_string(16, 12, "----- FLASHBACK -----", COLOR_GRAY1);
+    screen_print_string(10, 12, "----- FLASHBACK -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 14, "\"PUB FTPS ARE DYING\"", COLOR_GRAY1);
+    type_text(10, 14, "\"PUB FTPS ARE DYING\"", COLOR_GRAY1);
     wait_frames(30);
-    type_text(16, 15, "\"URGENT - MS BLASTER WORM\"", COLOR_GRAY1);
+    type_text(10, 15, "\"XP SP2 - FIREWALL BY DEFAULT\"", COLOR_GRAY1);
 
     wait_frames(40);
 
     /* Current fate */
-    screen_print_string(16, 18, "----- CURRENT -----", COLOR_GRAY1);
+    screen_print_string(10, 18, "----- CURRENT -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 20, "TOP TIER DEVOPS ENGINEER", COLOR_LIGHTGREEN);
+    type_text(10, 20, "TOP TIER DEVOPS ENGINEER", COLOR_LIGHTGREEN);
     wait_frames(25);
-    type_text(16, 21, "BUILDS INFRA THAT NEVER", COLOR_LIGHTGREEN);
+    type_text(10, 21, "BUILDS INFRA THAT NEVER", COLOR_LIGHTGREEN);
     wait_frames(15);
-    type_text(16, 22, "GOES DOWN.", COLOR_LIGHTGREEN);
+    type_text(10, 22, "GOES DOWN.", COLOR_LIGHTGREEN);
 
     /* Comedic pause */
     wait_frames(40);
-    type_text(27, 22, " IRONIC.", COLOR_YELLOW);
+    type_text(21, 22, " IRONIC.", COLOR_YELLOW);
 
     wait_frames(50);
 

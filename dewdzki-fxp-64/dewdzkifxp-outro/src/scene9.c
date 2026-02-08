@@ -4,6 +4,7 @@
 #include "sprite.h"
 #include "sprite_data.h"
 #include <conio.h>
+#include <peekpoke.h>
 
 /* Scene 9: "THE CREW" - Sine wave group portrait */
 uint8_t scene9_the_crew(void) {
@@ -34,15 +35,18 @@ uint8_t scene9_the_crew(void) {
 
     wait_frames(20);
 
-    /* Load all 6 sprites */
+    /* Load all 6 sprites into scattered low-memory slots within VIC bank 0.
+     * Can't use contiguous block - screen memory at $0400 is in the way.
+     * Slots: $0200, $0240, $0340, $0380, $03C0, $0800 */
     sprite_set_multicolor_shared(10, 0);
 
-    sprite_load(0, sprite_sick0, SPRITE_DATA_BASE);
-    sprite_load(1, sprite_axe, SPRITE_DATA_BASE + 64);
-    sprite_load(2, sprite_zzz, SPRITE_DATA_BASE + 128);
-    sprite_load(3, sprite_lewis, SPRITE_DATA_BASE + 192);
-    sprite_load(4, sprite_rizz, SPRITE_DATA_BASE + 256);
-    sprite_load(5, sprite_moon, SPRITE_DATA_BASE + 320);
+    sprite_load(0, sprite_sick0, 0x0200);
+    sprite_load(1, sprite_axe, 0x0240);
+    sprite_load(2, sprite_zzz, 0x0340);
+    sprite_load(3, sprite_lewis, 0x0380);
+    sprite_load(4, sprite_rizz, 0x03C0);
+    sprite_load(5, sprite_moon, 0x0800);
+    POKE(0xC6, 0);  /* Clear keyboard buffer - sprite at $0240 overwrites $0277 */
 
     for (i = 0; i < 6; i++) {
         sprite_set_multicolor(i, 1);
@@ -90,7 +94,7 @@ uint8_t scene9_the_crew(void) {
 
     wait_frames(30);
 
-    screen_print_centered(22, "THE CREW. 1995-2004.", COLOR_WHITE);
+    screen_print_centered(22, "THE CREW. 1995-2003.", COLOR_WHITE);
 
     wait_frames(60);
 

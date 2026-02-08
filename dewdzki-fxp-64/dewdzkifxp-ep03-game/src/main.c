@@ -25,14 +25,23 @@ static void show_title(void) {
     screen_print_centered(18, "USE JOYSTICK TO MOVE SHIELD", COLOR_YELLOW);
     screen_print_centered(19, "DEFLECT SCANS AWAY FROM SERVER", COLOR_YELLOW);
 
-    screen_print_centered(22, "PRESS ANY KEY TO START", COLOR_WHITE);
-    screen_print_centered(23, "Q TO QUIT", COLOR_GRAY1);
+    screen_print_centered(21, "PRESS ANY KEY TO START", COLOR_WHITE);
+    screen_print_centered(22, "C - CREDITS", COLOR_GRAY2);
+    screen_print_centered(23, "Q - QUIT", COLOR_GRAY1);
 
     while (!kbhit()) {}
-    if (cgetc() == 'q') {
-        game_state = STATE_QUIT;
-    } else {
-        game_state = STATE_IRC;
+    {
+        uint8_t key = cgetc();
+        if (key == 'q' || key == 'Q') {
+            game_state = STATE_QUIT;
+        } else if (key == 'c' || key == 'C') {
+            screen_init();
+            screen_print_centered(12, "LOADING...", COLOR_GRAY2);
+            chainload("outro");
+            game_state = STATE_QUIT;
+        } else {
+            game_state = STATE_IRC;
+        }
     }
 }
 

@@ -37,33 +37,31 @@ uint8_t scene5_dossier_zzz(void) {
     /* Dossier fields */
     type_dossier_line(5, "HANDLE:  ", "ZZZ", COLOR_GRAY2, COLOR_PURPLE);
     wait_frames(15);
-    type_dossier_line(7, "ROLE:    ", "... UH ...", COLOR_GRAY2, COLOR_WHITE);
+    type_dossier_line(7, "ROLE:    ", "HACKER", COLOR_GRAY2, COLOR_WHITE);
     wait_frames(15);
     type_dossier_line(9, "STATUS:  ", "ASLEEP", COLOR_GRAY2, COLOR_RED);
 
     wait_frames(30);
 
     /* Flashback section */
-    screen_print_string(16, 12, "----- FLASHBACK -----", COLOR_GRAY1);
+    screen_print_string(10, 12, "----- FLASHBACK -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 14, "\"NAT EVERYWHERE NOW\"", COLOR_GRAY1);
+    type_text(10, 14, "\"NAT EVERYWHERE NOW\"", COLOR_GRAY1);
     wait_frames(25);
-    type_text(16, 15, "\"MICROSOFT EMERGENCY", COLOR_GRAY1);
-    wait_frames(15);
-    type_text(16, 16, " PATCHES\"", COLOR_GRAY1);
+    type_text(10, 15, "\"XP SP2 KILLED EVERYTHING\"", COLOR_GRAY1);
 
     wait_frames(40);
 
     /* Current fate */
-    screen_print_string(16, 18, "----- CURRENT -----", COLOR_GRAY1);
+    screen_print_string(10, 18, "----- CURRENT -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 20, "WOKE UP LATE", COLOR_LIGHTGREEN);
+    type_text(10, 20, "WOKE UP LATE", COLOR_LIGHTGREEN);
     wait_frames(40);
-    type_text(16, 21, "MISSED ALL THE PLANS", COLOR_LIGHTGREEN);
+    type_text(10, 21, "MISSED ALL THE PLANS", COLOR_LIGHTGREEN);
     wait_frames(40);
-    type_text(16, 22, "STILL SMOKING", COLOR_LIGHTGREEN);
+    type_text(10, 22, "STILL SMOKING", COLOR_LIGHTGREEN);
 
     wait_frames(30);
 

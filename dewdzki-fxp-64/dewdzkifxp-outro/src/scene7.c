@@ -35,26 +35,26 @@ uint8_t scene7_dossier_rizz(void) {
     wait_frames(30);
 
     /* Flashback section - code snippets */
-    screen_print_string(16, 12, "----- FLASHBACK -----", COLOR_GRAY1);
+    screen_print_string(10, 12, "----- FLASHBACK -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 14, "// DEWDZKI BOT V1.0", COLOR_GREEN);
+    type_text(10, 14, "// DEWDZKI BOT V1.0", COLOR_GREEN);
     wait_frames(20);
-    type_text(16, 15, "CONNECT(\"IRC.EFNET.ORG\")", COLOR_GREEN);
+    type_text(10, 15, "CONNECT(\"203.12.45.78\")", COLOR_GREEN);
     wait_frames(20);
-    type_text(16, 16, "JOIN(\"#DEWDZKI-BOTS\")", COLOR_GREEN);
+    type_text(10, 16, "JOIN(\"#DEWDZKI-BOTS\")", COLOR_GREEN);
 
     wait_frames(40);
 
     /* Current fate */
-    screen_print_string(16, 18, "----- CURRENT -----", COLOR_GRAY1);
+    screen_print_string(10, 18, "----- CURRENT -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 20, "IT SECURITY PROFESSIONAL", COLOR_LIGHTGREEN);
+    type_text(10, 20, "IT SECURITY PROFESSIONAL", COLOR_LIGHTGREEN);
     wait_frames(25);
-    type_text(16, 21, "BUILDS DEFENSES NOW", COLOR_LIGHTGREEN);
+    type_text(10, 21, "BUILDS DEFENSES NOW", COLOR_LIGHTGREEN);
     wait_frames(25);
-    type_text(16, 23, "SAME SKILLS. OTHER SIDE.", COLOR_YELLOW);
+    type_text(10, 23, "SAME SKILLS. OTHER SIDE.", COLOR_YELLOW);
 
     wait_frames(50);
 

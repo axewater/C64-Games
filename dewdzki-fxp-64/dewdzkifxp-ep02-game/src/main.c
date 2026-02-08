@@ -48,8 +48,9 @@ int main(void) {
                     } else if (choice == 1) {
                         game.state = STATE_HELP;
                     } else if (choice == 2) {
-                        /* Chapter 3 - not yet available */
-                        sound_play_back();
+                        /* Chapter 3 - chainload to intro */
+                        chainload("ch03-intro");
+                        running = 0;  /* Exit if chainload fails */
                     } else {
                         running = 0;
                     }

@@ -146,6 +146,6 @@ void type_dossier_line(uint8_t y, const char *label, const char *value,
                        uint8_t label_color, uint8_t value_color) {
     uint8_t label_len = strlen(label);
 
-    screen_print_string(16, y, label, label_color);
-    type_text(16 + label_len, y, value, value_color);
+    screen_print_string(10, y, label, label_color);
+    type_text(10 + label_len, y, value, value_color);
 }

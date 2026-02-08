@@ -20,9 +20,9 @@ uint8_t scene1_decline(void) {
 
     wait_frames(20);
 
-    /* C&C info */
-    screen_print_string(2, 4, "C&C SERVER: IRC.EFNET.ORG:6667", COLOR_GRAY2);
-    screen_print_string(2, 5, "PROXY: 203.12.45.78:1080", COLOR_GRAY2);
+    /* C&C info - private IRC on hacked servers */
+    screen_print_string(2, 4, "C&C NETWORK: 10 SERVERS / 20 PROXIES", COLOR_GRAY2);
+    screen_print_string(2, 5, "IRCD: 203.12.45.78:6667 (HACKED)", COLOR_GRAY2);
 
     wait_frames(30);
 
@@ -69,9 +69,9 @@ uint8_t scene1_decline(void) {
     wait_frames(20);
 
     /* Explanation */
-    type_text(2, 20, "HOME USERS CANT KEEP SERVERS RUNNING", COLOR_GRAY2);
+    type_text(2, 20, "ADMINS PATCHING SERVERS ONE BY ONE", COLOR_GRAY2);
     wait_frames(30);
-    type_text(2, 21, "CONNECTIONS DROP WHEN PCS SLEEP", COLOR_GRAY2);
+    type_text(2, 21, "HACKED BOXES GETTING DISCOVERED", COLOR_GRAY2);
     wait_frames(40);
 
     /* Prompt */

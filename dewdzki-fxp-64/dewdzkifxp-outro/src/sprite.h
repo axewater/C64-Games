@@ -19,8 +19,10 @@
 /* Sprite pointers in screen memory */
 #define SPRITE_PTRS ((uint8_t*)0x07F8)
 
-/* Sprite data memory locations */
-#define SPRITE_DATA_BASE 0x4300
+/* Sprite data memory locations - must be within VIC bank 0 ($0000-$3FFF).
+ * Cassette buffer area ($0340-$03FF) is safe for up to 3 sprites.
+ * For 6+ sprites (scene9), use scattered low-memory slots. */
+#define SPRITE_DATA_BASE 0x0340
 #define SPRITE_DATA_SIZE 64
 
 /* Initialize sprite system */

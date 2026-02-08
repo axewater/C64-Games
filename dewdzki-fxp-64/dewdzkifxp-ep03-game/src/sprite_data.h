@@ -7,6 +7,7 @@
 extern const uint8_t sprite_shield[63];
 extern const uint8_t sprite_server[63];
 extern const uint8_t sprite_packet[63];
+extern const uint8_t sprite_explode[63];
 extern const uint8_t sprite_boss_tl[63];
 extern const uint8_t sprite_boss_tr[63];
 extern const uint8_t sprite_boss_bl[63];

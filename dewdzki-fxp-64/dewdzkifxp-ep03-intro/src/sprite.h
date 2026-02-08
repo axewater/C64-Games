@@ -19,10 +19,8 @@
 /* Sprite pointers in screen memory */
 #define SPRITE_PTRS ((uint8_t*)0x07F8)
 
-/* Sprite data memory locations (must be above program end, 64-byte aligned)
- * 9 slots needed: player(0), server(1), packets(2-7), explosion(8)
- * BSS ends ~$3DF7, so $3E00 fits 9 slots exactly to $3FFF (VIC bank 0 limit) */
-#define SPRITE_DATA_BASE 0x3E00
+/* Sprite data memory locations */
+#define SPRITE_DATA_BASE 0x3000
 #define SPRITE_DATA_SIZE 64
 
 /* Sprite IDs */

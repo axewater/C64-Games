@@ -22,10 +22,10 @@ uint8_t scene2_last_irc(void) {
     type_irc_line(4, "SICK0", "C&C IS BARELY RESPONDING", COLOR_RED, COLOR_WHITE);
     wait_frames(40);
 
-    type_irc_line(6, "AXE", "PROXY NEEDS STABLE CONNECTIONS", COLOR_CYAN, COLOR_WHITE);
+    type_irc_line(6, "AXE", "SERVERS GETTING PATCHED EVERYWHERE", COLOR_CYAN, COLOR_WHITE);
     wait_frames(30);
 
-    type_irc_line(7, "AXE", "HOME USERS REBOOT THEIR PCS", COLOR_CYAN, COLOR_WHITE);
+    type_irc_line(7, "AXE", "ADMINS FINDING OUR IRCDS", COLOR_CYAN, COLOR_WHITE);
     wait_frames(40);
 
     type_irc_line(9, "RIZZ", "3 BOTS LEFT LOL", COLOR_YELLOW, COLOR_WHITE);
@@ -43,7 +43,7 @@ uint8_t scene2_last_irc(void) {
     type_irc_line(15, "SICK0", "IT WAS FUN THO", COLOR_RED, COLOR_WHITE);
     wait_frames(30);
 
-    type_irc_line(16, "RIZZ", "BEST CREW ON EFNET", COLOR_YELLOW, COLOR_WHITE);
+    type_irc_line(16, "RIZZ", "BEST CREW EVER", COLOR_YELLOW, COLOR_WHITE);
     wait_frames(30);
 
     type_irc_line(17, "ZZZ", "ZZZ", COLOR_LIGHTRED, COLOR_WHITE);

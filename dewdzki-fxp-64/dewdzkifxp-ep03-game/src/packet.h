@@ -20,6 +20,8 @@ typedef struct {
     int8_t dy;
     uint8_t active;
     uint8_t sprite_num;  /* VIC-II sprite number (2-7) */
+    uint8_t phase;       /* Sine wobble phase counter */
+    uint8_t exploding;   /* Explosion countdown (0=not exploding) */
 } Packet;
 
 /* Packet array */
@@ -39,8 +41,8 @@ void packet_update_all(void);
 /* Deactivate a packet and hide its sprite */
 void packet_deactivate(uint8_t index);
 
-/* Deflect a packet (reverse direction + push away from center) */
-void packet_deflect(uint8_t index);
+/* Explode a packet (show explosion sprite, begin countdown) */
+void packet_explode(uint8_t index);
 
 /* Disable all packet sprites */
 void packet_disable_all(void);

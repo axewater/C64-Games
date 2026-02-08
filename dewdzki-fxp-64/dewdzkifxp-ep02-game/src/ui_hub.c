@@ -33,7 +33,7 @@ void ui_show_menu(void) {
 
     ui_print_string(10, 8,  "1. NEW GAME", COLOR_WHITE);
     ui_print_string(10, 10, "2. HOW TO PLAY", COLOR_WHITE);
-    ui_print_string(10, 12, "3. CHAPTER 3", COLOR_GRAY2);
+    ui_print_string(10, 12, "3. CHAPTER 3", COLOR_LIGHTGREEN);  /* Now available! */
 
     ui_print_centered(16, "Q. QUIT", COLOR_GRAY2);
 }

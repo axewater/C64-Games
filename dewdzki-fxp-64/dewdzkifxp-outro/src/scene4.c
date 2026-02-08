@@ -29,7 +29,7 @@ uint8_t scene4_dossier_axe(void) {
     sprite_set_multicolor(1, 1);
     sprite_load(1, sprite_firewall, SPRITE_DATA_BASE + 64);
     sprite_set_color(1, 2);  /* Red */
-    sprite_slide_to(1, 340, 200, 160, 200, 40);
+    sprite_slide_to(1, 340, 200, 60, 200, 40);
 
     /* Dossier fields */
     type_dossier_line(5, "HANDLE:  ", "AXE", COLOR_GRAY2, COLOR_CYAN);
@@ -41,30 +41,30 @@ uint8_t scene4_dossier_axe(void) {
     wait_frames(30);
 
     /* Flashback section */
-    screen_print_string(16, 12, "----- FLASHBACK -----", COLOR_GRAY1);
+    screen_print_string(10, 12, "----- FLASHBACK -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 14, "\"WE CANT SCAN IN ANYMORE\"", COLOR_GRAY1);
+    type_text(10, 14, "\"WE CANT SCAN IN ANYMORE\"", COLOR_GRAY1);
     wait_frames(25);
-    type_text(16, 15, "\"SO WE BRING THEM TO US\"", COLOR_GRAY1);
+    type_text(10, 15, "\"SO WE BRING THEM TO US\"", COLOR_GRAY1);
     wait_frames(25);
-    type_text(16, 16, "\"THIS IS THE NEW WAY.\"", COLOR_GRAY1);
+    type_text(10, 16, "\"THIS IS THE NEW WAY.\"", COLOR_GRAY1);
 
     wait_frames(40);
 
     /* Current fate */
-    screen_print_string(16, 18, "----- CURRENT -----", COLOR_GRAY1);
+    screen_print_string(10, 18, "----- CURRENT -----", COLOR_GRAY1);
     wait_frames(20);
 
-    type_text(16, 20, "WORKS IN A SOC", COLOR_LIGHTGREEN);
+    type_text(10, 20, "WORKS IN A SOC", COLOR_LIGHTGREEN);
     wait_frames(20);
-    type_text(16, 21, "SECURITY OPERATIONS CENTER", COLOR_LIGHTGREEN);
+    type_text(10, 21, "SECURITY OPERATIONS CENTER", COLOR_LIGHTGREEN);
 
     /* Dramatic pause */
     wait_frames(50);
-    type_text(16, 23, "NOW DEFENDS WHAT HE ONCE", COLOR_YELLOW);
+    type_text(10, 23, "NOW DEFENDS WHAT HE ONCE", COLOR_YELLOW);
     wait_frames(15);
-    screen_print_string(16, 24, "ATTACKED.", COLOR_YELLOW);
+    screen_print_string(10, 24, "ATTACKED.", COLOR_YELLOW);
 
     wait_frames(50);
 

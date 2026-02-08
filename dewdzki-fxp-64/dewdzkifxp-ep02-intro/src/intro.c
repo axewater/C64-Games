@@ -153,7 +153,7 @@ static uint8_t intro_scene1_chat(void) {
     /* Chat at bottom */
     type_irc_line(16, "SICK0", "PUB FTPS ARE DYING",
                   COLOR_RED, COLOR_WHITE);
-    wait_frames(30);
+    wait_frames(50);  /* Dramatic pause - major revelation */
 
     type_irc_line(18, "AXE", "how are other teams still",
                   COLOR_CYAN, COLOR_WHITE);
@@ -191,7 +191,7 @@ static uint8_t intro_scene2_diss(void) {
 
     type_irc_line(7, "NIJNTJE", "TEAMS POST HACKED BOXES!",
                   COLOR_LIGHTRED, COLOR_WHITE);
-    wait_frames(40);
+    wait_frames(60);  /* Dramatic pause - turning point */
 
     screen_print_string(1, 9, "*** NIJNTJE HAS LEFT", COLOR_RED);
     wait_frames(30);
@@ -206,7 +206,7 @@ static uint8_t intro_scene2_diss(void) {
 
     type_irc_line(15, "AXE", "I HAVE AN IDEA ALREADY!",
                   COLOR_CYAN, COLOR_WHITE);
-    wait_frames(30);
+    wait_frames(50);  /* Dramatic pause - climax */
 
     screen_print_centered(23, "PRESS ANY KEY", COLOR_YELLOW);
 
