@@ -24,7 +24,13 @@ extern const uint8_t sprite_treasure[63];
 /* Sprite data for Windows logo */
 extern const uint8_t sprite_windows[63];
 
-/* Sprite data for SICK0 avatar (crew member) */
+/* Sprite data for SICK0 avatar (long brown hair) */
 extern const uint8_t sprite_sick0[63];
+
+/* Sprite data for ZZZ avatar (smoking, heavy-lidded eyes) */
+extern const uint8_t sprite_zzz[63];
+
+/* Sprite data for Rizz avatar (cap and big grin) */
+extern const uint8_t sprite_rizz[63];
 
 #endif /* SPRITE_DATA_H */

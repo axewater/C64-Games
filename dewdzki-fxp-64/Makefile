@@ -19,8 +19,8 @@ EP01_GAME_PRG := $(EP01_GAME_DIR)/build/dewdzkifxp.prg
 EP02_INTRO_PRG := $(EP02_INTRO_DIR)/build/ch02-intro.prg
 EP02_GAME_PRG := $(EP02_GAME_DIR)/build/ep02-game.prg
 
-# All PRG files (ep02-game not included yet as it's empty)
-PRGS := $(EP01_INTRO_PRG) $(EP01_GAME_PRG) $(EP02_INTRO_PRG)
+# All PRG files
+PRGS := $(EP01_INTRO_PRG) $(EP01_GAME_PRG) $(EP02_INTRO_PRG) $(EP02_GAME_PRG)
 
 # Default target: build everything and create D64
 all: build d64
@@ -61,6 +61,7 @@ d64: $(PRGS) | $(DIST_DIR)
 	$(C1541) -attach $(D64_IMAGE) -write $(EP01_INTRO_PRG) intro
 	$(C1541) -attach $(D64_IMAGE) -write $(EP01_GAME_PRG) game
 	$(C1541) -attach $(D64_IMAGE) -write $(EP02_INTRO_PRG) ch02-intro
+	$(C1541) -attach $(D64_IMAGE) -write $(EP02_GAME_PRG) ch02-game
 	@echo D64 created: $(D64_IMAGE)
 
 # List contents of D64
