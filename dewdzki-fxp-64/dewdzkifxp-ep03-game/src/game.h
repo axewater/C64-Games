@@ -17,6 +17,10 @@ extern uint8_t game_state;
 extern uint8_t current_level;  /* 0-2 = regular levels, 3 = boss */
 extern uint8_t server_health;
 
+/* Dynamic server position (updated by orbit each frame) */
+extern uint16_t server_x;
+extern uint8_t server_y;
+
 /* Initialize game systems */
 void game_init(void);
 

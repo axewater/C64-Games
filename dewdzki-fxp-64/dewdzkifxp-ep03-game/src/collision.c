@@ -1,11 +1,8 @@
 #include "collision.h"
+#include "game.h"
 #include "packet.h"
 #include "player.h"
 #include <peekpoke.h>
-
-/* Server center position (must match game.c) */
-#define SERVER_X 172
-#define SERVER_Y 140
 
 /* Collision radius (in pixels) for proximity check.
  * Shield is 16px wide kite shape; packet is ~16px radar ring */
@@ -35,9 +32,9 @@ uint8_t collision_check(void) {
             continue;
         }
 
-        /* Check collision with server (sprite 1) */
-        dx = (int16_t)packets[i].x - SERVER_X;
-        dy = (int16_t)packets[i].y - SERVER_Y;
+        /* Check collision with server (sprite 1, dynamic position) */
+        dx = (int16_t)packets[i].x - (int16_t)server_x;
+        dy = (int16_t)packets[i].y - (int16_t)server_y;
 
         if (abs16(dx) < SERVER_COLL_DIST && abs16(dy) < SERVER_COLL_DIST) {
             packet_deactivate(i);

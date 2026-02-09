@@ -1,13 +1,10 @@
 #include "packet.h"
+#include "game.h"
 #include "sprite.h"
 #include "sprite_data.h"
 #include <peekpoke.h>
 #include <conio.h>
 #include <stdlib.h>
-
-/* Server center position (sprite coords) */
-#define SERVER_X 172
-#define SERVER_Y 140
 
 /* Screen bounds */
 #define SCREEN_LEFT   20
@@ -19,8 +16,8 @@
 #define PACKET_SPRITE_BASE_LOC (SPRITE_DATA_BASE + (2 * SPRITE_DATA_SIZE))
 #define PACKET_SPRITE_START 2
 
-/* Explosion sprite in slot 8 (after 6 packet slots + player + server) */
-#define EXPLODE_SPRITE_LOC (SPRITE_DATA_BASE + (8 * SPRITE_DATA_SIZE))
+/* Explosion sprite in cassette buffer (saves a slot for boss sprites) */
+#define EXPLODE_SPRITE_LOC 0x0340
 
 /* Sine wobble table: 16 entries, +/- 3 pixel amplitude */
 static const int8_t sine_wobble[16] = {
@@ -30,9 +27,12 @@ static const int8_t sine_wobble[16] = {
 Packet packets[MAX_PACKETS];
 
 static uint8_t packet_sprites_loaded = 0;
+static uint8_t packet_max = MAX_PACKETS;  /* Active number of slots */
 
 void packet_init(void) {
     uint8_t i;
+
+    packet_max = MAX_PACKETS;
 
     for (i = 0; i < MAX_PACKETS; i++) {
         packets[i].active = 0;
@@ -41,16 +41,21 @@ void packet_init(void) {
         packets[i].exploding = 0;
     }
 
-    /* Load packet sprite data to all 6 sprite slots */
+    /* Load ONE copy of packet sprite data to slot 2 (shared by all packet sprites) */
     if (!packet_sprites_loaded) {
-        for (i = 0; i < MAX_PACKETS; i++) {
-            sprite_load(PACKET_SPRITE_START + i, sprite_packet,
-                        PACKET_SPRITE_BASE_LOC + (i * SPRITE_DATA_SIZE));
+        sprite_load(PACKET_SPRITE_START, sprite_packet, PACKET_SPRITE_BASE_LOC);
+        sprite_set_color(PACKET_SPRITE_START, COLOR_RED);
+        sprite_set_multicolor(PACKET_SPRITE_START, 0);
+
+        /* Point remaining packet sprites to the same shared data */
+        for (i = 1; i < MAX_PACKETS; i++) {
+            SPRITE_PTRS[PACKET_SPRITE_START + i] =
+                (uint8_t)(PACKET_SPRITE_BASE_LOC / 64);
             sprite_set_color(PACKET_SPRITE_START + i, COLOR_RED);
             sprite_set_multicolor(PACKET_SPRITE_START + i, 0);
         }
 
-        /* Load explosion sprite data to slot 8 */
+        /* Load explosion sprite data to slot 3 */
         {
             uint8_t j;
             uint8_t* dest = (uint8_t*)EXPLODE_SPRITE_LOC;
@@ -63,13 +68,28 @@ void packet_init(void) {
     }
 }
 
+void packet_init_boss(void) {
+    uint8_t i;
+
+    /* Only 2 drone slots, using sprites 6-7 (boss body is on 2-5) */
+    packet_max = 2;
+
+    for (i = 0; i < MAX_PACKETS; i++) {
+        packets[i].active = 0;
+        packets[i].phase = 0;
+        packets[i].exploding = 0;
+    }
+    packets[0].sprite_num = 6;
+    packets[1].sprite_num = 7;
+}
+
 /* Calculate dx/dy to aim at server center from spawn position.
  * Uses integer approximation: find the larger axis distance,
  * set that to speed, scale the other proportionally. */
 static void aim_at_server(uint16_t sx, uint8_t sy, uint8_t speed,
                           int8_t *out_dx, int8_t *out_dy) {
-    int16_t diff_x = (int16_t)SERVER_X - (int16_t)sx;
-    int16_t diff_y = (int16_t)SERVER_Y - (int16_t)sy;
+    int16_t diff_x = (int16_t)server_x - (int16_t)sx;
+    int16_t diff_y = (int16_t)server_y - (int16_t)sy;
     uint16_t abs_x = (diff_x < 0) ? (uint16_t)(-diff_x) : (uint16_t)diff_x;
     uint16_t abs_y = (diff_y < 0) ? (uint16_t)(-diff_y) : (uint16_t)diff_y;
 
@@ -108,10 +128,10 @@ uint8_t packet_spawn(uint8_t edge, uint8_t speed) {
     uint8_t rnd;
 
     /* Find free slot (must not be active or exploding) */
-    for (i = 0; i < MAX_PACKETS; i++) {
+    for (i = 0; i < packet_max; i++) {
         if (!packets[i].active && !packets[i].exploding) break;
     }
-    if (i >= MAX_PACKETS) return 0xFF;
+    if (i >= packet_max) return 0xFF;
 
     rnd = rand() & 0xFF;
 
@@ -147,12 +167,40 @@ uint8_t packet_spawn(uint8_t edge, uint8_t speed) {
     packets[i].phase = rand() & 0x0F;  /* Random starting phase for variety */
     packets[i].exploding = 0;
 
-    /* Restore packet sprite (in case slot was previously showing explosion) */
-    sprite_load(packets[i].sprite_num, sprite_packet,
-                PACKET_SPRITE_BASE_LOC + (i * SPRITE_DATA_SIZE));
+    /* Reset pointer to shared packet data (in case slot was showing explosion) */
+    SPRITE_PTRS[packets[i].sprite_num] =
+        (uint8_t)(PACKET_SPRITE_BASE_LOC / 64);
     sprite_set_color(packets[i].sprite_num, COLOR_RED);
 
     sprite_set_position(packets[i].sprite_num, start_x, start_y);
+    sprite_enable(packets[i].sprite_num, 1);
+
+    return i;
+}
+
+uint8_t packet_spawn_at(uint16_t x, uint8_t y, uint8_t speed) {
+    uint8_t i;
+    int8_t dx, dy;
+
+    for (i = 0; i < packet_max; i++) {
+        if (!packets[i].active && !packets[i].exploding) break;
+    }
+    if (i >= packet_max) return 0xFF;
+
+    aim_at_server(x, y, speed, &dx, &dy);
+
+    packets[i].x = x;
+    packets[i].y = y;
+    packets[i].dx = dx;
+    packets[i].dy = dy;
+    packets[i].active = 1;
+    packets[i].phase = rand() & 0x0F;
+    packets[i].exploding = 0;
+
+    SPRITE_PTRS[packets[i].sprite_num] =
+        (uint8_t)(PACKET_SPRITE_BASE_LOC / 64);
+    sprite_set_color(packets[i].sprite_num, COLOR_RED);
+    sprite_set_position(packets[i].sprite_num, x, y);
     sprite_enable(packets[i].sprite_num, 1);
 
     return i;

@@ -10,17 +10,20 @@
 #define BOSS_SPRITE_BL 4
 #define BOSS_SPRITE_BR 5
 
-/* Boss sprite data locations */
-#define BOSS_SPRITE_LOC_TL (SPRITE_DATA_BASE + (2 * SPRITE_DATA_SIZE))
-#define BOSS_SPRITE_LOC_TR (SPRITE_DATA_BASE + (3 * SPRITE_DATA_SIZE))
-#define BOSS_SPRITE_LOC_BL (SPRITE_DATA_BASE + (4 * SPRITE_DATA_SIZE))
-#define BOSS_SPRITE_LOC_BR (SPRITE_DATA_BASE + (5 * SPRITE_DATA_SIZE))
+/* Boss sprite data locations
+ * TL/TR use main sprite area slots 3-4 ($3F80/$3FC0).
+ * BL/BR use low memory to stay within VIC bank 0 ($0000-$3FFF):
+ *   BL at $0380 (cassette buffer, safe during gameplay)
+ *   BR at $0800 (BASIC stub, dead code after startup) */
+#define BOSS_SPRITE_LOC_TL (SPRITE_DATA_BASE + (3 * SPRITE_DATA_SIZE))
+#define BOSS_SPRITE_LOC_TR (SPRITE_DATA_BASE + (4 * SPRITE_DATA_SIZE))
+#define BOSS_SPRITE_LOC_BL 0x0380
+#define BOSS_SPRITE_LOC_BR 0x0800
 
-/* Boss packet sprites (6-7) */
+/* Boss packet sprites (6-7) share packet data at slot 2 */
 #define BOSS_PKT_SPRITE_0 6
 #define BOSS_PKT_SPRITE_1 7
-#define BOSS_PKT_LOC_0 (SPRITE_DATA_BASE + (6 * SPRITE_DATA_SIZE))
-#define BOSS_PKT_LOC_1 (SPRITE_DATA_BASE + (7 * SPRITE_DATA_SIZE))
+#define BOSS_PKT_LOC (SPRITE_DATA_BASE + (2 * SPRITE_DATA_SIZE))
 
 /* Movement path: clockwise around screen edge */
 #define BOSS_SPEED 2
@@ -30,6 +33,24 @@ static uint8_t move_phase;
 
 /* Attack cooldown */
 static uint8_t attack_timer;
+
+/* Color cycling palette: warm menacing pulse */
+#define BOSS_PALETTE_SIZE 8
+#define BOSS_CYCLE_SPEED 5  /* frames between color changes */
+
+static const uint8_t boss_palette[BOSS_PALETTE_SIZE] = {
+    2,   /* red */
+    10,  /* light red */
+    8,   /* orange */
+    7,   /* yellow */
+    1,   /* white */
+    7,   /* yellow */
+    8,   /* orange */
+    10   /* light red */
+};
+
+static uint8_t color_index;
+static uint8_t color_timer;
 
 /* Screen bounds for boss movement */
 #define BOSS_MIN_X 30
@@ -58,11 +79,13 @@ void boss_init(void) {
     sprite_load(BOSS_SPRITE_BL, sprite_boss_bl, BOSS_SPRITE_LOC_BL);
     sprite_load(BOSS_SPRITE_BR, sprite_boss_br, BOSS_SPRITE_LOC_BR);
 
-    /* Set boss colors (orange/red) */
-    sprite_set_color(BOSS_SPRITE_TL, COLOR_ORANGE);
-    sprite_set_color(BOSS_SPRITE_TR, COLOR_ORANGE);
-    sprite_set_color(BOSS_SPRITE_BL, COLOR_RED);
-    sprite_set_color(BOSS_SPRITE_BR, COLOR_RED);
+    /* Set initial boss colors from palette */
+    color_index = 0;
+    color_timer = 0;
+    sprite_set_color(BOSS_SPRITE_TL, boss_palette[0]);
+    sprite_set_color(BOSS_SPRITE_TR, boss_palette[0]);
+    sprite_set_color(BOSS_SPRITE_BL, boss_palette[3]);
+    sprite_set_color(BOSS_SPRITE_BR, boss_palette[3]);
 
     /* Hires mode for boss */
     sprite_set_multicolor(BOSS_SPRITE_TL, 0);
@@ -70,9 +93,9 @@ void boss_init(void) {
     sprite_set_multicolor(BOSS_SPRITE_BL, 0);
     sprite_set_multicolor(BOSS_SPRITE_BR, 0);
 
-    /* Load packet sprite data for boss's rapid-fire packets (sprites 6-7) */
-    sprite_load(BOSS_PKT_SPRITE_0, sprite_packet, BOSS_PKT_LOC_0);
-    sprite_load(BOSS_PKT_SPRITE_1, sprite_packet, BOSS_PKT_LOC_1);
+    /* Point boss packet sprites to shared packet data at slot 2 */
+    sprite_load(BOSS_PKT_SPRITE_0, sprite_packet, BOSS_PKT_LOC);
+    SPRITE_PTRS[BOSS_PKT_SPRITE_1] = (uint8_t)(BOSS_PKT_LOC / 64);
     sprite_set_color(BOSS_PKT_SPRITE_0, COLOR_RED);
     sprite_set_color(BOSS_PKT_SPRITE_1, COLOR_RED);
     sprite_set_multicolor(BOSS_PKT_SPRITE_0, 0);
@@ -131,22 +154,31 @@ void boss_update(void) {
 }
 
 uint8_t boss_attack(void) {
-    uint8_t edge;
-
     attack_timer++;
-    if (attack_timer < 25) return 0;
+    if (attack_timer < 40) return 0;
     attack_timer = 0;
 
-    /* Spawn packet from boss position toward center.
-     * Use the edge closest to boss's current position. */
-    if (move_phase == 0) edge = EDGE_TOP;
-    else if (move_phase == 1) edge = EDGE_RIGHT;
-    else if (move_phase == 2) edge = EDGE_BOTTOM;
-    else edge = EDGE_LEFT;
+    /* Spawn drone from boss center toward server */
+    return (packet_spawn_at(boss_x + 24, boss_y + 21, 3) != 0xFF) ? 1 : 0;
+}
 
-    /* Spawn uses the regular packet system but with limited slots.
-     * During boss fight, packets array slots 0-1 are used (sprites 6-7). */
-    return (packet_spawn(edge, 3) != 0xFF) ? 1 : 0;
+void boss_animate(void) {
+    uint8_t bottom_idx;
+
+    color_timer++;
+    if (color_timer < BOSS_CYCLE_SPEED) return;
+    color_timer = 0;
+
+    color_index = (color_index + 1) & 0x07;
+    bottom_idx = (color_index + 3) & 0x07;
+
+    /* Top half: current palette color */
+    sprite_set_color(BOSS_SPRITE_TL, boss_palette[color_index]);
+    sprite_set_color(BOSS_SPRITE_TR, boss_palette[color_index]);
+
+    /* Bottom half: offset for gradient wave effect */
+    sprite_set_color(BOSS_SPRITE_BL, boss_palette[bottom_idx]);
+    sprite_set_color(BOSS_SPRITE_BR, boss_palette[bottom_idx]);
 }
 
 void boss_cleanup(void) {

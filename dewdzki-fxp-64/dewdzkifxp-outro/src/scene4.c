@@ -62,9 +62,7 @@ uint8_t scene4_dossier_axe(void) {
 
     /* Dramatic pause */
     wait_frames(50);
-    type_text(10, 23, "NOW DEFENDS WHAT HE ONCE", COLOR_YELLOW);
-    wait_frames(15);
-    screen_print_string(10, 24, "ATTACKED.", COLOR_YELLOW);
+    type_text(10, 23, "LETS CALL IT GREYHAT", COLOR_YELLOW);
 
     wait_frames(50);
 

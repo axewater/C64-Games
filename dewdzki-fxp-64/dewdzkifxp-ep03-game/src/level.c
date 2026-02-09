@@ -11,34 +11,34 @@ static const LevelConfig levels[] = {
     {
         1,              /* speed */
         2,              /* max_packets */
-        60,             /* spawn_interval (frames) */
+        90,             /* spawn_interval (frames) */
         30,             /* duration_secs */
         E_TOP,          /* edges */
         "SCRIPT KIDDIES"
     },
     /* Level 2: Security Researchers - Medium, top+sides, 45 sec */
     {
-        2,              /* speed */
+        1,              /* speed */
         4,              /* max_packets */
-        30,             /* spawn_interval */
+        45,             /* spawn_interval */
         45,             /* duration_secs */
         E_TOP | E_RIGHT | E_LEFT,
         "SECURITY RESEARCHERS"
     },
     /* Level 3: FBI Cyber Unit - Fast, all edges, 60 sec */
     {
-        3,              /* speed */
+        2,              /* speed */
         6,              /* max_packets */
-        20,             /* spawn_interval */
+        38,             /* spawn_interval */
         60,             /* duration_secs */
         E_TOP | E_RIGHT | E_BOTTOM | E_LEFT,
         "FBI CYBER UNIT"
     },
     /* Boss: THE HONEYPOT - separate handling, but packets config here */
     {
-        3,              /* speed (boss packet speed) */
+        2,              /* speed (boss packet speed) */
         2,              /* max_packets (boss uses sprite 6-7 only) */
-        25,             /* spawn_interval */
+        38,             /* spawn_interval */
         60,             /* duration_secs */
         E_TOP | E_RIGHT | E_BOTTOM | E_LEFT,
         "THE HONEYPOT"

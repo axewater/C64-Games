@@ -30,10 +30,17 @@ extern Packet packets[MAX_PACKETS];
 /* Initialize all packets as inactive */
 void packet_init(void);
 
+/* Initialize packets for boss fight: 2 slots using sprites 6-7 only */
+void packet_init_boss(void);
+
 /* Spawn a new packet from a given edge (0=top, 1=right, 2=bottom, 3=left)
  * speed: base movement speed (1-4)
  * Returns: index of spawned packet, or 0xFF if no slot available */
 uint8_t packet_spawn(uint8_t edge, uint8_t speed);
+
+/* Spawn a packet at a specific position aimed at server
+ * Returns: index of spawned packet, or 0xFF if no slot available */
+uint8_t packet_spawn_at(uint16_t x, uint8_t y, uint8_t speed);
 
 /* Update all active packets (move them) */
 void packet_update_all(void);

@@ -46,10 +46,7 @@ uint8_t scene2_last_irc(void) {
     type_irc_line(16, "RIZZ", "BEST CREW EVER", COLOR_YELLOW, COLOR_WHITE);
     wait_frames(30);
 
-    type_irc_line(17, "ZZZ", "ZZZ", COLOR_LIGHTRED, COLOR_WHITE);
-    wait_frames(20);
-
-    type_irc_line(18, "LEWIS", "HAHA ZZZ ALWAYS SLEEPING", COLOR_CYAN, COLOR_WHITE);
+    type_irc_line(17, "ZZZ", "ARROWS", COLOR_LIGHTRED, COLOR_WHITE);
 
     /* Pause before MOON's quit */
     wait_frames(40);

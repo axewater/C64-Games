@@ -33,7 +33,10 @@ static void irc_type_line(uint8_t y, const char *nick, const char *msg,
 
     gotoxy(0, y);
     textcolor(nick_color);
-    cprintf("<%s> ", nick);
+    cputc('<');
+    while (*nick) { cputc(*nick); nick++; }
+    cputc('>');
+    cputc(' ');
 
     textcolor(CLR_MSG);
     len = strlen(msg);

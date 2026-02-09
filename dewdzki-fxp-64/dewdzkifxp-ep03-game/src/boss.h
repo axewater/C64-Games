@@ -17,6 +17,9 @@ void boss_update(void);
  * Returns 1 if packet was spawned, 0 if not (no free slot or cooldown) */
 uint8_t boss_attack(void);
 
+/* Animate boss color cycling (call each frame) */
+void boss_animate(void);
+
 /* Disable all boss sprites */
 void boss_cleanup(void);
 

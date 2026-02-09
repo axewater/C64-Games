@@ -20,9 +20,11 @@
 #define SPRITE_PTRS ((uint8_t*)0x07F8)
 
 /* Sprite data memory locations (must be above program end, 64-byte aligned)
- * 9 slots needed: player(0), server(1), packets(2-7), explosion(8)
- * BSS ends ~$3DF7, so $3E00 fits 9 slots exactly to $3FFF (VIC bank 0 limit) */
-#define SPRITE_DATA_BASE 0x3E00
+ * BSS ends at ~$3E86, so base must be $3EC0+. 5 slots fit: $3EC0-$3FFF.
+ * Layout: player(0), server(1), shared_packet(2), boss_tl(3), boss_tr(4).
+ * Boss BL/BR use low memory ($0380/$0800) to stay in VIC bank 0.
+ * Explosion data goes to $0340 (cassette buffer). */
+#define SPRITE_DATA_BASE 0x3EC0
 #define SPRITE_DATA_SIZE 64
 
 /* Sprite IDs */
