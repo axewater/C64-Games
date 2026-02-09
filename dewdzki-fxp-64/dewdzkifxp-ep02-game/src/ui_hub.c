@@ -46,7 +46,7 @@ void ui_show_help(void) {
 
     ui_print_string(1, 3,  "EACH TURN YOU HAVE 3 ACTIONS.", COLOR_WHITE);
     ui_print_string(1, 4,  "SCAN IP RANGES TO FIND BOXES.", COLOR_LIGHTBLUE);
-    ui_print_string(1, 5,  "INSTALL SERVICES ON YOUR BOXES.", COLOR_LIGHTBLUE);
+    ui_print_string(1, 5,  "OR SKIP THE DAY TO LAY LOW.", COLOR_LIGHTBLUE);
 
     ui_print_string(1, 7,  "SERVICES:", COLOR_YELLOW);
     ui_print_string(1, 8,  "  FTP  - EARN REPUTATION", COLOR_GREEN);
@@ -121,6 +121,12 @@ void ui_show_hub(void) {
     ++y;
 
     ui_print_string(3, y, "6. UPGRADE SHOP", COLOR_WHITE);
+    ui_print_string(28, y, "(FREE)", COLOR_GRAY2);
+    ++y;
+    ++y;
+
+    /* Skip day - always available, free */
+    ui_print_string(3, y, "7. SKIP DAY", COLOR_WHITE);
     ui_print_string(28, y, "(FREE)", COLOR_GRAY2);
     ++y;
     ++y;

@@ -9,7 +9,7 @@ void handle_playing_state(void) {
     uint8_t choice;
 
     ui_show_hub();
-    choice = input_read_menu(6);
+    choice = input_read_menu(7);
 
     switch (choice) {
         case 0: /* Scan IP Range - costs 1 action */
@@ -46,6 +46,10 @@ void handle_playing_state(void) {
 
         case 5: /* Shop - free */
             game.state = STATE_SHOP;
+            break;
+
+        case 6: /* Skip Day - free, ends turn immediately */
+            game.actions_remaining = 0;
             break;
 
         case 255: /* Quit */
