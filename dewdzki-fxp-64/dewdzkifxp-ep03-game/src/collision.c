@@ -8,9 +8,9 @@
 #define SERVER_Y 140
 
 /* Collision radius (in pixels) for proximity check.
- * Shield is 24px wide dome; packet is ~16px radar ring */
-#define PLAYER_COLL_X 14
-#define PLAYER_COLL_Y 12
+ * Shield is 16px wide kite shape; packet is ~16px radar ring */
+#define PLAYER_COLL_X 10
+#define PLAYER_COLL_Y 9
 #define SERVER_COLL_DIST 12
 
 /* Simple absolute value */

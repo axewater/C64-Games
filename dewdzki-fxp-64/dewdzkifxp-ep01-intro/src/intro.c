@@ -316,11 +316,15 @@ static uint8_t intro_scene4_channels(void) {
 
     screen_print_centered(22, "PRESS ANY KEY", COLOR_YELLOW);
 
-    /* Load arrow sprite and slide it to point at #hacking */
+    /* Load arrow sprite and slide it to point at #coding first */
     sprite_set_multicolor(SPRITE_CURSOR, 1);  /* Enable multicolor */
     sprite_load(SPRITE_CURSOR, sprite_arrow, SPRITE_DATA_BASE);
     sprite_set_color(SPRITE_CURSOR, COLOR_YELLOW);
-    sprite_slide_to(SPRITE_CURSOR, 280, 105, 200, 105, 20);
+    sprite_slide_to(SPRITE_CURSOR, 280, 89, 200, 89, 20);
+
+    /* Pause on first line, then move down to #hacking */
+    wait_frames(30);
+    sprite_slide_to(SPRITE_CURSOR, 200, 89, 200, 105, 15);
 
     /* Keep arrow visible and wait for key */
     if (wait_for_key_or_quit()) {
@@ -337,7 +341,7 @@ static uint8_t intro_scene5_join(void) {
     screen_clear();
 
     screen_draw_box(2, 2, 36, 20, COLOR_CYAN);
-    screen_print_string(4, 3, "#HACKING - WAREZ, CRACKS, PHREAKING", COLOR_YELLOW);
+    screen_print_string(4, 3, "#HACKING - CRACKING & PHREAKING", COLOR_YELLOW);
 
     screen_print_string(4, 6, "*** YOU JOINED #HACKING", COLOR_GREEN);
 
@@ -355,15 +359,15 @@ static uint8_t intro_scene5_join(void) {
 
 /* Scene 6: Lewis Appears - Mentor character introduction */
 static uint8_t intro_scene6_lewis(void) {
-    /* Load Lewis sprite and slide in from right */
+    /* Load Lewis sprite and slide in from right to left, above his name */
     sprite_set_multicolor(SPRITE_LEWIS, 1);  /* Enable multicolor */
     sprite_load(SPRITE_LEWIS, sprite_lewis, SPRITE_DATA_BASE + SPRITE_DATA_SIZE);
     sprite_set_color(SPRITE_LEWIS, 6);  /* Blue for sunglasses */
-    sprite_slide_to(SPRITE_LEWIS, 320, 150, 280, 150, 20);
+    sprite_slide_to(SPRITE_LEWIS, 320, 155, 55, 155, 30);
 
     /* Lewis talks to the player */
-    type_text(4, 12, "<LEWIS> HEY NEWBIE, FIRST TIME?", COLOR_YELLOW);
-    type_text(4, 13, "<YOU> YEAH... WHAT'S A TOP SITE?", COLOR_WHITE);
+    type_text(4, 16, "<LEWIS> HEY NEWBIE, FIRST TIME?", COLOR_YELLOW);
+    type_text(4, 17, "<YOU> YEAH... WHAT'S A TOP SITE?", COLOR_WHITE);
 
     screen_print_centered(22, "PRESS ANY KEY", COLOR_YELLOW);
 
@@ -377,9 +381,6 @@ static uint8_t intro_scene6_lewis(void) {
 
 /* Scene 7: TOP SITE Lesson - Lewis explains the warez scene */
 static uint8_t intro_scene7_lesson(void) {
-    uint16_t frame;
-    char ch;
-
     screen_clear();
 
     /* Move Lewis to left side */
@@ -406,78 +407,124 @@ static uint8_t intro_scene7_lesson(void) {
     screen_print_string(10, 14, "SCAN FOR SITES", COLOR_WHITE);
     screen_print_string(10, 15, "BUILD REPUTATION", COLOR_WHITE);
 
+    /* Keep FTP icon large (Y-expanded) */
+    sprite_set_expand_y(SPRITE_FTP, 1);
+
     screen_print_centered(22, "PRESS ANY KEY", COLOR_YELLOW);
 
-    /* Pulse FTP icon while waiting for keypress */
-    frame = 0;
-    while (!kbhit()) {
-        /* Pulse effect: expand/contract sprite vertically */
-        if ((frame / 15) % 2 == 0) {
-            sprite_set_expand_y(SPRITE_FTP, 1);
-        } else {
-            sprite_set_expand_y(SPRITE_FTP, 0);
-        }
-        waitvsync();
-        frame++;
-    }
-
-    sprite_set_expand_y(SPRITE_FTP, 0);
-
-    /* Read key and check for quit (fixed double-cgetc bug) */
-    ch = cgetc();
-    if (ch == 'q' || ch == 'Q') {
+    if (wait_for_key_or_quit()) {
+        sprite_set_expand_y(SPRITE_FTP, 0);
         sprite_enable(SPRITE_LEWIS, 0);
         sprite_enable(SPRITE_FTP, 0);
         return 1;
     }
 
+    sprite_set_expand_y(SPRITE_FTP, 0);
+
     return 0;
 }
 
-/* Scene 8: FTP Scan Demo - Lewis demonstrates scanning for FTP servers */
+/* Scene 8: FTP Scan - Radar sweep finds an FTP server */
 static uint8_t intro_scene8_scan(void) {
-    uint8_t frame;
-    uint8_t x, y;
-    uint8_t ch;
+    uint16_t frame;
+    uint8_t radar_base_ptr;
+    char ch;
 
     screen_clear();
 
-    /* Move Lewis to top-right */
-    sprite_set_position(SPRITE_LEWIS, 280, 50);
-    sprite_enable(SPRITE_LEWIS, 1);
+    /* Disable all sprites from previous scenes */
+    sprite_enable(SPRITE_LEWIS, 0);
     sprite_enable(SPRITE_FTP, 0);
+    sprite_enable(SPRITE_CURSOR, 0);
 
-    screen_print_string(2, 1, "LEWIS: LET ME SHOW YOU...", COLOR_YELLOW);
+    /* Draw title */
+    screen_print_centered(1, "FTP PORT SCANNER", COLOR_YELLOW);
 
-    screen_draw_box(5, 4, 30, 15, COLOR_CYAN);
-    screen_print_string(7, 5, "SCANNING FTP PORTS...", COLOR_WHITE);
+    /* Draw radar display box */
+    screen_draw_box(5, 3, 30, 10, COLOR_CYAN);
 
-    /* Radar sweep animation with matrix-style characters */
-    for (frame = 0; frame < 60; frame++) {
-        /* Random matrix characters */
-        x = 7 + (frame % 28);
-        y = 7 + (frame % 12);
-        ch = '/';
-        if (frame % 4 == 0) ch = '\\';
-        else if (frame % 4 == 1) ch = '|';
-        else if (frame % 4 == 2) ch = '-';
+    /* Draw small crosshair at center of radar box (col 20, row 8) */
+    screen_set_char(19, 8, '-', COLOR_BLUE);
+    screen_set_char(20, 7, '|', COLOR_BLUE);
+    screen_set_char(20, 8, '+', COLOR_BLUE);
+    screen_set_char(21, 8, '-', COLOR_BLUE);
+    screen_set_char(20, 9, '|', COLOR_BLUE);
 
-        screen_set_char(x, y, ch, COLOR_CYAN);
+    /* Preload all 4 radar hand frames to consecutive memory for fast switching */
+    sprite_load(SPRITE_CURSOR, sprite_radar_frame1, SPRITE_DATA_BASE);
+    sprite_load(SPRITE_CURSOR, sprite_radar_frame2, SPRITE_DATA_BASE + 64);
+    sprite_load(SPRITE_CURSOR, sprite_radar_frame3, SPRITE_DATA_BASE + 128);
+    sprite_load(SPRITE_CURSOR, sprite_radar_frame4, SPRITE_DATA_BASE + 192);
+
+    /* Setup radar hand sprite at center of box - expanded 2x for visibility */
+    radar_base_ptr = (uint8_t)(SPRITE_DATA_BASE / 64);
+    sprite_set_multicolor(SPRITE_CURSOR, 0);  /* Hires mode for clean line */
+    sprite_set_color(SPRITE_CURSOR, COLOR_GREEN);
+    sprite_set_expand_y(SPRITE_CURSOR, 1);
+    *VIC_SPRITE_EXPAND_X |= (1 << SPRITE_CURSOR);  /* X expand too */
+    /* Center expanded sprite (48x42): box center pixel (184,114), offset by half */
+    sprite_set_position(SPRITE_CURSOR, 161, 93);
+    sprite_enable(SPRITE_CURSOR, 1);
+
+    /* Main radar sweep with scanning text events */
+    for (frame = 0; frame < 310; frame++) {
+        /* Rotate radar hand - change frame every 10 vsyncs (clockwise: |, \, -, /) */
+        SPRITE_PTRS[SPRITE_CURSOR] = radar_base_ptr + ((frame / 10) % 4);
+
+        /* Scanning text events at specific frames */
+        if (frame == 80)
+            screen_print_string(3, 14, "SCANNING 207.15.33.x...", COLOR_WHITE);
+        if (frame == 110)
+            screen_print_string(5, 15, "TIMEOUT", COLOR_RED);
+        if (frame == 170)
+            screen_print_string(3, 16, "SCANNING 195.42.17.x...", COLOR_WHITE);
+        if (frame == 200)
+            screen_print_string(5, 17, "TIMEOUT", COLOR_RED);
+        if (frame == 250)
+            screen_print_string(3, 18, "SCANNING 207.15.33.42:21", COLOR_WHITE);
+        if (frame == 290)
+            screen_print_string(5, 19, "*** FTP FOUND! ***", COLOR_GREEN);
+
         waitvsync();
     }
 
-    screen_print_string(7, 17, "*** FTP FOUND! ***", COLOR_GREEN);
-    screen_print_string(7, 18, "207.15.33.42:21", COLOR_YELLOW);
+    /* Stop radar hand and reset expansion */
+    sprite_enable(SPRITE_CURSOR, 0);
+    sprite_set_expand_y(SPRITE_CURSOR, 0);
+    *VIC_SPRITE_EXPAND_X &= ~(1 << SPRITE_CURSOR);
 
-    /* Wait 2 seconds */
-    wait_frames(120);
+    /* Show blinking dot on radar where FTP was detected */
+    sprite_load(SPRITE_FTP, sprite_dot, SPRITE_DATA_BASE + 256);
+    sprite_set_multicolor(SPRITE_FTP, 0);  /* Hires mode */
+    sprite_set_color(SPRITE_FTP, COLOR_GREEN);
+    sprite_set_position(SPRITE_FTP, 195, 90);  /* Upper-right of radar center */
+    sprite_enable(SPRITE_FTP, 1);
 
-    sprite_enable(SPRITE_LEWIS, 0);
+    screen_print_centered(22, "PRESS ANY KEY", COLOR_YELLOW);
 
+    /* Blink dot while waiting for keypress */
+    frame = 0;
+    while (!kbhit()) {
+        if ((frame % 20) < 10) {
+            sprite_enable(SPRITE_FTP, 1);
+        } else {
+            sprite_enable(SPRITE_FTP, 0);
+        }
+        waitvsync();
+        frame++;
+    }
+
+    sprite_enable(SPRITE_FTP, 0);
+
+    /* Read key and check for quit */
+    ch = cgetc();
+    if (ch == 'q' || ch == 'Q') {
+        return 1;
+    }
+
+    /* Final transition message */
     screen_clear();
     screen_print_centered(12, "WELCOME TO THE SCENE...", COLOR_CYAN);
-
-    /* Wait 2 seconds before ending intro */
     wait_frames(120);
 
     return 0;  /* Intro complete */

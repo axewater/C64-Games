@@ -29,4 +29,13 @@ extern const uint8_t sprite_lewis[63];
 /* Sprite data for FTP server icon */
 extern const uint8_t sprite_ftp[63];
 
+/* Sprite data for radar hand (4-frame rotation animation) */
+extern const uint8_t sprite_radar_frame1[63];  /* Vertical | */
+extern const uint8_t sprite_radar_frame2[63];  /* Diagonal \ */
+extern const uint8_t sprite_radar_frame3[63];  /* Horizontal - */
+extern const uint8_t sprite_radar_frame4[63];  /* Diagonal / */
+
+/* Sprite data for radar blip (diamond dot) */
+extern const uint8_t sprite_dot[63];
+
 #endif /* SPRITE_DATA_H */
