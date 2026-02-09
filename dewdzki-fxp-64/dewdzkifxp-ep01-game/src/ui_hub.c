@@ -6,16 +6,186 @@
 #include "forum.h"
 #include "release.h"
 #include "input.h"
+#include "sprite.h"
+#include "sprite_data.h"
+#include "sound.h"
 #include <conio.h>
+#include <c64.h>
+
+/* Wait N frames using waitvsync */
+static void splash_wait_frames(uint8_t n) {
+    uint8_t i;
+    for (i = 0; i < n; ++i) {
+        waitvsync();
+    }
+}
+
+/* Draw a full-width solid block bar */
+static void splash_draw_bar(uint8_t y, uint8_t color) {
+    ui_draw_hline(0, y, 40, 160, color);
+}
+
+/* Draw a centered text line with click sound and delay */
+static void splash_draw_line(uint8_t y, const char* str, uint8_t color) {
+    ui_print_centered(y, str, color);
+    sound_play_click();
+    splash_wait_frames(4);
+}
 
 void ui_show_splash(void) {
+    uint8_t i;
+    uint8_t blink_on;
+    uint8_t blink_count;
+    uint16_t spr_x;
+    uint8_t spr_y;
+    int8_t dx, dy;
+
     screen_clear();
 
-    ui_print_centered(10, "DEWDZKI FXP", COLOR_CYAN);
-    ui_print_centered(12, "WAREZ SCENE SIMULATOR", COLOR_WHITE);
-    ui_print_centered(14, "PRESS ANY KEY", COLOR_GREEN);
+    /* === Phase 1: Entrance — lines appear top-to-bottom === */
 
-    input_wait_key();
+    /* Row 0: blue bar */
+    splash_draw_bar(0, COLOR_BLUE);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    /* Row 1: light blue bar */
+    splash_draw_bar(1, COLOR_LIGHTBLUE);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    /* Row 3: DEWDZKI title */
+    splash_draw_line(3, "D E W D Z K I", COLOR_CYAN);
+
+    /* Row 4: FXP subtitle */
+    splash_draw_line(4, "F X P", COLOR_WHITE);
+
+    /* Row 6: separator */
+    ui_draw_hline(4, 6, 32, '-', COLOR_BLUE);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    /* Row 8: tagline */
+    splash_draw_line(8, "WAREZ SCENE SIMULATOR", COLOR_LIGHTGREEN);
+
+    /* Row 13: chapter */
+    splash_draw_line(13, "CHAPTER ONE", COLOR_YELLOW);
+
+    /* Row 15: separator */
+    ui_draw_hline(4, 15, 32, '-', COLOR_BLUE);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    /* Row 17: production credit */
+    splash_draw_line(17, "A DEWDZKI PRODUCTION", COLOR_LIGHTBLUE);
+
+    /* Row 18: platform */
+    splash_draw_line(18, "COMMODORE 64", COLOR_GRAY2);
+
+    /* Row 20: separator */
+    ui_draw_hline(4, 20, 32, '-', COLOR_BLUE);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    /* Row 22: press any key */
+    ui_print_centered(22, "PRESS ANY KEY", COLOR_GREEN);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    /* Row 23-24: bottom bars */
+    splash_draw_bar(23, COLOR_LIGHTBLUE);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    splash_draw_bar(24, COLOR_BLUE);
+    sound_play_click();
+    splash_wait_frames(4);
+
+    /* === Phase 2: FTP sprite fade-in === */
+
+    /* Load FTP sprite into cassette buffer at $0340 */
+    sprite_load(SPRITE_FTP, sprite_ftp, SPRITE_DATA_BASE);
+
+    /* Configure multicolor: MC0=GREEN (lights), sprite=LIGHT_BLUE, MC1=DARK_GRAY */
+    sprite_set_multicolor_shared(COLOR_GREEN, COLOR_GRAY1);
+    sprite_set_multicolor(SPRITE_FTP, 1);
+    sprite_set_color(SPRITE_FTP, COLOR_LIGHTBLUE);
+    sprite_set_position(SPRITE_FTP, 172, 138);
+
+    /* Rapid blink: 3 on / 3 off x 8 */
+    for (i = 0; i < 8; ++i) {
+        sprite_enable(SPRITE_FTP, 1);
+        splash_wait_frames(3);
+        sprite_enable(SPRITE_FTP, 0);
+        splash_wait_frames(3);
+    }
+
+    /* Medium blink: 6 on / 6 off x 4 */
+    for (i = 0; i < 4; ++i) {
+        sprite_enable(SPRITE_FTP, 1);
+        splash_wait_frames(6);
+        sprite_enable(SPRITE_FTP, 0);
+        splash_wait_frames(6);
+    }
+
+    /* Slow blink: 12 on / 12 off x 2 */
+    for (i = 0; i < 2; ++i) {
+        sprite_enable(SPRITE_FTP, 1);
+        splash_wait_frames(12);
+        sprite_enable(SPRITE_FTP, 0);
+        splash_wait_frames(12);
+    }
+
+    /* Solid on */
+    sprite_enable(SPRITE_FTP, 1);
+
+    /* === Phase 3: Idle loop — DVD bounce + blink until keypress === */
+    blink_on = 1;
+    blink_count = 0;
+    spr_x = 172;
+    spr_y = 138;
+    dx = 1;
+    dy = 1;
+
+    while (!kbhit()) {
+        waitvsync();
+
+        /* DVD-logo bounce: move sprite and reverse on edges */
+        spr_x += dx;
+        spr_y += dy;
+
+        /* Bounce off left/right edges (visible sprite area ~24-320) */
+        if (spr_x <= 24 || spr_x >= 320) {
+            dx = -dx;
+            spr_x += dx;
+        }
+        /* Bounce off top/bottom edges (visible sprite area ~50-229) */
+        if (spr_y <= 50 || spr_y >= 229) {
+            dy = -dy;
+            spr_y += dy;
+        }
+
+        sprite_set_position(SPRITE_FTP, spr_x, spr_y);
+
+        /* "PRESS ANY KEY" blink: 25 frames on, 25 frames off */
+        ++blink_count;
+        if (blink_count >= 25) {
+            blink_count = 0;
+            blink_on ^= 1;
+            if (blink_on) {
+                ui_print_centered(22, "PRESS ANY KEY", COLOR_GREEN);
+            } else {
+                ui_print_centered(22, "             ", COLOR_BLACK);
+            }
+        }
+    }
+
+    /* Consume the keypress */
+    cgetc();
+
+    /* === Cleanup === */
+    sprite_enable(SPRITE_FTP, 0);
+    sound_silence();
 }
 
 void ui_show_menu(void) {

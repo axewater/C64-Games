@@ -12,6 +12,7 @@
 #include "ui.h"
 #include "actions.h"
 #include "chainload.h"
+#include "sprite.h"
 
 /* Forward declarations */
 void process_events(void);
@@ -23,6 +24,7 @@ int main(void) {
     ui_init();
     input_init();
     sound_init();
+    sprite_init();
     random_init();
     gamestate_init();
     ftp_init();
@@ -49,6 +51,8 @@ int main(void) {
                         game_state.state = STATE_HELP;
                     } else if (choice == 2) {
                         /* Chain load Chapter 2 intro */
+                        screen_clear();
+                        ui_print_centered(12, "LOADING CHAPTER 2...", COLOR_CYAN);
                         chainload("ch02-intro");
                         running = 0;  /* Exit if chainload fails */
                     } else {
